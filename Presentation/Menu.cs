@@ -16,7 +16,7 @@ static class Menu
         }
         else if (input == "2")
         {
-            Console.WriteLine("This feature is not yet implemented");
+            Console.WriteLine("This feature is not yet implemented!");
         }
         else
         {

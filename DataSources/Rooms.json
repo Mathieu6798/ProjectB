@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "rows": 10,
+        "columns": 15
+    },
+    {
+        "id": 2,
+        "rows": 20,
+        "columns": 15
+    },
+    {
+        "id": 3,
+        "rows": 20,
+        "columns": 25
+    }
+]

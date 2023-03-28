@@ -7,75 +7,89 @@ static class Menu
     //You could edit this to show different menus depending on the user's role
     static public void Start()
     {
-        Console.WriteLine("|-------------------------------------------------|");
-        Console.WriteLine("|Enter 1 to login                                 |");
-        Console.WriteLine("|Enter 2 to register account                      |");
-        Console.WriteLine("|Enter 3 to select a movie                        |");
-        Console.WriteLine("|Enter 4 to do something else in the future       |");
-        Console.WriteLine("|-------------------------------------------------|");
-        if (loggedaccount != null)
-        {
-            if (loggedaccount.EmailAddress == "admin@admin678.nl")
-            {
-                Console.WriteLine("|Admin functions:                                 |");
-                Console.WriteLine("|Enter 5 to add a movie                           |");
-                Console.WriteLine("|Enter 6 to add a show                            |");
-                Console.WriteLine("|Enter 7 to remove a movie                        |");
-                Console.WriteLine("|Enter 8 to remove a show                         |");
-                Console.WriteLine("|Enter 9 to do something else in the future       |");
-                Console.WriteLine("|-------------------------------------------------|");
-            }
-        }
+        string prompt = @"
+  ______                    
+ / ___(_)__  ___ __ _  ___ _
+/ /__/ / _ \/ -_)  ' \/ _ `/
+\___/_/_//_/\__/_/_/_/\_,_/ 
+                            
 
-        string input = Console.ReadLine();
-        if (input == "1")
+        Welcome to the Cinema";
+        string[] options = { "Login", "Register Account", "Select a movie", "Do Someting else" };
+
+        // Show the regular menu if no user is logged in or if the logged-in user is not an admin
+        if (loggedaccount == null || loggedaccount.EmailAddress != "admin@admin678.nl")
         {
-            UserLogin.Start();
-        }
-        else if (input == "2")
-        {
-            UserRegister.Start();
-        }
-        else if (input == "3")
-        {
-            Console.WriteLine("Select movie");
-        }
-        else if (input == "4")
-        {
-            Console.WriteLine("This feature is not yet implemented");
-        }
-        if (loggedaccount != null)
-        {
-            if (input == "5" && loggedaccount.EmailAddress == "admin@admin678.nl")
+            KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
+            int selectedIndex = mainMenu.Run();
+
+            while (loggedaccount == null)
             {
-                Console.WriteLine("Add movie");
-            }
-            else if (input == "6" && loggedaccount.EmailAddress == "admin@admin678.nl")
-            {
-                Console.WriteLine("Add show");
-            }
-            else if (input == "7" && loggedaccount.EmailAddress == "admin@admin678.nl")
-            {
-                Console.WriteLine("Remove movie");
-            }
-            else if (input == "8" && loggedaccount.EmailAddress == "admin@admin678.nl")
-            {
-                Console.WriteLine("Remove show");
-            }
-            else if (input == "9" && loggedaccount.EmailAddress == "admin@admin678.nl")
-            {
-                Console.WriteLine("This feature is not yet implemented");
-            }
-            else
-            {
-                Console.WriteLine("Invalid input");
-                Start();
+                if (selectedIndex == 0)
+                {
+                    UserLogin.Start();
+                }
+                else if (selectedIndex == 1)
+                {
+                    UserRegister.Start();
+                }
+                else if (selectedIndex == 2)
+                {
+                    Console.WriteLine("Select movie");
+                }
+                else if (selectedIndex == 3)
+                {
+                    Console.WriteLine("This feature is not yet implemented");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input");
+                }
+
+                // Show the menu again and get the user's input
+                mainMenu = new KeyBoardLogic(prompt, options);
+                selectedIndex = mainMenu.Run();
             }
         }
         else
         {
-            Console.WriteLine("Invalid input");
-            Start();
+            // Show the admin menu if the logged-in user is an admin
+            string promptAdmin = "Welcome Admin";
+            string[] optionsAdmin = { "Add a movie", "Add a show", "Remove a movie", "Remove a show", "Do Something else" };
+            KeyBoardLogic adminMenu = new KeyBoardLogic(promptAdmin, optionsAdmin);
+            int selectedIndexAdmin = adminMenu.Run();
+
+            while (loggedaccount != null && loggedaccount.EmailAddress == "admin@admin678.nl")
+            {
+                if (selectedIndexAdmin == 0)
+                {
+                    Console.WriteLine("Add poep");
+                }
+                else if (selectedIndexAdmin == 1)
+                {
+                    Console.WriteLine("Add show");
+                }
+                else if (selectedIndexAdmin == 2)
+                {
+                    Console.WriteLine("Remove movie");
+                }
+                else if (selectedIndexAdmin == 3)
+                {
+                    Console.WriteLine("Remove show");
+                }
+                else if (selectedIndexAdmin == 4)
+                {
+                    Console.WriteLine("This feature is not yet implemented");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input");
+                }
+
+                // Show the menu again and get the user's input
+                adminMenu = new KeyBoardLogic(promptAdmin, optionsAdmin);
+                selectedIndexAdmin = adminMenu.Run();
+            }
         }
     }
 }

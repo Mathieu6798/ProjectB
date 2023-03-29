@@ -1,0 +1,16 @@
+[
+    {
+        "ShowId": 1,
+        "RoomId": 1,
+        "MovieId": 1,
+        "Date": "18-03-2023",
+        "Time": "18:40"
+    },
+    {
+        "ShowId": 2,
+        "RoomId": 1,
+        "MovieId": 2,
+        "Date": "19-03-2023",
+        "Time": "13:50"
+    }
+]

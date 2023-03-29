@@ -1,7 +1,10 @@
 using System.Text.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
 static class ShowAccess
 {
-    static string path = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/shows.json"));
+    static string path = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/show.json"));
 
 
     public static List<ShowModel> LoadAll()

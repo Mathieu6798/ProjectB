@@ -1,4 +1,5 @@
 using System.Text.Json;
+
 static class MoviesAccess
 {
     static string path = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/movies.json"));
@@ -9,6 +10,7 @@ static class MoviesAccess
         string json = File.ReadAllText(path);
         return JsonSerializer.Deserialize<List<MovieModel>>(json);
     }
+
 
     public static void WriteAll(List<MovieModel> movies)
     {

@@ -2,16 +2,19 @@
     {
         "id": 1,
         "rows": 10,
-        "columns": 15
+        "columns": 15,
+        "chairs": []
     },
     {
         "id": 2,
         "rows": 20,
-        "columns": 15
+        "columns": 15,
+        "chairs": []
     },
     {
         "id": 3,
         "rows": 20,
-        "columns": 25
+        "columns": 25,
+        "chairs": []
     }
 ]

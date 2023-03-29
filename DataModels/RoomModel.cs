@@ -12,11 +12,15 @@ class RoomModel
     [JsonPropertyName("columns")]
     public int Columns { get; set; }
 
-    public RoomModel(int id, int rows, int columns)
+    [JsonPropertyName("chairs")]
+    public List<ChairModel> Chairs { get; set; }
+
+    public RoomModel(int id, int rows, int columns, List<ChairModel> chairs)
     {
         Id = id;
         Rows = rows;
         Columns = columns;
+        Chairs = chairs;
     }
 
 }

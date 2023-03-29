@@ -5,13 +5,14 @@ public class ChairModel
     [JsonPropertyName("id")]
     public int ChairId { get; set; }
     [JsonPropertyName("rank")]
-    public int Rank { get; set; }
+    public string Rank { get; set; }
     [JsonPropertyName("rownumber")]
     public int Rownumber { get; set; }
     [JsonPropertyName("chairnumber")]
     public int Chairnumber { get; set; }
+    public bool IsBooked { get; set; }
 
-    public ChairModel(int chairid, int rank, int rownumber, int chairnumber)
+    public ChairModel(int chairid, string rank, int rownumber, int chairnumber)
     {
         ChairId = chairid;
         Rank = rank;

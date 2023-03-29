@@ -1,49 +1,110 @@
-public class MovieLogic
+class MovieLogic
 {
+    private static List<MovieModel> _movies;
+
+    public MovieLogic()
+    {
+        _movies = MoviesAccess.LoadAll();
+    }
+
+
+
+    public static void AddMovie(string title, string genre, int age, string info)
+    {
+        int count = 0;
+        int id;
+
+        foreach (MovieModel _movies in _movies)
+        {
+            count++;
+        }
+        id = count += 1;
+        var movie = new MovieModel
+        (
+            id,
+            title,
+            genre,
+            age,
+            info
+        );
+
+        _movies.Add(movie);
+        MoviesAccess.WriteAll(_movies);
+    }
+
+
+    public static void Removemovie(int id)
+    {
+        if (_movies.Find(i => i.MovieId == id) == null)
+        {
+            Console.WriteLine("No movie found with that name");
+            // AdminPanel.AdminMenu();
+        }
+        else
+        {
+            _movies.Remove(_movies.Find(i => i.MovieId == id));
+            MoviesAccess.WriteAll(_movies);
+            Console.WriteLine("The movie has been removed");
+            // AdminPanel.AdminMenu();
+        }
+    }
+
     public static int chooseMovie()
-    {     // optionList is de lijst met opties. die moet één naam doorgeven naar chooseDate().
-        List<string> optionList = new List<string> { "Back" };
+    {
+        // optionList is de lijst met opties. die moet één naam doorgeven naar chooseDate().
+        string[] optionMovies = { "Back" };
         foreach (var item in MoviesAccess.LoadAll())
         {
-            optionList.Add(item.Name);
+            optionMovies.Append(item.Name);
         }
-        int optionId;
+        KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a movie", optionMovies);
+        int selectedIndex = mainMenu.Run();
+        string movieName = optionMovies[selectedIndex];
+        int optionId = 0;
         // optie lijst geeft 1 string terug hier beneden.
         // optie is hier de naam van de optie in string vorm.
         foreach (var item in MoviesAccess.LoadAll())
         {
-            if (item.Name == optie)
+            if (item.Name == movieName)
             {
-                optieId = item.MovieId;
+                optionId = item.MovieId;
+                break;
             }
         }
-        return optieId;
         // optie MovieName die je kiest
+        return optionId;
     }
 
-    public static string chooseDate(int optieId)
+
+    public static string chooseDate(int optionId)
     {
-        List<string> optionList = new List<string> { "Back" };
+        string[] optionList = { "Back" };
         foreach (var item in ShowAccess.LoadAll())
         {
-            if (optieId == item.MovieId)
+            if (optionId == item.MovieId)
             {
-                optionList.Add(item.Date);
+                optionList.Append(item.Date);
             }
         }
-        return optie; // optie van de datum die je kiest in string
+        KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a movie", optionList);
+        int selectedIndex = mainMenu.Run();
+        string Date = optionList[selectedIndex];
+        return Date; // optie van de datum die je kiest in string
     }
 
-    public static string chooseTime(int optieId, string Date)
+    public static string chooseTime(int optionId, string Date)
     {
-        List<string> optionList = new List<string> { "Back" };
+        string[] optionList = { "Back" };
         foreach (var item in ShowAccess.LoadAll())
         {
-            if (optieId == item.MovieId && Date == item.Date)
+            if (optionId == item.MovieId && Date == item.Date)
             {
-                optionList.Add(item.Time);
+                optionList.Append(item.Time);
             }
         }
+        KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a movie", optionList);
+        int selectedIndex = mainMenu.Run();
+        var optie = optionList[selectedIndex];
         return optie; //  optie van de tijd die je kiest in string 
     }
 
@@ -65,5 +126,6 @@ public class MovieLogic
         }
         return returnList; // LIST VOOR DAMI IN STRINGSS!!!!!!!
     }
+
 
 }

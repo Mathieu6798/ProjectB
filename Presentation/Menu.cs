@@ -55,11 +55,31 @@ static class Menu
             int selectedIndexAdmin = adminMenu.Run();
             if (selectedIndexAdmin == 0)
             {
-                Console.WriteLine("Add poep");
+                Console.WriteLine("What is the title?");
+                string title = Console.ReadLine();
+                Console.WriteLine("What is the genre?");
+                string genre = Console.ReadLine();
+                Console.WriteLine("What is the minimum age?");
+                string input_age = Console.ReadLine();
+                int age = Convert.ToInt32(input_age);
+                Console.WriteLine("What is the description?");
+                string info = Console.ReadLine();
+                MovieLogic.AddMovie(title, genre, age, info);
+
             }
             else if (selectedIndexAdmin == 1)
             {
-                Console.WriteLine("Add show");
+                Console.WriteLine("What is the date?");
+                string date = Console.ReadLine();
+                Console.WriteLine("What is the genre?");
+                string time = Console.ReadLine();
+                Console.WriteLine("What is the minimum age?");
+                string input_roomid = Console.ReadLine();
+                int roomId = Convert.ToInt32(input_roomid);
+                Console.WriteLine("What is the description?");
+                string movie_id = Console.ReadLine();
+                int movieId = Convert.ToInt32(movie_id);
+                ShowLogic.AddShow(date, time, roomId, movieId);
             }
             else if (selectedIndexAdmin == 2)
             {

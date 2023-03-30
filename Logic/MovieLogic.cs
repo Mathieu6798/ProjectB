@@ -55,14 +55,15 @@ class MovieLogic
 
     public static int chooseMovie()
     {     // optionList is de lijst met opties. die moet één naam doorgeven naar chooseDate().
-        string[] optionList = { "Back" };
+        List<string> optionList = new List<string> { "Back" };
         foreach (var item in MoviesAccess.LoadAll())
         {
-            optionList.Append(item.Name);
+            optionList.Add(item.Name);
         }
-        KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a movie", optionList);
+        string[] ListMovies = optionList.ToArray();
+        KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a movie", ListMovies);
         int selectedIndex = mainMenu.Run();
-        var optie = optionList[selectedIndex];
+        var optie = ListMovies[selectedIndex];
         int optionId = 0;
         // optie lijst geeft 1 string terug hier beneden.
         // optie is hier de naam van de optie in string vorm.
@@ -79,33 +80,35 @@ class MovieLogic
 
     public static string chooseDate(int optieId)
     {
-        string[] optionList = { "Back" };
+        List<string> optionList = new List<string> { "Back" };
         foreach (var item in ShowAccess.LoadAll())
         {
             if (optieId == item.MovieId)
             {
-                optionList.Append(item.Date);
+                optionList.Add(item.Date);
             }
         }
-        KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a date", optionList);
+        string[] ListDates = optionList.ToArray();
+        KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a date", ListDates);
         int selectedIndex = mainMenu.Run();
-        var optie = optionList[selectedIndex];
+        var optie = ListDates[selectedIndex];
         return optie; // optie van de datum die je kiest in string
     }
 
     public static string chooseTime(int optieId, string Date)
     {
-        string[] optionList = { "Back" };
+        List<string> optionList = new List<string> { "Back" };
         foreach (var item in ShowAccess.LoadAll())
         {
             if (optieId == item.MovieId && Date == item.Date)
             {
-                optionList.Append(item.Time);
+                optionList.Add(item.Time);
             }
         }
-        KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a time", optionList);
+        string[] ListTimes = optionList.ToArray();
+        KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a time", ListTimes);
         int selectedIndex = mainMenu.Run();
-        var optie = optionList[selectedIndex];
+        var optie = ListTimes[selectedIndex];
         return optie; //  optie van de tijd die je kiest in string 
     }
 

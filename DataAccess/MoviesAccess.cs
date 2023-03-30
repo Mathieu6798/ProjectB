@@ -12,6 +12,7 @@ static class MoviesAccess
     }
 
 
+
     public static void WriteAll(List<MovieModel> movies)
     {
         var options = new JsonSerializerOptions { WriteIndented = true };

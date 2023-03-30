@@ -13,12 +13,16 @@ class MovieLogic
     {
         int count = 0;
         int id;
-
+        if (_movies == null)
+        {
+            _movies = MoviesAccess.LoadAll();
+        }
         foreach (MovieModel _movies in _movies)
         {
             count++;
         }
         id = count += 1;
+
         var movie = new MovieModel
         (
             id,
@@ -50,59 +54,56 @@ class MovieLogic
     }
 
     public static int chooseMovie()
-    {
-        // optionList is de lijst met opties. die moet één naam doorgeven naar chooseDate().
-        string[] optionMovies = { "Back" };
+    {     // optionList is de lijst met opties. die moet één naam doorgeven naar chooseDate().
+        string[] optionList = { "Back" };
         foreach (var item in MoviesAccess.LoadAll())
         {
-            optionMovies.Append(item.Name);
+            optionList.Append(item.Name);
         }
-        KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a movie", optionMovies);
+        KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a movie", optionList);
         int selectedIndex = mainMenu.Run();
-        string movieName = optionMovies[selectedIndex];
+        var optie = optionList[selectedIndex];
         int optionId = 0;
         // optie lijst geeft 1 string terug hier beneden.
         // optie is hier de naam van de optie in string vorm.
         foreach (var item in MoviesAccess.LoadAll())
         {
-            if (item.Name == movieName)
+            if (item.Name == optie)
             {
                 optionId = item.MovieId;
-                break;
             }
         }
-        // optie MovieName die je kiest
         return optionId;
+        // optie MovieName die je kiest
     }
 
-
-    public static string chooseDate(int optionId)
+    public static string chooseDate(int optieId)
     {
         string[] optionList = { "Back" };
         foreach (var item in ShowAccess.LoadAll())
         {
-            if (optionId == item.MovieId)
+            if (optieId == item.MovieId)
             {
                 optionList.Append(item.Date);
             }
         }
-        KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a movie", optionList);
+        KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a date", optionList);
         int selectedIndex = mainMenu.Run();
-        string Date = optionList[selectedIndex];
-        return Date; // optie van de datum die je kiest in string
+        var optie = optionList[selectedIndex];
+        return optie; // optie van de datum die je kiest in string
     }
 
-    public static string chooseTime(int optionId, string Date)
+    public static string chooseTime(int optieId, string Date)
     {
         string[] optionList = { "Back" };
         foreach (var item in ShowAccess.LoadAll())
         {
-            if (optionId == item.MovieId && Date == item.Date)
+            if (optieId == item.MovieId && Date == item.Date)
             {
                 optionList.Append(item.Time);
             }
         }
-        KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a movie", optionList);
+        KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a time", optionList);
         int selectedIndex = mainMenu.Run();
         var optie = optionList[selectedIndex];
         return optie; //  optie van de tijd die je kiest in string 

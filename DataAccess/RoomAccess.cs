@@ -18,7 +18,4 @@ static class RoomAccess
         string json = JsonSerializer.Serialize(rooms, options);
         File.WriteAllText(path, json);
     }
-
-
-
 }

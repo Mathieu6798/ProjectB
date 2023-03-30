@@ -1,16 +1,16 @@
 [
   {
     "MovieId": 1,
-    "MovieName": "john wick",
+    "Name": null,
     "Genre": "action",
     "Age": 16,
-    "Info" : "John wick fights a bunch of guys"
+    "Info": "John wick fights a bunch of guys"
   },
   {
     "MovieId": 2,
-    "MovieName": "spongebob",
+    "Name": null,
     "Genre": "adventure",
     "Age": 4,
-    "Info" : "spongebob bla bla bla bla"
+    "Info": "spongebob bla bla bla bla"
   }
 ]

@@ -33,7 +33,7 @@ static class Menu
             }
             else if (selectedIndex == 2)
             {
-                Console.WriteLine("Select movie");
+                MovieLogic.code();
             }
             else if (selectedIndex == 3)
             {
@@ -55,43 +55,26 @@ static class Menu
             int selectedIndexAdmin = adminMenu.Run();
             if (selectedIndexAdmin == 0)
             {
-                Console.WriteLine("What is the title?");
-                string title = Console.ReadLine();
-                Console.WriteLine("What is the genre?");
-                string genre = Console.ReadLine();
-                Console.WriteLine("What is the minimum age?");
-                string input_age = Console.ReadLine();
-                int age = Convert.ToInt32(input_age);
-                Console.WriteLine("What is the description?");
-                string info = Console.ReadLine();
-                MovieLogic.AddMovie(title, genre, age, info);
+                AdminEdit.AddMovie();
 
             }
             else if (selectedIndexAdmin == 1)
             {
-                Console.WriteLine("What is the date?");
-                string date = Console.ReadLine();
-                Console.WriteLine("What is the genre?");
-                string time = Console.ReadLine();
-                Console.WriteLine("What is the minimum age?");
-                string input_roomid = Console.ReadLine();
-                int roomId = Convert.ToInt32(input_roomid);
-                Console.WriteLine("What is the description?");
-                string movie_id = Console.ReadLine();
-                int movieId = Convert.ToInt32(movie_id);
-                ShowLogic.AddShow(date, time, roomId, movieId);
+                AdminEdit.AddShow();
             }
             else if (selectedIndexAdmin == 2)
             {
                 Console.WriteLine("Remove movie");
+                AdminEdit.RemoveMovie();
             }
             else if (selectedIndexAdmin == 3)
             {
                 Console.WriteLine("Remove show");
+                AdminEdit.RemoveShow();
             }
             else if (selectedIndexAdmin == 4)
             {
-                Console.WriteLine("This feature is not yet implemented");
+                Start();
             }
             else
             {
@@ -111,7 +94,7 @@ static class Menu
             }
             else if (selectedIndex == 2)
             {
-                Console.WriteLine("Select movie");
+                MovieLogic.code();
             }
             else if (selectedIndex == 3)
             {

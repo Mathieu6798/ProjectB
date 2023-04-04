@@ -33,7 +33,7 @@ static class Menu
             }
             else if (selectedIndex == 2)
             {
-                MovieLogic.code();
+                MovieLogic.chooseMovie();
             }
             else if (selectedIndex == 3)
             {
@@ -94,7 +94,7 @@ static class Menu
             }
             else if (selectedIndex == 2)
             {
-                MovieLogic.code();
+                MovieLogic.chooseMovie();
             }
             else if (selectedIndex == 3)
             {

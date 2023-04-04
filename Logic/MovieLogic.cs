@@ -54,81 +54,67 @@ class MovieLogic
     }
 
     public static int chooseMovie()
-    {     // optionList is de lijst met opties. die moet één naam doorgeven naar chooseDate().
+    {
         List<string> optionList = new List<string> { "Back" };
         foreach (var item in MoviesAccess.LoadAll())
         {
             optionList.Add(item.Name);
         }
-        string[] ListMovies = optionList.ToArray();
-        KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a movie", ListMovies);
+        ///////////////////////////////////////////////////////////////// geef optie 1
+        string[] options1 = optionList.ToArray();
+        KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a movie", options1);
         int selectedIndex = mainMenu.Run();
-        var optie = ListMovies[selectedIndex];
-        int optionId = 0;
+        var optie1 = options1[selectedIndex];
+        int optieId = 0;
         // optie lijst geeft 1 string terug hier beneden.
         // optie is hier de naam van de optie in string vorm.
         foreach (var item in MoviesAccess.LoadAll())
         {
-            if (item.Name == optie)
+            if (item.Name == optie1)
             {
-                optionId = item.MovieId;
+                optieId = item.MovieId;
             }
         }
-        return optionId;
-        // optie MovieName die je kiest
-    }
 
-    public static string chooseDate(int optieId)
-    {
-        List<string> optionList = new List<string> { "Back" };
-        foreach (var item in ShowAccess.LoadAll())
+        List<string> optionList2 = new List<string> { "Back" };
+        foreach (var show in ShowAccess.LoadAll())
         {
-            if (optieId == item.MovieId)
+            if (optieId == show.MovieId)
             {
-                optionList.Add(item.Date);
+                optionList2.Add(show.Date);
             }
         }
-        string[] ListDates = optionList.ToArray();
-        KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a date", ListDates);
-        int selectedIndex = mainMenu.Run();
-        var optie = ListDates[selectedIndex];
-        return optie; // optie van de datum die je kiest in string
-    }
+        ////////////////////////////////////////////////////// optie 2
+        string[] options2 = optionList2.ToArray();
+        KeyBoardLogic mainMenu2 = new KeyBoardLogic("Choose a date", options2);
+        int selectedIndex2 = mainMenu2.Run();
+        var optie2 = options2[selectedIndex2];
 
-    public static string chooseTime(int optieId, string Date)
-    {
-        List<string> optionList = new List<string> { "Back" };
-        foreach (var item in ShowAccess.LoadAll())
+        List<string> optionList3 = new List<string> { "Back" };
+        foreach (var show in ShowAccess.LoadAll())
         {
-            if (optieId == item.MovieId && Date == item.Date)
+            if (optieId == show.MovieId && optie2 == show.Date)
             {
-                optionList.Add(item.Time);
+                optionList3.Add(show.Time);
             }
         }
-        string[] ListTimes = optionList.ToArray();
-        KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a time", ListTimes);
-        int selectedIndex = mainMenu.Run();
-        var optie = ListTimes[selectedIndex];
-        return optie; //  optie van de tijd die je kiest in string 
-    }
+        ////////////////////////////////////// optie 3
+        string[] options3 = optionList3.ToArray();
+        KeyBoardLogic mainMenu3 = new KeyBoardLogic("Choose a time", options3);
+        int selectedIndex3 = mainMenu3.Run();
+        var optie3 = options3[selectedIndex3];
 
-    public static List<string> code()
-    {
-        List<string> returnList = new List<string>(); // voor de stoelen code
-        returnList.Add($"{chooseMovie()}"); // add movie id naar lijst
-        returnList.Add($"{chooseDate(chooseMovie())}"); // add show date naar lijst
-        returnList.Add($"{chooseTime(chooseMovie(), chooseDate(chooseMovie()))}"); // add show tijd
-        foreach (var item in ShowAccess.LoadAll())
+        int ShowId = 0;
+        foreach (var show in ShowAccess.LoadAll())
         {
-            if (chooseMovie() == item.MovieId && (chooseDate(chooseMovie())) == item.Date)
+            if (optieId == show.MovieId && optie2 == show.Date && optie3 == show.Time)
             {
-                if ((chooseTime(chooseMovie(), chooseDate(chooseMovie()))) == item.Time)
-                {
-                    returnList.Add($"{item.RoomId}"); // adds room id naar returnlist
-                }
+                ShowId = show.Id;
             }
         }
-        return returnList; // LIST VOOR DAMI IN STRINGSS!!!!!!!
+
+
+        return ShowId; // LIST VOOR DAMI IN STRINGSS!!!!!!!
     }
 
 

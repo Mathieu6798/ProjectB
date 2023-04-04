@@ -82,21 +82,34 @@ static class Menu
                 Start();
             }
         }
-        else
+
+        if (loggedaccount != null)
         {
-            if (selectedIndex == 0)
+            string prompt_while_logged = @"
+   ___           _           _     ___ 
+  / _ \_ __ ___ (_) ___  ___| |_  / __\
+ / /_)/ '__/ _ \| |/ _ \/ __| __|/__\//
+/ ___/| | | (_) | |  __/ (__| |_/ \/  \
+\/    |_|  \___// |\___|\___|\__\_____/
+              |__/                     
+
+        Welcome to the Cinema";
+            string[] options_while_logged = { "Logout", "Select a movie", "Do Someting else" };
+            KeyBoardLogic mainMenu_while_logged = new KeyBoardLogic(prompt_while_logged, options_while_logged);
+            int selectedIndex_while_logged = mainMenu_while_logged.Run();
+            if (selectedIndex_while_logged == 0)
             {
                 UserLogin.Start();
             }
-            else if (selectedIndex == 1)
+            else if (selectedIndex_while_logged == 1)
             {
                 UserRegister.Start();
             }
-            else if (selectedIndex == 2)
+            else if (selectedIndex_while_logged == 2)
             {
                 MovieLogic.chooseMovie();
             }
-            else if (selectedIndex == 3)
+            else if (selectedIndex_while_logged == 3)
             {
                 Console.WriteLine("This feature is not yet implemented");
             }
@@ -106,6 +119,7 @@ static class Menu
                 Start();
             }
         }
+
 
     }
 }

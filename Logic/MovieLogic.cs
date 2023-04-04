@@ -55,6 +55,7 @@ class MovieLogic
 
     public static int chooseMovie()
     {
+        // while (optie1 == null)
         List<string> optionList = new List<string> { "Back" };
         foreach (var item in MoviesAccess.LoadAll())
         {

@@ -1,4 +1,4 @@
-static class UserRegister
+public static class UserRegister
 {
     static private AccountsLogic accountsLogic = new AccountsLogic();
 
@@ -30,7 +30,21 @@ static class UserRegister
         if (acc != null)
         {
             Console.WriteLine("This email adress already exists on another account.");
-            Menu.Start();
+            Console.WriteLine("Do you want to login instead?");
+            string choice = Console.ReadLine();
+            if (choice.ToLower() == "yes")
+            {
+                UserLogin.Start();
+            }
+            else if (choice.ToLower() == "no")
+            {
+                Menu.Start();
+            }
+            else
+            {
+                Console.WriteLine("Invalid Input");
+                Menu.Start();
+            }
         }
         else
         {

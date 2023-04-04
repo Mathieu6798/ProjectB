@@ -1,4 +1,4 @@
-static class UserLogin
+public static class UserLogin
 {
     static private AccountsLogic accountsLogic = new AccountsLogic();
 
@@ -27,7 +27,30 @@ static class UserLogin
         Console.WriteLine("Please enter your email address");
         string email = Console.ReadLine();
         Console.WriteLine("Please enter your password");
-        string password = Console.ReadLine();
+        string password = "";
+        while (true)
+        {
+            ConsoleKeyInfo key = Console.ReadKey(true);
+
+            if (key.Key == ConsoleKey.Enter)
+            {
+                break;
+            }
+            else if (key.Key == ConsoleKey.Backspace && password.Length > 0)
+            {
+                password = password.Substring(0, password.Length - 1);
+                Console.Write("\b \b");
+            }
+            else if (Char.IsLetterOrDigit(key.KeyChar))
+            {
+                password += key.KeyChar;
+                Console.Write(key.KeyChar);
+                System.Threading.Thread.Sleep(100);
+                Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                Console.Write("*");
+            }
+        }
+
         AccountModel acc = accountsLogic.CheckLogin(email, password);
         if (acc != null)
         {

@@ -53,7 +53,7 @@ class MovieLogic
         }
     }
 
-    public static int chooseMovie()
+    public static void chooseMovie()
     {
         // while (optie1 == null)
         List<string> optionList = new List<string> { "Back" };
@@ -61,62 +61,60 @@ class MovieLogic
         {
             optionList.Add(item.Name);
         }
-        ///////////////////////////////////////////////////////////////// geef optie 1
-        string[] options1 = optionList.ToArray();
-        KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a movie", options1);
-        int selectedIndex = mainMenu.Run();
-        var optie1 = options1[selectedIndex];
-        int optieId = 0;
-        // optie lijst geeft 1 string terug hier beneden.
-        // optie is hier de naam van de optie in string vorm.
-        foreach (var item in MoviesAccess.LoadAll())
+        int input1 = -2;
+        while (input1 < 0 || input1 >= optionList.Count)
         {
-            if (item.Name == optie1)
+            Console.Clear();
+            System.Console.WriteLine("Choose a option by typing the number");
+            System.Console.WriteLine($"0: {optionList[0]}");
+            for (int i = 1; i < optionList.Count; i++)
             {
-                optieId = item.MovieId;
+                System.Console.WriteLine($"{i}: {optionList[i]}");
             }
+            input1 = Convert.ToInt32(System.Console.ReadLine());
         }
-
+        if (input1 == 0)
+        {
+            Menu.Start();
+        }
+        else
+        {
+            chooseDateTime(input1);
+        }
+    }
+    ///////////////////////////////////////////////////////////////// geeft optie 1
+    public static void chooseDateTime(int input1)
+    {
         List<string> optionList2 = new List<string> { "Back" };
         foreach (var show in ShowAccess.LoadAll())
         {
-            if (optieId == show.MovieId)
+            if (input1 == show.MovieId)
             {
-                optionList2.Add(show.Date);
+                optionList2.Add($"{show.Date}-----{show.Time}-----Room {show.RoomId}");
             }
         }
-        ////////////////////////////////////////////////////// optie 2
-        string[] options2 = optionList2.ToArray();
-        KeyBoardLogic mainMenu2 = new KeyBoardLogic("Choose a date", options2);
-        int selectedIndex2 = mainMenu2.Run();
-        var optie2 = options2[selectedIndex2];
-
-        List<string> optionList3 = new List<string> { "Back" };
-        foreach (var show in ShowAccess.LoadAll())
+        ////////////////////////////////////////////////////// optie 2      
+        int input2 = -3;
+        while (input2 < 0 || input2 >= optionList2.Count)
         {
-            if (optieId == show.MovieId && optie2 == show.Date)
+            Console.Clear();
+            System.Console.WriteLine("Choose a option by typing the number");
+            System.Console.WriteLine($"0: {optionList2[0]}");
+            for (int i = 1; i < optionList2.Count; i++)
             {
-                optionList3.Add(show.Time);
+                System.Console.WriteLine($"{i}: {optionList2[i]}");
             }
+            input2 = Convert.ToInt32(System.Console.ReadLine());
         }
-        ////////////////////////////////////// optie 3
-        string[] options3 = optionList3.ToArray();
-        KeyBoardLogic mainMenu3 = new KeyBoardLogic("Choose a time", options3);
-        int selectedIndex3 = mainMenu3.Run();
-        var optie3 = options3[selectedIndex3];
-
-        int ShowId = 0;
-        foreach (var show in ShowAccess.LoadAll())
+        if (input2 == 0)
         {
-            if (optieId == show.MovieId && optie2 == show.Date && optie3 == show.Time)
-            {
-                ShowId = show.Id;
-            }
+            chooseMovie();
         }
-
-
-        return ShowId; // LIST VOOR DAMI IN STRINGSS!!!!!!!
+        else
+        {
+            System.Console.WriteLine("OK");
+            Menu.Start();
+            //functieDami(ShowId);////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        }
     }
-
-
 }

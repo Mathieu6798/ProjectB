@@ -1,140 +1,128 @@
-// using System;
-// using System.Collections.Generic;
+using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.Json;
 
-// public static class RoomLogic
-// {
-//     private static readonly List<RoomModel> _rooms;
+public class RoomLogic
+{
+    public static void Start(int roomId)
+    {
+        // Hier pakt het alle rooms van JSON file
+        var json = File.ReadAllText("Rooms.json");
+        var roomModels = JsonSerializer.Deserialize<List<RoomModel>>(json);
 
-//     static RoomLogic()
-//     {
-//         _rooms = RoomAccess.LoadAll();
-//     }
 
-//     public static void GetSeatingChart(int roomId)
-//     {
-//         var room = FindRoomById(roomId);
+        // Hier zoekt het naar de roomID
+        var roomModel = roomModels.FirstOrDefault(r => r.Id == roomId);
 
-//         if (room == null)
-//         {
-//             Console.WriteLine($"Room with id {roomId} not found.");
-//             return;
-//         }
+        if (roomModel == null)
+        {
+            Console.WriteLine($"Room with ID {roomId} not found.");
+            return;
+        }
 
-//         Console.WriteLine($"Seating chart for {room.Id}:");
-//         Console.CursorVisible = false;
+        var seatingChart = new ChairModel[roomModel.Rows, roomModel.Columns];
 
-//         int selectedRow = 1;
-//         int selectedCol = 1;
-//         bool isBookingMode = false;
+        // hier pakt het alle chairs van JSON file
+        json = File.ReadAllText("Chairs.json");
+        var chairModels = JsonSerializer.Deserialize<List<ChairModel>>(json);
 
-//         while (true)
-//         {
-//             Console.Clear();
+        // Retrieve chairs for the specified room
+        var roomChairIds = new HashSet<int>(roomModel.Chairs);
+        var chairs = chairModels.Where(c => roomChairIds.Contains(c.ChairId));
 
-//             for (int row = 1; row <= room.Rows; row++)
-//             {
-//                 for (int col = 1; col <= room.Columns; col++)
-//                 {
-//                     Console.ForegroundColor = ConsoleColor.White;
+        foreach (var chairId in roomModel.Chairs)
+        {
+            var chair = chairs.FirstOrDefault(c => c.ChairId == chairId);
 
-//                     if (row == selectedRow && col == selectedCol)
-//                     {
-//                         Console.BackgroundColor = isBookingMode ? ConsoleColor.Yellow : ConsoleColor.Green;
-//                         Console.Write("S ");
-//                     }
-//                     else
-//                     {
-//                         Console.BackgroundColor = GetSeatStatus(room, row, col) == "X" ? ConsoleColor.Red : ConsoleColor.Black;
-//                         Console.Write($"{GetSeatStatus(room, row, col)} ");
-//                     }
-//                 }
-//                 Console.WriteLine();
-//             }
+            if (chair != null)
+            {
+                seatingChart[chair.Rownumber - 1, chair.Chairnumber - 1] = chair;
+            }
+        }
 
-//             Console.ResetColor();
+        // Display seating chart and allow seat selection
+        int selectedRow = 0;
+        int selectedColumn = 0;
 
-//             ConsoleKeyInfo key = Console.ReadKey(true);
+        Console.WriteLine("   " + string.Join("  ", Enumerable.Range(1, roomModel.Columns)));
 
-//             if (key.Key == ConsoleKey.Enter)
-//             {
-//                 if (isBookingMode)
-//                 {
-//                     var seatStatus = GetSeatStatus(room, selectedRow, selectedCol);
-//                     if (seatStatus == "O")
-//                     {
-//                         var chair = room.Chairs.Find(c => c.Rownumber == selectedRow && c.Chairnumber == selectedCol);
-//                         chair.IsBooked = true;
-//                         RoomAccess.Save(room);
-//                         Console.WriteLine($"Seat {selectedRow},{selectedCol} has been booked.");
-//                     }
-//                     else
-//                     {
-//                         Console.WriteLine($"Seat {selectedRow},{selectedCol} is not available.");
-//                     }
-//                     isBookingMode = false;
-//                     Console.ReadKey(true);
-//                 }
-//                 else
-//                 {
-//                     isBookingMode = true;
-//                     Console.WriteLine("Please select a seat to book.");
-//                 }
-//             }
-//             else
-//             {
-//                 switch (key.Key)
-//                 {
-//                     case ConsoleKey.UpArrow:
-//                         if (selectedRow > 1)
-//                         {
-//                             selectedRow--;
-//                         }
-//                         break;
-//                     case ConsoleKey.DownArrow:
-//                         if (selectedRow < room.Rows)
-//                         {
-//                             selectedRow++;
-//                         }
-//                         break;
-//                     case ConsoleKey.LeftArrow:
-//                         if (selectedCol > 1)
-//                         {
-//                             selectedCol--;
-//                         }
-//                         break;
-//                     case ConsoleKey.RightArrow:
-//                         if (selectedCol < room.Columns)
-//                         {
-//                             selectedCol++;
-//                         }
-//                         break;
-//                 }
-//             }
-//         }
-//     }
-//     private static RoomModel FindRoomById(int roomId)
-//     {
-//         foreach (var room in _rooms)
-//         {
-//             if (room.Id == roomId)
-//             {
-//                 return room;
-//             }
-//         }
+        while (true)
+        {
+            Console.SetCursorPosition(0, 2);
+            Console.Write(new string(' ', Console.WindowWidth));
 
-//         return null;
-//     }
+            // Update seat selection with arrow keys
+            var key = Console.ReadKey(true).Key;
+            if (key == ConsoleKey.UpArrow && selectedRow > 0)
+            {
+                selectedRow--;
+            }
+            else if (key == ConsoleKey.DownArrow && selectedRow < roomModel.Rows - 1)
+            {
+                selectedRow++;
+            }
+            else if (key == ConsoleKey.LeftArrow && selectedColumn > 0)
+            {
+                selectedColumn--;
+            }
+            else if (key == ConsoleKey.RightArrow && selectedColumn < roomModel.Columns - 1)
+            {
+                selectedColumn++;
+            }
+            else if (key == ConsoleKey.Enter)
+            {
+                var selectedSeat = seatingChart[selectedRow, selectedColumn];
+                Console.WriteLine($"Seat {selectedSeat.Chairnumber} booked at row {selectedSeat.Rownumber}");
+                break;
+            }
 
-//     private static string GetSeatStatus(RoomModel room, int row, int col)
-//     {
-//         foreach (var seat in room.Chairs)
-//         {
-//             if (seat.Rownumber == row && seat.Chairnumber == col)
-//             {
-//                 return seat.IsBooked ? "X" : "O";
-//             }
-//         }
+            // Display updated seating chart with colors
+            Console.WriteLine("   " + string.Join("  ", Enumerable.Range(1, roomModel.Columns)));
 
-//         return "-";
-//     }
-// }
+            for (int i = 0; i < roomModel.Rows; i++)
+            {
+                Console.Write($"{i + 1}  ");
+                for (int j = 0; j < roomModel.Columns; j++)
+                {
+                    var seat = seatingChart[i, j];
+
+                    if (seat != null)
+                    {
+                        if (i == selectedRow && j == selectedColumn)
+                        {
+                            Console.BackgroundColor = ConsoleColor.White;
+                            Console.ForegroundColor = ConsoleColor.Black;
+                            Console.Write("O ");
+                        }
+                        else
+                        {
+                            Console.ResetColor();
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.Write("O ");
+                        }
+                    }
+                    else if (i == selectedRow && j == selectedColumn)
+                    {
+                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.Write("X ");
+                    }
+                    else
+                    {
+                        Console.ResetColor();
+                        Console.Write("X ");
+                    }
+                }
+                Console.ResetColor();
+                Console.WriteLine();
+            }
+
+
+
+
+            Console.ResetColor();
+        }
+    }
+}

@@ -31,18 +31,19 @@ public static class UserLogin
         while (true)
         {
             ConsoleKeyInfo key = Console.ReadKey(true);
-
             if (key.Key == ConsoleKey.Enter)
             {
                 break;
             }
             else if (key.Key == ConsoleKey.Backspace && password.Length > 0)
             {
+                //removes latest letter if backspace is pressed
                 password = password.Substring(0, password.Length - 1);
                 Console.Write("\b \b");
             }
             else if (Char.IsLetterOrDigit(key.KeyChar))
             {
+                //turn the letter into the star.
                 password += key.KeyChar;
                 Console.Write(key.KeyChar);
                 System.Threading.Thread.Sleep(100);
@@ -54,14 +55,16 @@ public static class UserLogin
         AccountModel acc = accountsLogic.CheckLogin(email, password);
         if (acc != null)
         {
-            Console.WriteLine("Welcome back " + acc.FullName + "!");
+            Console.WriteLine("\nWelcome back " + acc.FullName + "!");
             Console.WriteLine("Your email number is " + acc.EmailAddress);
             Menu.loggedaccount = acc;
+            System.Threading.Thread.Sleep(3000);
             Menu.Start();
         }
         else
         {
-            Console.WriteLine("No account found with that email and password");
+            Console.WriteLine("\nNo account found with that email and password");
+            System.Threading.Thread.Sleep(3000);
             Menu.Start();
         }
     }

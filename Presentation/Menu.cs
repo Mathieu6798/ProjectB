@@ -16,13 +16,16 @@ static class Menu
               |__/                     
 
         Welcome to the Cinema";
-        string[] options = { "Login", "Register Account", "Select a movie", "Do Someting else" };
-        KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
-        int selectedIndex = mainMenu.Run();
+        // string[] options = { "Login", "Register Account", "Select a movie", "Do Someting else" };
+        // KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
+        // int selectedIndex = mainMenu.Run();
 
 
-        while (loggedaccount == null)
+        if (loggedaccount == null)
         {
+            string[] options = { "Login", "Register Account", "Select a movie", "Do Someting else" };
+            KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
+            int selectedIndex = mainMenu.Run();
             if (selectedIndex == 0)
             {
                 UserLogin.Start();
@@ -47,7 +50,7 @@ static class Menu
 
 
         }
-        if (loggedaccount.EmailAddress == "admin@admin678.nl")
+        else if (loggedaccount.EmailAddress == "admin@admin678.nl")
         {
             string promptAdmin = "Welcome Admin";
             string[] optionsAdmin = { "Add a movie", "Add a show", "Remove a movie", "Remove a show", "Do Something else" };
@@ -82,8 +85,11 @@ static class Menu
                 Start();
             }
         }
-        else
+        else if (loggedaccount != null)
         {
+            string[] options = { "Login", "Register Account", "Select a movie", "Account Info", "Do Someting else" };
+            KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
+            int selectedIndex = mainMenu.Run();
             if (selectedIndex == 0)
             {
                 UserLogin.Start();
@@ -98,6 +104,10 @@ static class Menu
             }
             else if (selectedIndex == 3)
             {
+                AccountInfo.Start();
+            }
+            else if (selectedIndex == 4)
+            {
                 Console.WriteLine("This feature is not yet implemented");
             }
             else
@@ -106,6 +116,30 @@ static class Menu
                 Start();
             }
         }
+        // else
+        // {
+        //     if (selectedIndex == 0)
+        //     {
+        //         UserLogin.Start();
+        //     }
+        //     else if (selectedIndex == 1)
+        //     {
+        //         UserRegister.Start();
+        //     }
+        //     else if (selectedIndex == 2)
+        //     {
+        //         MovieLogic.chooseMovie();
+        //     }
+        //     else if (selectedIndex == 3)
+        //     {
+        //         Console.WriteLine("This feature is not yet implemented");
+        //     }
+        //     else
+        //     {
+        //         Console.WriteLine("Invalid input");
+        //         Start();
+        //     }
+        // }
 
     }
 }

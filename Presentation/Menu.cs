@@ -50,7 +50,7 @@ static class Menu
         if (loggedaccount.EmailAddress == "admin@admin678.nl")
         {
             string promptAdmin = "Welcome Admin";
-            string[] optionsAdmin = { "Add a movie", "Add a show", "Remove a movie", "Remove a show", "Do Something else" };
+            string[] optionsAdmin = { "Add a movie", "Add a show", "Remove a movie", "Remove a show", "Logout" };
             KeyBoardLogic adminMenu = new KeyBoardLogic(promptAdmin, optionsAdmin);
             int selectedIndexAdmin = adminMenu.Run();
             if (selectedIndexAdmin == 0)
@@ -74,7 +74,7 @@ static class Menu
             }
             else if (selectedIndexAdmin == 4)
             {
-                Start();
+                UserLogin.Start();
             }
             else
             {

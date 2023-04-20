@@ -114,6 +114,7 @@ class MovieLogic
         {
             System.Console.WriteLine("OK");
             Menu.Start();
+            RoomLogic.Start(input2);
             //functieDami(ShowId);////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
     }

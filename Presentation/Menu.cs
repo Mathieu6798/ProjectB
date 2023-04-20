@@ -74,7 +74,8 @@ static class Menu
             }
             else if (selectedIndexAdmin == 4)
             {
-                UserLogin.Start();
+                loggedaccount = null;
+                Start();
             }
             else
             {
@@ -103,13 +104,9 @@ static class Menu
             }
             else if (selectedIndex_while_logged == 1)
             {
-                UserRegister.Start();
-            }
-            else if (selectedIndex_while_logged == 2)
-            {
                 MovieLogic.chooseMovie();
             }
-            else if (selectedIndex_while_logged == 3)
+            else if (selectedIndex_while_logged == 2)
             {
                 Console.WriteLine("This feature is not yet implemented");
             }

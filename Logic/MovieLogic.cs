@@ -7,7 +7,10 @@ class MovieLogic
         _movies = MoviesAccess.LoadAll();
     }
 
-
+    public MovieModel GetById(int id)
+    {
+        return _movies.Find(i => i.MovieId == id);
+    }
 
     public static void AddMovie(string title, string genre, int age, string info)
     {

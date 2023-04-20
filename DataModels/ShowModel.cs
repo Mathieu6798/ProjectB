@@ -17,11 +17,12 @@ class ShowModel
     public int Id { get; set; }
 
 
-    public ShowModel(string date, string time, int roomId, int MovieId, int id)
+    public ShowModel(string date, string time, int roomId, int movieId, int id)
     {
         Date = date;
         Time = time;
         RoomId = roomId;
+        MovieId = movieId;
         Id = id;
     }
 

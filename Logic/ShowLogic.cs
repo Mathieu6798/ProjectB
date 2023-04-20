@@ -6,6 +6,10 @@ class ShowLogic
     {
         _shows = ShowAccess.LoadAll();
     }
+    public ShowModel GetById(int id)
+    {
+        return _shows.Find(i => i.Id == id);
+    }
 
 
     public static void AddShow(string date, string time, int roomId, int movieId)

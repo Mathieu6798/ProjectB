@@ -16,13 +16,16 @@ static class Menu
               |__/                     
 
         Welcome to the Cinema";
-        string[] options = { "Login", "Register Account", "Select a movie", "Do Someting else" };
-        KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
-        int selectedIndex = mainMenu.Run();
+        // string[] options = { "Login", "Register Account", "Select a movie", "Do Someting else" };
+        // KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
+        // int selectedIndex = mainMenu.Run();
 
 
-        while (loggedaccount == null)
+        if (loggedaccount == null)
         {
+            string[] options = { "Login", "Register Account", "Select a movie", "Do Someting else" };
+            KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
+            int selectedIndex = mainMenu.Run();
             if (selectedIndex == 0)
             {
                 UserLogin.Start();
@@ -47,7 +50,7 @@ static class Menu
 
 
         }
-        if (loggedaccount.EmailAddress == "admin@admin678.nl")
+        else if (loggedaccount.EmailAddress == "admin@admin678.nl")
         {
             string promptAdmin = "Welcome Admin";
             string[] optionsAdmin = { "Add a movie", "Add a show", "Remove a movie", "Remove a show", "Logout" };
@@ -83,30 +86,24 @@ static class Menu
                 Start();
             }
         }
-
-        if (loggedaccount != null)
+        else if (loggedaccount != null)
         {
-            string prompt_while_logged = @"
-   ___           _           _     ___ 
-  / _ \_ __ ___ (_) ___  ___| |_  / __\
- / /_)/ '__/ _ \| |/ _ \/ __| __|/__\//
-/ ___/| | | (_) | |  __/ (__| |_/ \/  \
-\/    |_|  \___// |\___|\___|\__\_____/
-              |__/                     
-
-        Welcome to the Cinema";
-            string[] options_while_logged = { "Logout", "Select a movie", "Do Someting else" };
-            KeyBoardLogic mainMenu_while_logged = new KeyBoardLogic(prompt_while_logged, options_while_logged);
-            int selectedIndex_while_logged = mainMenu_while_logged.Run();
-            if (selectedIndex_while_logged == 0)
+            string[] options = { "Logout", "Select a movie", "Account Info", "Do Someting else" };
+            KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
+            int selectedIndex = mainMenu.Run();
+            if (selectedIndex == 0)
             {
                 UserLogin.Start();
             }
-            else if (selectedIndex_while_logged == 1)
+            else if (selectedIndex == 1)
             {
                 MovieLogic.chooseMovie();
             }
-            else if (selectedIndex_while_logged == 2)
+            else if (selectedIndex == 2)
+            {
+                AccountInfo.Start();
+            }
+            else if (selectedIndex == 4)
             {
                 Console.WriteLine("This feature is not yet implemented");
             }
@@ -116,6 +113,7 @@ static class Menu
                 Start();
             }
         }
+
 
 
     }

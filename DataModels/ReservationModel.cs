@@ -6,10 +6,10 @@ public class ReservationModel
 
     public int AccountID { get; set; }
 
-    public List<ChairModel> Chairs { get; set; }
+    public List<int> Chairs { get; set; }
 
 
-    public ReservationModel(int showId, int accountID, List<ChairModel> chairs)
+    public ReservationModel(int showId, int accountID, List<int> chairs)
     {
         ShowId = showId;
         AccountID = accountID;

@@ -12,5 +12,12 @@
     "Genre": "adventure",
     "Age": 4,
     "Info": "spongebob bla bla bla bla"
+  },
+  {
+    "MovieId": 3,
+    "Name": "dami",
+    "Genre": "comedy",
+    "Age": 12,
+    "Info": "blabla"
   }
 ]

@@ -40,7 +40,8 @@ static class Menu
             }
             else if (selectedIndex == 3)
             {
-                Console.WriteLine("This feature is not yet implemented");
+                RoomLogic.Start(1, 1);
+                // Console.WriteLine("This feature is not yet implemented");
             }
             else
             {
@@ -103,9 +104,10 @@ static class Menu
             {
                 AccountInfo.Start();
             }
-            else if (selectedIndex == 4)
+            else if (selectedIndex == 3)
             {
-                Console.WriteLine("This feature is not yet implemented");
+                RoomLogic.Start(1, 1);
+                // Console.WriteLine("This feature is not yet implemented");
             }
             else
             {

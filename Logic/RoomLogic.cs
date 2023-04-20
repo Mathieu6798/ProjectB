@@ -6,10 +6,10 @@ using System.Text.Json;
 
 public class RoomLogic
 {
-    public static void Start(int roomId)
+    public static void Start(int roomId, int showid)
     {
         // Hier pakt het alle rooms van JSON file
-        var json = File.ReadAllText("Rooms.json");
+        var json = File.ReadAllText(@"C:\Users\damik\Desktop\ProjectB\DataSources\Rooms.json");
         var roomModels = JsonSerializer.Deserialize<List<RoomModel>>(json);
 
 
@@ -25,7 +25,7 @@ public class RoomLogic
         var seatingChart = new ChairModel[roomModel.Rows, roomModel.Columns];
 
         // hier pakt het alle chairs van JSON file
-        json = File.ReadAllText("Chairs.json");
+        json = File.ReadAllText(@"C:\Users\damik\Desktop\ProjectB\DataSources\Chairs.json");
         var chairModels = JsonSerializer.Deserialize<List<ChairModel>>(json);
 
         // Retrieve chairs for the specified room
@@ -45,6 +45,8 @@ public class RoomLogic
         // Display seating chart and allow seat selection
         int selectedRow = 0;
         int selectedColumn = 0;
+        HashSet<int> bookedChairs = new HashSet<int>();
+
 
         Console.WriteLine("   " + string.Join("  ", Enumerable.Range(1, roomModel.Columns)));
 
@@ -74,9 +76,19 @@ public class RoomLogic
             else if (key == ConsoleKey.Enter)
             {
                 var selectedSeat = seatingChart[selectedRow, selectedColumn];
-                Console.WriteLine($"Seat {selectedSeat.Chairnumber} booked at row {selectedSeat.Rownumber}");
-                break;
+                if (bookedChairs.Contains(selectedSeat.ChairId))
+                {
+                    Console.WriteLine($"Seat {selectedSeat.Chairnumber} at row {selectedSeat.Rownumber} is already booked.");
+                }
+                else
+                {
+                    Console.WriteLine($"You've successfully booked seat {selectedSeat.Chairnumber} at row {selectedSeat.Rownumber}");
+                    bookedChairs.Add(selectedSeat.ChairId);
+                    // BuyTicket ticket = new BuyTicket(accountID.ID, showId, List<int> chairid);
+                    break;
+                }
             }
+
 
             // Display updated seating chart with colors
             Console.WriteLine("   " + string.Join("  ", Enumerable.Range(1, roomModel.Columns)));
@@ -90,17 +102,18 @@ public class RoomLogic
 
                     if (seat != null)
                     {
+                        char displayChar = bookedChairs.Contains(seat.ChairId) ? 'X' : 'O';
                         if (i == selectedRow && j == selectedColumn)
                         {
                             Console.BackgroundColor = ConsoleColor.White;
                             Console.ForegroundColor = ConsoleColor.Black;
-                            Console.Write("O ");
+                            Console.Write($"{displayChar} ");
                         }
                         else
                         {
                             Console.ResetColor();
                             Console.ForegroundColor = ConsoleColor.Green;
-                            Console.Write("O ");
+                            Console.Write($"{displayChar} ");
                         }
                     }
                     else if (i == selectedRow && j == selectedColumn)
@@ -118,6 +131,7 @@ public class RoomLogic
                 Console.ResetColor();
                 Console.WriteLine();
             }
+
 
 
 

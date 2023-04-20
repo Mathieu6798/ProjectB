@@ -69,6 +69,47 @@ class AccountsLogic
         _accounts.Add(new AccountModel(id, email, password, name));
         AccountsAccess.WriteAll(_accounts);
     }
+    public void ChangeEmail(string email)
+    {
+        CurrentAccount = Menu.loggedaccount;
+        foreach (var i in _accounts)
+        {
+            if (i.EmailAddress == email)
+            {
+                Console.WriteLine("\nThe is email number already exists.");
+                System.Threading.Thread.Sleep(3000);
+                Menu.Start();
+            }
+        }
+        foreach (var i in _accounts)
+        {
+            if (i.EmailAddress == CurrentAccount.EmailAddress && i.Password == CurrentAccount.Password)
+            {
+                i.EmailAddress = email;
+                CurrentAccount.EmailAddress = email;
+                Console.WriteLine("\nEmail has been changed.");
+            }
+        }
+        AccountsAccess.WriteAll(_accounts);
+        System.Threading.Thread.Sleep(3000);
+        Menu.Start();
+    }
+    public void ChangePassword(string password)
+    {
+        CurrentAccount = Menu.loggedaccount;
+        foreach (var i in _accounts)
+        {
+            if (i.EmailAddress == CurrentAccount.EmailAddress && i.Password == CurrentAccount.Password)
+            {
+                i.Password = password;
+                CurrentAccount.Password = password;
+                Console.WriteLine("\nPassword has been changed.");
+            }
+        }
+        AccountsAccess.WriteAll(_accounts);
+        System.Threading.Thread.Sleep(3000);
+        Menu.Start();
+    }
 }
 
 

@@ -2,12 +2,19 @@ class KeyBoardLogic
 {
     private int SelectedIndex;
     private string[] Options;
+    private ReservationModel[] ReservationOptions;
     private string Prompt;
 
     public KeyBoardLogic(string prompt, string[] options)
     {
         this.Prompt = prompt;
         this.Options = options;
+        this.SelectedIndex = 0;
+    }
+    public KeyBoardLogic(string prompt, ReservationModel[] options)
+    {
+        this.Prompt = prompt;
+        this.ReservationOptions = options;
         this.SelectedIndex = 0;
     }
     private void DisplayOptions()
@@ -64,4 +71,58 @@ class KeyBoardLogic
         } while (keyPressed != ConsoleKey.Enter);
         return SelectedIndex;
     }
+    // private void ReservationDisplayOptions()
+    // {
+    //     Console.WriteLine(Prompt);
+    //     for (int i = 0; i < ReservationOptions.Length; i++)
+    //     {
+    //         ReservationModel currentOption = ReservationOptions[i];
+    //         string prefix;
+    //         if (i == SelectedIndex)
+    //         {
+    //             prefix = "*";
+    //             Console.ForegroundColor = ConsoleColor.Black;
+    //             Console.BackgroundColor = ConsoleColor.White;
+    //         }
+    //         else
+    //         {
+    //             prefix = " ";
+    //             Console.ForegroundColor = ConsoleColor.White;
+    //             Console.BackgroundColor = ConsoleColor.Black;
+    //         }
+    //         Console.WriteLine($"{prefix} <<{currentOption}>>");
+    //     }
+    //     Console.ResetColor();
+    // }
+    // public int ReservationRun()
+    // {
+    //     ConsoleKey keyPressed;
+    //     do
+    //     {
+    //         Console.Clear();
+    //         ReservationDisplayOptions();
+
+    //         ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+    //         keyPressed = keyInfo.Key;
+    //         //selected key wordt geupdate
+    //         if (keyPressed == ConsoleKey.UpArrow)
+    //         {
+    //             SelectedIndex--;
+    //             if (SelectedIndex == -1)
+    //             {
+    //                 SelectedIndex = ReservationOptions.Length - 1;
+    //             }
+    //         }
+    //         else if (keyPressed == ConsoleKey.DownArrow)
+    //         {
+    //             SelectedIndex++;
+    //             if (SelectedIndex == ReservationOptions.Length)
+    //             {
+    //                 SelectedIndex = 0;
+    //             }
+    //         }
+
+    //     } while (keyPressed != ConsoleKey.Enter);
+    //     return SelectedIndex;
+    // }
 }

@@ -115,8 +115,13 @@ class MovieLogic
         }
         else
         {
-            System.Console.WriteLine("OK");
-            Menu.Start();
+            foreach (var show in ShowAccess.LoadAll())
+            {
+                if (input2 == show.MovieId)
+                {
+                    RoomLogic.Start(show.RoomId, show.Id);
+                }
+            }
 
             //functieDami(ShowId);////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }

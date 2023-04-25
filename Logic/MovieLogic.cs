@@ -7,10 +7,7 @@ class MovieLogic
         _movies = MoviesAccess.LoadAll();
     }
 
-    public MovieModel GetById(int id)
-    {
-        return _movies.Find(i => i.MovieId == id);
-    }
+
 
     public static void AddMovie(string title, string genre, int age, string info)
     {
@@ -40,90 +37,85 @@ class MovieLogic
     }
 
 
-    public static void Removemovie(int id)
+    public static void Removemovie(string name)
     {
-        if (_movies.Find(i => i.MovieId == id) == null)
+        if (_movies.Find(i => i.Name == name) == null)
         {
             Console.WriteLine("No movie found with that name");
-            // AdminPanel.AdminMenu();
+            AdminEdit.RemoveMovie();
         }
         else
         {
-            _movies.Remove(_movies.Find(i => i.MovieId == id));
+            _movies.Remove(_movies.Find(i => i.Name == name));
             MoviesAccess.WriteAll(_movies);
             Console.WriteLine("The movie has been removed");
             // AdminPanel.AdminMenu();
         }
     }
 
-    public static void chooseMovie()
+    public static int chooseMovie()
     {
-        // while (optie1 == null)
         List<string> optionList = new List<string> { "Back" };
-        foreach (var item in MoviesAccess.LoadAll())
+        foreach (var item in _movies)
         {
             optionList.Add(item.Name);
         }
-        int input1 = -2;
-        while (input1 < 0 || input1 >= optionList.Count)
+        ///////////////////////////////////////////////////////////////// geef optie 1
+        string[] options1 = optionList.ToArray();
+        KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a movie", options1);
+        int selectedIndex = mainMenu.Run();
+        var optie1 = options1[selectedIndex];
+        int optieId = 0;
+        // optie lijst geeft 1 string terug hier beneden.
+        // optie is hier de naam van de optie in string vorm.
+        foreach (var item in _movies)
         {
-            Console.Clear();
-            System.Console.WriteLine("Choose a option by typing the number");
-            System.Console.WriteLine($"0: {optionList[0]}");
-            for (int i = 1; i < optionList.Count; i++)
+            if (item.Name == optie1)
             {
-                System.Console.WriteLine($"{i}: {optionList[i]}");
+                optieId = item.MovieId;
             }
-            input1 = Convert.ToInt32(System.Console.ReadLine());
         }
-        if (input1 == 0)
-        {
-            Menu.Start();
-        }
-        else
-        {
-            chooseDateTime(input1);
-        }
-    }
-    ///////////////////////////////////////////////////////////////// geeft optie 1
-    public static void chooseDateTime(int input1)
-    {
+
         List<string> optionList2 = new List<string> { "Back" };
         foreach (var show in ShowAccess.LoadAll())
         {
-            if (input1 == show.MovieId)
+            if (optieId == show.MovieId)
             {
-                optionList2.Add($"{show.Date}-----{show.Time}-----Room {show.RoomId}");
+                optionList2.Add(show.Date);
             }
         }
-        ////////////////////////////////////////////////////// optie 2      
-        int input2 = -3;
-        while (input2 < 0 || input2 >= optionList2.Count)
-        {
-            Console.Clear();
-            System.Console.WriteLine("Choose a option by typing the number");
-            System.Console.WriteLine($"0: {optionList2[0]}");
-            for (int i = 1; i < optionList2.Count; i++)
-            {
-                System.Console.WriteLine($"{i}: {optionList2[i]}");
-            }
-            input2 = Convert.ToInt32(System.Console.ReadLine());
-        }
-        if (input2 == 0)
-        {
-            chooseMovie();
-        }
-        else
-        {
-            foreach (var show in ShowAccess.LoadAll())
-            {
-                if (input2 == show.MovieId)
-                {
-                    RoomLogic.Start(show.RoomId, show.Id);
-                }
-            }
+        ////////////////////////////////////////////////////// optie 2
+        string[] options2 = optionList2.ToArray();
+        KeyBoardLogic mainMenu2 = new KeyBoardLogic("Choose a date", options2);
+        int selectedIndex2 = mainMenu2.Run();
+        var optie2 = options2[selectedIndex2];
 
-            //functieDami(ShowId);////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        List<string> optionList3 = new List<string> { "Back" };
+        foreach (var show in ShowAccess.LoadAll())
+        {
+            if (optieId == show.MovieId && optie2 == show.Date)
+            {
+                optionList3.Add(show.Time);
+            }
         }
+        ////////////////////////////////////// optie 3
+        string[] options3 = optionList3.ToArray();
+        KeyBoardLogic mainMenu3 = new KeyBoardLogic("Choose a time", options3);
+        int selectedIndex3 = mainMenu3.Run();
+        var optie3 = options3[selectedIndex3];
+
+        int ShowId = 0;
+        foreach (var show in ShowAccess.LoadAll())
+        {
+            if (optieId == show.MovieId && optie2 == show.Date && optie3 == show.Time)
+            {
+                ShowId = show.Id;
+            }
+        }
+
+
+        return ShowId; // LIST VOOR DAMI IN STRINGSS!!!!!!!
     }
+
+
 }

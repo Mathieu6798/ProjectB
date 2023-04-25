@@ -1,3 +1,5 @@
+using System.Globalization;
+
 class ShowLogic
 {
     private static List<ShowModel> _shows;
@@ -5,50 +7,77 @@ class ShowLogic
     public ShowLogic()
     {
         _shows = ShowAccess.LoadAll();
+
     }
     public ShowModel GetById(int id)
     {
         return _shows.Find(i => i.Id == id);
     }
 
+    public static void ControlDate_Time(string date, string time, int roomId, int movieId)
+    {
+        try
+        {
+            DateTime dateTime = DateTime.Parse(date);
+            DateTime Time = DateTime.ParseExact(time, "HH:mm", CultureInfo.InvariantCulture);
+            Console.WriteLine($"TEST FOR SUCCES");
+            ShowLogic.AddShow(date, time, roomId, movieId);
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine($"Incorrect date or time format");
+            Console.WriteLine($"The correct format for the date is: dd/mm/yyyy and for time it is: HH:mm\n ");
+            AdminEdit.AddShow();
+        }
+
+    }
+
 
     public static void AddShow(string date, string time, int roomId, int movieId)
     {
-        Console.WriteLine(_shows);
+        //Console.WriteLine(_shows);
+        _shows = ShowAccess.LoadAll();
+        int showId = 0;
         int count = 0;
-        int showId;
-        if (_shows == null)
-        {
-            _shows = ShowAccess.LoadAll();
-            showId = 1;
-        }
 
-        else
+        if (_shows != null)
         {
-            foreach (ShowModel shows in _shows)
+            try
             {
-                count++;
+                count = _shows.Count();
+                showId = count += 1;
+                _shows.Add(new ShowModel
+            (
+                date,
+                time,
+                roomId,
+                movieId,
+                showId
+            ));
+                ShowAccess.WriteAll(_shows);
             }
-            showId = count += 1;
+            catch (ArgumentNullException)
+            {
+                showId = 1;
+                _shows.Add(new ShowModel
+            (
+                date,
+                time,
+                roomId,
+                movieId,
+                showId
+            ));
+                ShowAccess.WriteAll(_shows);
+            }
         }
-        var show = new ShowModel
-        (
-            date,
-            time,
-            roomId,
-            movieId,
-            showId
-        );
-        _shows.Add(show);
-        ShowAccess.WriteAll(_shows);
     }
-    public static void RemoveShow(int movieid, string date, string time)
+    public static void RemoveShow(string name, string date, string time)
     {
         if (_shows == null)
         {
             _shows = ShowAccess.LoadAll();
         }
-        if (_shows.Find(i => i.MovieId == movieid) == null)
+        if (_shows.Find(i => i.movieName == name) == null)
         {
             Console.WriteLine("No show found with that movie id");
         }
@@ -60,9 +89,13 @@ class ShowLogic
         {
             Console.WriteLine("No show found with that time");
         }
+        if (_shows.Find(i => i.movieName == name) == null || _shows.Find(i => i.Date == date) == null || _shows.Find(i => i.Time == time) == null)
+        {
+            AdminEdit.RemoveShow();
+        }
         else
         {
-            _shows.Remove(_shows.Find(i => i.MovieId == movieid && i.Date == date && i.Time == time));
+            _shows.Remove(_shows.Find(i => i.movieName == name && i.Date == date && i.Time == time));
             ShowAccess.WriteAll(_shows);
             Console.WriteLine("Show is removed");
         }

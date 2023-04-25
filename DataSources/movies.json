@@ -15,9 +15,16 @@
   },
   {
     "MovieId": 3,
-    "Name": "dami",
-    "Genre": "comedy",
-    "Age": 12,
-    "Info": "blabla"
+    "Name": "bobspons",
+    "Genre": "action",
+    "Age": 21,
+    "Info": "bobsponsV2"
+  },
+  {
+    "MovieId": 4,
+    "Name": "banana1",
+    "Genre": "action",
+    "Age": 24,
+    "Info": "bananaV1"
   }
 ]

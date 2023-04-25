@@ -40,16 +40,16 @@ class MovieLogic
     }
 
 
-    public static void Removemovie(int id)
+    public static void Removemovie(string name)
     {
-        if (_movies.Find(i => i.MovieId == id) == null)
+        if (_movies.Find(i => i.Name == name) == null)
         {
             Console.WriteLine("No movie found with that name");
-            // AdminPanel.AdminMenu();
+            AdminEdit.RemoveMovie();
         }
         else
         {
-            _movies.Remove(_movies.Find(i => i.MovieId == id));
+            _movies.Remove(_movies.Find(i => i.Name == name));
             MoviesAccess.WriteAll(_movies);
             Console.WriteLine("The movie has been removed");
             // AdminPanel.AdminMenu();

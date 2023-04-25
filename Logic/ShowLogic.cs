@@ -42,13 +42,13 @@ class ShowLogic
         _shows.Add(show);
         ShowAccess.WriteAll(_shows);
     }
-    public static void RemoveShow(int movieid, string date, string time)
+    public static void RemoveShow(string name, string date, string time)
     {
         if (_shows == null)
         {
             _shows = ShowAccess.LoadAll();
         }
-        if (_shows.Find(i => i.MovieId == movieid) == null)
+        if (_shows.Find(i => i.movieName == name) == null)
         {
             Console.WriteLine("No show found with that movie id");
         }
@@ -60,9 +60,13 @@ class ShowLogic
         {
             Console.WriteLine("No show found with that time");
         }
+        if (_shows.Find(i => i.movieName == name) == null || _shows.Find(i => i.Date == date) == null || _shows.Find(i => i.Time == time) == null)
+        {
+            AdminEdit.RemoveShow();
+        }
         else
         {
-            _shows.Remove(_shows.Find(i => i.MovieId == movieid && i.Date == date && i.Time == time));
+            _shows.Remove(_shows.Find(i => i.movieName == name && i.Date == date && i.Time == time));
             ShowAccess.WriteAll(_shows);
             Console.WriteLine("Show is removed");
         }

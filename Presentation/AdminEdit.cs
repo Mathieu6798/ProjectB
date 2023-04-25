@@ -29,20 +29,20 @@ public class AdminEdit
     }
     public static void RemoveMovie()
     {
-        Console.WriteLine("Enter Movie ID: ");
-        int id = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Enter Movie Name To Remove: ");
+        string input = Console.ReadLine();
         MovieLogic logic = new MovieLogic();
-        MovieLogic.Removemovie(id);
+        MovieLogic.Removemovie(input);
     }
     public static void RemoveShow()
     {
-        Console.WriteLine("Enter movie ID: ");
-        int id = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Enter Movie Name: ");
+        string name = Console.ReadLine();
         Console.WriteLine("Enter date (year-month-day): ");
         string date = Console.ReadLine();
         Console.WriteLine("Enter time: ");
         string time = Console.ReadLine();
-        ShowLogic.RemoveShow(id, date, time);
+        ShowLogic.RemoveShow(name, date, time);
     }
 
 }

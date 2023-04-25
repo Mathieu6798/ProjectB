@@ -25,7 +25,7 @@ public class AdminEdit
         int roomId = Convert.ToInt32(Console.ReadLine());
         Console.WriteLine("Enter MovieID: ");
         int movieId = Convert.ToInt32(Console.ReadLine());
-        ShowLogic.AddShow(date, time, roomId, movieId);
+        ShowLogic.ControlDate_Time(date, time, roomId, movieId);
     }
     public static void RemoveMovie()
     {

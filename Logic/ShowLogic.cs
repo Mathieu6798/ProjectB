@@ -100,4 +100,21 @@ class ShowLogic
             Console.WriteLine("Show is removed");
         }
     }
+    public static void ControlDate_Time(string date, string time, int roomId, int movieId)
+    {
+        try
+        {
+            DateTime dateTime = DateTime.Parse(date);
+            DateTime Time = DateTime.ParseExact(time, "HH:mm", CultureInfo.InvariantCulture);
+            Console.WriteLine($"TEST FOR SUCCES");
+            ShowLogic.AddShow(date, time, roomId, movieId);
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine($"Incorrect date or time format");
+            Console.WriteLine($"The correct format for the date is: dd/mm/yyyy and for time it is: HH:mm\n ");
+            AdminEdit.AddShow();
+        }
+
+    }
 }

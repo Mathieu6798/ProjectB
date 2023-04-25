@@ -1,0 +1,30 @@
+[
+  {
+    "MovieId": 1,
+    "Name": "john wick",
+    "Genre": "action",
+    "Age": 16,
+    "Info": "John wick fights a bunch of guys"
+  },
+  {
+    "MovieId": 2,
+    "Name": "spongebob",
+    "Genre": "adventure",
+    "Age": 4,
+    "Info": "spongebob bla bla bla bla"
+  },
+  {
+    "MovieId": 3,
+    "Name": "bobspons",
+    "Genre": "action",
+    "Age": 21,
+    "Info": "bobsponsV2"
+  },
+  {
+    "MovieId": 4,
+    "Name": "banana1",
+    "Genre": "action",
+    "Age": 24,
+    "Info": "bananaV1"
+  }
+]

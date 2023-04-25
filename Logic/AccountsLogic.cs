@@ -53,6 +53,22 @@ class AccountsLogic
         CurrentAccount = _accounts.Find(i => i.EmailAddress == email && i.Password == password);
         return CurrentAccount;
     }
+    public AccountModel CheckExistingEmail(string email)
+    {
+        if (email == null)
+        {
+            return null;
+        }
+        CurrentAccount = _accounts.Find(i => i.EmailAddress == email);
+        return CurrentAccount;
+    }
+
+    public void AddAcount(string name, string email, string password)
+    {
+        int id = _accounts.Count + 1;
+        _accounts.Add(new AccountModel(id, email, password, name));
+        AccountsAccess.WriteAll(_accounts);
+    }
 }
 
 

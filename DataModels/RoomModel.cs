@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 
 
-public class RoomModel
+class RoomModel
 {
     [JsonPropertyName("id")]
     public int Id { get; set; }
@@ -13,9 +13,9 @@ public class RoomModel
     public int Columns { get; set; }
 
     [JsonPropertyName("chairs")]
-    public List<int> Chairs { get; set; }
+    public List<ChairModel> Chairs { get; set; }
 
-    public RoomModel(int id, int rows, int columns, List<int> chairs)
+    public RoomModel(int id, int rows, int columns, List<ChairModel> chairs)
     {
         Id = id;
         Rows = rows;

@@ -16,16 +16,13 @@ static class Menu
               |__/                     
 
         Welcome to the Cinema";
-        // string[] options = { "Login", "Register Account", "Select a movie", "Do Someting else" };
-        // KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
-        // int selectedIndex = mainMenu.Run();
+        string[] options = { "Login", "Register Account", "Select a movie", "Admin Login" };
+        KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
+        int selectedIndex = mainMenu.Run();
 
 
-        if (loggedaccount == null)
+        while (loggedaccount == null)
         {
-            string[] options = { "Login", "Register Account", "Select a movie", "Do Someting else" };
-            KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
-            int selectedIndex = mainMenu.Run();
             if (selectedIndex == 0)
             {
                 UserLogin.Start();
@@ -40,8 +37,7 @@ static class Menu
             }
             else if (selectedIndex == 3)
             {
-                RoomLogic.Start(1, 1);
-                // Console.WriteLine("This feature is not yet implemented");
+                AdminLogin.Start();
             }
             else
             {
@@ -51,72 +47,63 @@ static class Menu
 
 
         }
-        else if (loggedaccount.EmailAddress == "admin@admin678.nl")
-        {
-            string promptAdmin = "Welcome Admin";
-            string[] optionsAdmin = { "Add a movie", "Add a show", "Remove a movie", "Remove a show", "Logout" };
-            KeyBoardLogic adminMenu = new KeyBoardLogic(promptAdmin, optionsAdmin);
-            int selectedIndexAdmin = adminMenu.Run();
-            if (selectedIndexAdmin == 0)
-            {
-                AdminEdit.AddMovie();
+        // if (loggedaccount.EmailAddress == "admin@admin678.nl")
+        // {
+        //     string promptAdmin = "Welcome Admin";
+        //     string[] optionsAdmin = { "Add a movie", "Add a show", "Remove a movie", "Remove a show", "Do Something else" };
+        //     KeyBoardLogic adminMenu = new KeyBoardLogic(promptAdmin, optionsAdmin);
+        //     int selectedIndexAdmin = adminMenu.Run();
+        //     if (selectedIndexAdmin == 0)
+        //     {
+        //         AdminEdit.AddMovie();
 
-            }
-            else if (selectedIndexAdmin == 1)
-            {
-                AdminEdit.AddShow();
-            }
-            else if (selectedIndexAdmin == 2)
-            {
-                Console.WriteLine("Remove movie");
-                AdminEdit.RemoveMovie();
-            }
-            else if (selectedIndexAdmin == 3)
-            {
-                Console.WriteLine("Remove show");
-                AdminEdit.RemoveShow();
-            }
-            else if (selectedIndexAdmin == 4)
-            {
-                loggedaccount = null;
-                Start();
-            }
-            else
-            {
-                Console.WriteLine("Invalid input");
-                Start();
-            }
-        }
-        else if (loggedaccount != null)
-        {
-            string[] options = { "Logout", "Select a movie", "Account Info", "Do Someting else" };
-            KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
-            int selectedIndex = mainMenu.Run();
-            if (selectedIndex == 0)
-            {
-                UserLogin.Start();
-            }
-            else if (selectedIndex == 1)
-            {
-                MovieLogic.chooseMovie();
-            }
-            else if (selectedIndex == 2)
-            {
-                AccountInfo.Start();
-            }
-            else if (selectedIndex == 3)
-            {
-                RoomLogic.Start(1, 1);
-                // Console.WriteLine("This feature is not yet implemented");
-            }
-            else
-            {
-                Console.WriteLine("Invalid input");
-                Start();
-            }
-        }
-
-
+        //     }
+        //     else if (selectedIndexAdmin == 1)
+        //     {
+        //         AdminEdit.AddShow();
+        //     }
+        //     else if (selectedIndexAdmin == 2)
+        //     {
+        //         Console.WriteLine("Remove movie");
+        //         AdminEdit.RemoveMovie();
+        //     }
+        //     else if (selectedIndexAdmin == 3)
+        //     {
+        //         Console.WriteLine("Remove show");
+        //         AdminEdit.RemoveShow();
+        //     }
+        //     else if (selectedIndexAdmin == 4)
+        //     {
+        //         Start();
+        //     }
+        //     else
+        //     {
+        //         Console.WriteLine("Invalid input");
+        //         Start();
+        //     }
+        // }
+        //     if (selectedIndex == 0)
+        //     {
+        //         UserLogin.Start();
+        //     }
+        //     else if (selectedIndex == 1)
+        //     {
+        //         UserRegister.Start();
+        //     }
+        //     else if (selectedIndex == 2)
+        //     {
+        //         MovieLogic.chooseMovie();
+        //     }
+        //     else if (selectedIndex == 3)
+        //     {
+        //         Console.WriteLine("This feature is not yet implemented");
+        //     }
+        //     else
+        //     {
+        //         Console.WriteLine("Invalid input");
+        //         Start();
+        //     }
+        // }
 
     }
 }

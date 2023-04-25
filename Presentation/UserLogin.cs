@@ -8,13 +8,15 @@ public static class UserLogin
         if (Menu.loggedaccount != null)
         {
             Console.WriteLine($"You are already logged in with this account: Fullname: {Menu.loggedaccount.FullName}, Email: {Menu.loggedaccount.EmailAddress}");
-            Console.WriteLine("Would you like to login with another account? Yes or no.");
-            string choice = Console.ReadLine();
-            if (choice.ToLower() == "no")
+            string prompt = "Would you like to login with another account? Yes or no.";
+            string[] options = { "Yes", "No" };
+            KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
+            int choice = mainMenu.Run();
+            if (choice == 1)
             {
                 Menu.Start();
             }
-            else if (choice.ToLower() == "yes")
+            else if (choice == 0)
             {
             }
             else

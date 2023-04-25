@@ -6,10 +6,23 @@ using System.Text.Json;
 
 public class RoomLogic
 {
+    private static List<RoomModel> _rooms;
+    private static List<ChairModel> _chairs;
+    public RoomLogic()
+    {
+        _rooms = RoomAccess.LoadAll();
+        _chairs = ChairAccess.LoadAll();
+    }
+
+
+
+
+
     public static void Start(int roomId, int showid)
     {
+        var pathroom = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/Rooms.json"));
         // Hier pakt het alle rooms van JSON file
-        var json = File.ReadAllText(@"C:\Users\damik\Desktop\ProjectB\DataSources\Rooms.json");
+        var json = File.ReadAllText(pathroom);
         var roomModels = JsonSerializer.Deserialize<List<RoomModel>>(json);
 
 
@@ -25,11 +38,12 @@ public class RoomLogic
         var seatingChart = new ChairModel[roomModel.Rows, roomModel.Columns];
 
         // hier pakt het alle chairs van JSON file
-        json = File.ReadAllText(@"C:\Users\damik\Desktop\ProjectB\DataSources\Chairs.json");
+        var pathchair = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/Chairs.json"));
+        json = File.ReadAllText(pathchair);
         var chairModels = JsonSerializer.Deserialize<List<ChairModel>>(json);
 
         // Retrieve chairs for the specified room
-        var roomChairIds = new HashSet<int>(roomModel.Chairs);
+        var roomChairIds = new List<int>(roomModel.Chairs);
         var chairs = chairModels.Where(c => roomChairIds.Contains(c.ChairId));
 
         foreach (var chairId in roomModel.Chairs)
@@ -45,7 +59,7 @@ public class RoomLogic
         // Display seating chart and allow seat selection
         int selectedRow = 0;
         int selectedColumn = 0;
-        HashSet<int> bookedChairs = new HashSet<int>();
+        List<int> bookedChairs = new List<int>();
 
 
         Console.WriteLine("   " + string.Join("  ", Enumerable.Range(1, roomModel.Columns)));
@@ -76,16 +90,19 @@ public class RoomLogic
             else if (key == ConsoleKey.Enter)
             {
                 var selectedSeat = seatingChart[selectedRow, selectedColumn];
-                if (bookedChairs.Contains(selectedSeat.ChairId))
+                if (bookedChairs.Any(c => c == selectedSeat.ChairId))
                 {
                     Console.WriteLine($"Seat {selectedSeat.Chairnumber} at row {selectedSeat.Rownumber} is already booked.");
                 }
                 else
                 {
+                    Console.Clear();
                     Console.WriteLine($"You've successfully booked seat {selectedSeat.Chairnumber} at row {selectedSeat.Rownumber}");
                     bookedChairs.Add(selectedSeat.ChairId);
-                    // BuyTicket ticket = new BuyTicket(accountID.ID, showId, List<int> chairid);
-                    break;
+                    int accid = Menu.loggedaccount.Id;
+                    int Showid = showid;
+                    BuyTicket ticket = new BuyTicket(accid, Showid, bookedChairs);
+                    ticket.Overview();
                 }
             }
 

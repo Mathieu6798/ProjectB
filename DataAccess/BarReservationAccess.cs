@@ -9,11 +9,6 @@ static class BarReservationAccess
         string json = File.ReadAllText(path);
         return JsonSerializer.Deserialize<List<BarReservationModel>>(json);
     }
-    // public static List<AccountModel> LoadAll()
-    // {
-    //     string json = File.ReadAllText(path);
-    //     return JsonSerializer.Deserialize<List<AccountModel>>(json);
-    // }
 
 
     public static void WriteAll(List<BarReservationModel> barReservations)

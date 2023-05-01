@@ -36,13 +36,13 @@ public class AdminEdit
     }
     public static void RemoveShow()
     {
-        Console.WriteLine("Enter Movie Name: ");
-        string name = Console.ReadLine();
+        Console.WriteLine("Enter Movie id: ");
+        int id = Convert.ToInt32(Console.ReadLine());
         Console.WriteLine("Enter date (year-month-day): ");
         string date = Console.ReadLine();
         Console.WriteLine("Enter time: ");
         string time = Console.ReadLine();
-        ShowLogic.RemoveShow(name, date, time);
+        ShowLogic.RemoveShow(id, date, time);
     }
 
 }

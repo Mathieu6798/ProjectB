@@ -7,7 +7,14 @@ public class BarReservation
     {
         ReservationModel lastReservation = (ReservationAccess.LoadAll()).LastOrDefault();
         ShowModel show = (ShowAccess.LoadAll()).FirstOrDefault(x => x.Id == lastReservation.ShowId);
-        _barreservations = BarReservationAccess.LoadAll();
+        try
+        {
+            _barreservations = BarReservationAccess.LoadAll();
+        }
+        catch (Exception)
+        {
+            _barreservations = new List<BarReservationModel>();
+        }
         foreach (var i in _barreservations)
         {
             ActualReservations += i.AmountOfPeople;

@@ -9,29 +9,34 @@ public class BuyTicket
     public void Overview()
     {
         string Ticket = $"Ticket: \nShow ID: {ticket.ShowId} \nAccount ID: {ticket.AccountID} \nSeat: {ticket.Chairs}";
-        Console.WriteLine(Ticket);
-        Console.WriteLine($"Do you want to buy this ticket? Yes or no");
-        string choice = Console.ReadLine();
-        if (choice.ToLower() == "yes")
+        string prompt1 = $@" {ticket}          
+        Do you want to buy this ticket?";
+        string[] options1 = { "Yes", "No" };
+        KeyBoardLogic mainMenu1 = new KeyBoardLogic(prompt1, options1);
+        int selectedIndex1 = mainMenu1.Run();
+        if (selectedIndex1 == 0)
         {
             ReservationLogic logic = new ReservationLogic();
             logic.AddReservation(ticket);
-            Console.WriteLine("You have succesfully bought a ticket.");
-            Console.WriteLine("Do you want to reserve a ticket at the bar for after the movie? Yes or no");
-            string reservebar = Console.ReadLine();
-            if (reservebar.ToLower() == "yes")
+            Console.WriteLine("You have succesfully bought the ticket.");
+            Thread.Sleep(3000);
+            string prompt2 = $@"Do you want to make a reservation at the bar for after the movie?";
+            string[] options2 = { "Yes", "No" };
+            KeyBoardLogic mainMenu2 = new KeyBoardLogic(prompt2, options2);
+            int selectedIndex2 = mainMenu2.Run();
+            if (selectedIndex2 == 0)
             {
                 //bar cs file voor 40 plekken en tot 2 uur na de film vlgnsmij.
                 BarReservation.Start();
             }
             else
             {
-                Menu.Start();
+                UserLoggedIn.Start();
             }
         }
         else
         {
-            Menu.Start();
+            UserLoggedIn.Start();
         }
     }
 }

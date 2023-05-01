@@ -43,12 +43,14 @@ public class RoomLogic
         var chairModels = JsonSerializer.Deserialize<List<ChairModel>>(json);
 
         // Retrieve chairs for the specified room
-        var roomChairIds = new List<int>(roomModel.Chairs);
-        var chairs = chairModels.Where(c => roomChairIds.Contains(c.ChairId));
+        // var roomChairIds = new List<int>(roomModel.Chairs);
+        // var chairs = chairModels.Where(c => roomChairIds.Contains(c.ChairId));
+        var roomChairIds = new List<ChairModel>(roomModel.Chairs);
+        var chairs = chairModels.Where(c => roomChairIds.Contains(c));
 
         foreach (var chairId in roomModel.Chairs)
         {
-            var chair = chairs.FirstOrDefault(c => c.ChairId == chairId);
+            var chair = chairs.FirstOrDefault(c => c.ChairId == chairId.ChairId);
 
             if (chair != null)
             {

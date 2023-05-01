@@ -116,6 +116,10 @@ class MovieLogic
 
         return ShowId; // LIST VOOR DAMI IN STRINGSS!!!!!!!
     }
+    public MovieModel GetById(int id)
+    {
+        return _movies.Find(i => i.MovieId == id);
+    }
 
 
 }

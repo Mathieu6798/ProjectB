@@ -7,7 +7,7 @@ static class UserLoggedIn
     {
 
         string prompt = @"HOME PAGE";
-        string[] options = { "Select a movie", "Do Someting else" };
+        string[] options = { "Select a movie", "Account info", "Do Someting else" };
         KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
         int selectedIndex = mainMenu.Run();
 
@@ -19,6 +19,10 @@ static class UserLoggedIn
                 MovieLogic.chooseMovie();
             }
             else if (selectedIndex == 1)
+            {
+                AccountInfo.Start();
+            }
+            else if (selectedIndex == 2)
             {
                 Console.WriteLine("This feature is not yet implemented");
             }

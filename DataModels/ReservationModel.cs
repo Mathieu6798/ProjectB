@@ -4,12 +4,12 @@ public class ReservationModel
 {
     public int ShowId { get; set; }
 
-    public string AccountID { get; set; }
+    public int AccountID { get; set; }
 
-    public List<ChairModel> Chairs { get; set; }
+    public List<int> Chairs { get; set; }
 
 
-    public ReservationModel(int showId, string accountID, List<ChairModel> chairs)
+    public ReservationModel(int showId, int accountID, List<int> chairs)
     {
         ShowId = showId;
         AccountID = accountID;

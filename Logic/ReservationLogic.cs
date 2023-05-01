@@ -15,7 +15,14 @@ class ReservationLogic
 
     public ReservationLogic()
     {
-        _reservations = ReservationAccess.LoadAll();
+        try
+        {
+            _reservations = ReservationAccess.LoadAll();
+        }
+        catch (Exception)
+        {
+            _reservations = new List<ReservationModel>();
+        }
     }
 
 
@@ -47,21 +54,55 @@ class ReservationLogic
     }
     public void AddReservation(ReservationModel ticket)
     {
-        if (_reservations == null)
-        {
-            _reservations = ReservationAccess.LoadAll();
-        }
+        // if (_reservations == null)
+        // {
+        //     _reservations = ReservationAccess.LoadAll();
+        // }
         _reservations.Add(ticket);
         ReservationAccess.WriteAll(_reservations);
     }
-    public void RemoveReservation(ReservationModel ticket)
+    public void RemoveReservation(List<ReservationModel> reservationlist, int counter)
     {
-        if (_reservations == null)
-        {
-            _reservations = ReservationAccess.LoadAll();
-        }
-        _reservations.Add(ticket);
+        ReservationModel reservation = _reservations.Find(i => i == reservationlist[counter]);
+        _reservations.Remove(reservation);
         ReservationAccess.WriteAll(_reservations);
+    }
+    public static string GetShowMovieInfo(ReservationModel reservation)
+    {
+        ShowLogic showlogic = new ShowLogic();
+        ShowModel show = showlogic.GetById(reservation.ShowId);
+        MovieLogic movielogic = new MovieLogic();
+        MovieModel movie = movielogic.GetById(show.MovieId);
+        return $"Ticket: \nMovie Name: {movie.Name} \nDate: {show.Date} \nTime: {show.Time}";
+    }
+    public string[] MenuOptions(List<ReservationModel> reservationlist)
+    {
+        string[] options = new string[10];
+        AccountModel CurrentAccount = Menu.loggedaccount;
+        int index = 0;
+        foreach (var i in _reservations)
+        {
+            if (i.AccountID == CurrentAccount.Id)
+            {
+                Array.Resize(ref options, index + 1);
+                reservationlist.Add(i);
+                options[index] = ReservationLogic.GetShowMovieInfo(i);
+                index++;
+            }
+        }
+        Array.Resize(ref options, index + 1);
+        options[index] = "Back";
+        index++;
+        return options;
+    }
+    public void PrintInformation(List<ReservationModel> reservationlist, int counter)
+    {
+        ReservationModel reservation = _reservations.Find(i => i == reservationlist[counter]);
+        ShowLogic showlogic = new ShowLogic();
+        ShowModel show = showlogic.GetById(reservation.ShowId);
+        MovieLogic movielogic = new MovieLogic();
+        MovieModel movie = movielogic.GetById(show.MovieId);
+        Console.WriteLine(ReservationLogic.GetShowMovieInfo(reservation) + $"\nGenre: {movie.Genre} \nInfo: {movie.Info}");
     }
 }
 

@@ -19,7 +19,12 @@ class AccountsLogic
         _accounts = AccountsAccess.LoadAll();
     }
 
-
+    public void DeleteAccount(AccountModel currentaccount)
+    {
+        var itemToRemove = _accounts.Single(r => r.Id == currentaccount.Id);
+        _accounts.Remove(itemToRemove);
+        AccountsAccess.WriteAll(_accounts);
+    }
     public void UpdateList(AccountModel acc)
     {
         //Find if there is already an model with the same id
@@ -65,7 +70,16 @@ class AccountsLogic
 
     public void AddAcount(string name, string email, string password)
     {
-        int id = _accounts.Count + 1;
+        var lastaccount = _accounts.LastOrDefault();
+        int id = 0;
+        if (lastaccount == null)
+        {
+            id = 1;
+        }
+        else
+        {
+            id = lastaccount.Id + 1;
+        }
         _accounts.Add(new AccountModel(id, email, password, name));
         AccountsAccess.WriteAll(_accounts);
     }

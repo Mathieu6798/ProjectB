@@ -21,7 +21,8 @@ public class ReservationInfo
         int counter = 0;
         if (selectedIndex == options.Length - 1)
         {
-            AccountInfo.Start();
+            // AccountInfo.Start();
+            TicketOptions();
         }
         foreach (var i in options)
         {
@@ -57,7 +58,8 @@ public class ReservationInfo
         int counter = 0;
         if (selectedIndex == options.Length - 1)
         {
-            AccountInfo.Start();
+            // AccountInfo.Start();
+            TicketOptions();
         }
         foreach (var i in options)
         {

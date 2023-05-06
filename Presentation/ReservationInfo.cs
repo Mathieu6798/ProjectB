@@ -31,7 +31,7 @@ public class ReservationInfo
                 logic.RemoveReservation(reservationlist, counter);
                 Console.WriteLine("Ticket has been removed");
                 System.Threading.Thread.Sleep(3000);
-                Menu.Start();
+                TicketOptions();
             }
             counter++;
         }
@@ -66,6 +66,8 @@ public class ReservationInfo
             if (selectedIndex == counter)
             {
                 logic.PrintInformation(reservationlist, counter);
+                System.Threading.Thread.Sleep(3000);
+                TicketOptions();
             }
             counter++;
         }

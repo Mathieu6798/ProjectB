@@ -117,8 +117,13 @@ class MovieLogic
         }
         else
         {
-            System.Console.WriteLine("OK");
-            Menu.Start();
+            // System.Console.WriteLine("OK");
+            // Menu.Start();
+            ShowLogic logic = new ShowLogic();
+            ShowModel show1 = logic.GetById(input2);
+            RoomLogic.Start(show1.RoomId, input2);
+
+
 
             //functieDami(ShowId);////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }

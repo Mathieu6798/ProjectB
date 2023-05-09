@@ -19,7 +19,7 @@ public static class AccountInfo
         {
             case 0:
                 //change email
-                Console.WriteLine("What would you like to change youre email to?");
+                Console.WriteLine("What do you want the new password to be?");
                 string email = Console.ReadLine();
                 while (!email.Contains("@"))
                 {
@@ -32,7 +32,38 @@ public static class AccountInfo
                 break;
             case 1:
                 //change password
-                Console.WriteLine("What would you like to change youre password to?");
+                Console.WriteLine("Put in the old password");
+                string oldpassword = "";
+                while (true)
+                {
+                    ConsoleKeyInfo key = Console.ReadKey(true);
+                    if (key.Key == ConsoleKey.Enter)
+                    {
+                        break;
+                    }
+                    else if (key.Key == ConsoleKey.Backspace && oldpassword.Length > 0)
+                    {
+                        //removes latest letter if backspace is pressed
+                        oldpassword = oldpassword.Substring(0, oldpassword.Length - 1);
+                        Console.Write("\b \b");
+                    }
+                    else if (Char.IsLetterOrDigit(key.KeyChar))
+                    {
+                        //turn the letter into the star.
+                        oldpassword += key.KeyChar;
+                        Console.Write(key.KeyChar);
+                        System.Threading.Thread.Sleep(100);
+                        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                        Console.Write("*");
+                    }
+                }
+                if (oldpassword != Menu.loggedaccount.Password)
+                {
+                    Console.WriteLine("Wrong password");
+                    Thread.Sleep(3500);
+                    Start();
+                }
+                Console.WriteLine("What do you want the new password to be?");
                 string password = "";
                 while (true)
                 {
@@ -63,8 +94,8 @@ public static class AccountInfo
 
             case 2:
                 //show tickets
-                ReservationInfo info = new ReservationInfo();
-                info.TicketOptions();
+                // ReservationInfo info = new ReservationInfo();
+                ReservationInfo.TicketOptions();
                 break;
             case 3:
                 string prompt2 = @"Are you sure you want to delete this account?";

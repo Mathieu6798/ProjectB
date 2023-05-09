@@ -63,8 +63,8 @@ public static class AccountInfo
 
             case 2:
                 //show tickets
-                ReservationInfo info = new ReservationInfo();
-                info.TicketOptions();
+                // ReservationInfo info = new ReservationInfo();
+                ReservationInfo.TicketOptions();
                 break;
             case 3:
                 string prompt2 = @"Are you sure you want to delete this account?";

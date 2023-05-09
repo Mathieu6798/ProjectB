@@ -31,7 +31,13 @@ static class UserLogin
         Console.WriteLine("Please enter your password");
         string password = Console.ReadLine();
         AccountModel acc = accountsLogic.CheckLogin(email, password);
-        if (acc.EmailAddress == "admin@admin678.nl")
+        if (acc == null)
+        {
+            Console.WriteLine("No account found with that email and password");
+            Thread.Sleep(3500);
+            Menu.Start();
+        }
+        else if (acc.EmailAddress == "admin@admin678.nl")
         {
             AdminPanel.AdminMenu();
         }
@@ -45,6 +51,7 @@ static class UserLogin
         else
         {
             Console.WriteLine("No account found with that email and password");
+            Thread.Sleep(3500);
             Menu.Start();
         }
     }

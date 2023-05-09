@@ -1,6 +1,6 @@
 public class ReservationInfo
 {
-    public void CancelTicket()
+    public static void CancelTicket()
     {
         string prompt = @"  
  ________  ________  ________   ________  _______   ___        _________  ___  ________  ___  __    _______  _________   
@@ -36,7 +36,7 @@ public class ReservationInfo
             counter++;
         }
     }
-    public void ShowTickets()
+    public static void ShowTickets()
     {
         string prompt = @"  
  _________  ___  ________  ___  __    _______  _________  ________      
@@ -66,13 +66,13 @@ public class ReservationInfo
             if (selectedIndex == counter)
             {
                 logic.PrintInformation(reservationlist, counter);
-                System.Threading.Thread.Sleep(3000);
-                TicketOptions();
+                // System.Threading.Thread.Sleep(3000);
+                // TicketOptions();
             }
             counter++;
         }
     }
-    public void TicketOptions()
+    public static void TicketOptions()
     {
         string prompt = @"
  _________  ___  ________  ___  __    _______  _________        ___  ________   ________ ________     

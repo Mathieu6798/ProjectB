@@ -3,21 +3,21 @@
     "Date": "18-03-2023",
     "Time": "18:40",
     "RoomId": 1,
-    "MovieId": 0,
-    "Id": 0
+    "MovieId": 1,
+    "Id": 1
   },
   {
     "Date": "19-03-2023",
     "Time": "13:50",
     "RoomId": 1,
-    "MovieId": 0,
-    "Id": 0
+    "MovieId": 2,
+    "Id": 2
   },
   {
     "Date": "2005-01-13",
     "Time": "13:01",
     "RoomId": 5,
-    "MovieId": 0,
-    "Id": 1
+    "MovieId": 3,
+    "Id": 3
   }
 ]

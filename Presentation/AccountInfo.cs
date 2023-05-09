@@ -12,7 +12,7 @@ public static class AccountInfo
         \/     \/    \/                 \/                \/                            
 
         Welcome {Menu.loggedaccount.FullName} to your account.";
-        string[] options = { "Change Email", "Change Password", "Tickets Info", "Back" };
+        string[] options = { "Change Email", "Change Password", "Tickets Info", "Delete Account", "Back" };
         KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
         int selectedIndex = mainMenu.Run();
         switch (selectedIndex)
@@ -94,12 +94,37 @@ public static class AccountInfo
 
             case 2:
                 //show tickets
-                ReservationInfo info = new ReservationInfo();
-                info.TicketOptions();
+                // ReservationInfo info = new ReservationInfo();
+                ReservationInfo.TicketOptions();
                 break;
             case 3:
+                string prompt2 = @"Are you sure you want to delete this account?";
+                string[] options2 = { "Yes", "No" };
+                KeyBoardLogic mainMenu2 = new KeyBoardLogic(prompt2, options2);
+                int selectedIndex2 = mainMenu2.Run();
+                if (selectedIndex2 == 0)
+                {
+                    Console.WriteLine("Type the password of the account in for comfirmation");
+                    string choice = Console.ReadLine();
+                    while (choice != Menu.loggedaccount.Password)
+                    {
+                        Console.WriteLine("Wrong password");
+                        choice = Console.ReadLine();
+                    }
+                    AccountsLogic accountlogic = new AccountsLogic();
+                    accountlogic.DeleteAccount(Menu.loggedaccount);
+                    Console.WriteLine("The account has been deleted.");
+                    Thread.Sleep(3500);
+                    Menu.Start();
+                }
+                else
+                {
+                    UserLoggedIn.Start();
+                }
+                break;
+            case 4:
                 // go back
-                Menu.Start();
+                UserLoggedIn.Start();
                 break;
         }
     }

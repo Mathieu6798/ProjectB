@@ -1,6 +1,6 @@
 public class ReservationInfo
 {
-    public void CancelTicket()
+    public static void CancelTicket()
     {
         string prompt = @"  
  ________  ________  ________   ________  _______   ___        _________  ___  ________  ___  __    _______  _________   
@@ -21,7 +21,8 @@ public class ReservationInfo
         int counter = 0;
         if (selectedIndex == options.Length - 1)
         {
-            AccountInfo.Start();
+            // AccountInfo.Start();
+            TicketOptions();
         }
         foreach (var i in options)
         {
@@ -30,12 +31,12 @@ public class ReservationInfo
                 logic.RemoveReservation(reservationlist, counter);
                 Console.WriteLine("Ticket has been removed");
                 System.Threading.Thread.Sleep(3000);
-                Menu.Start();
+                TicketOptions();
             }
             counter++;
         }
     }
-    public void ShowTickets()
+    public static void ShowTickets()
     {
         string prompt = @"  
  _________  ___  ________  ___  __    _______  _________  ________      
@@ -57,18 +58,21 @@ public class ReservationInfo
         int counter = 0;
         if (selectedIndex == options.Length - 1)
         {
-            AccountInfo.Start();
+            // AccountInfo.Start();
+            TicketOptions();
         }
         foreach (var i in options)
         {
             if (selectedIndex == counter)
             {
                 logic.PrintInformation(reservationlist, counter);
+                // System.Threading.Thread.Sleep(3000);
+                // TicketOptions();
             }
             counter++;
         }
     }
-    public void TicketOptions()
+    public static void TicketOptions()
     {
         string prompt = @"
  _________  ___  ________  ___  __    _______  _________        ___  ________   ________ ________     

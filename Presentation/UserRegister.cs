@@ -54,12 +54,14 @@ static class UserRegister
         if (acc != null)
         {
             Console.WriteLine("This email adress already exists on another account.");
+            Thread.Sleep(3500);
             Menu.Start();
         }
         else
         {
             accountsLogic.AddAcount(name, email, password);
             Console.WriteLine("Youre account has been added");
+            Thread.Sleep(3500);
             Menu.Start();
         }
     }

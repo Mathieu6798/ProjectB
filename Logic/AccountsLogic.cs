@@ -92,7 +92,7 @@ class AccountsLogic
             {
                 Console.WriteLine("\nThe is email number already exists.");
                 System.Threading.Thread.Sleep(3000);
-                Menu.Start();
+                UserLoggedIn.Start();
             }
         }
         foreach (var i in _accounts)
@@ -106,7 +106,7 @@ class AccountsLogic
         }
         AccountsAccess.WriteAll(_accounts);
         System.Threading.Thread.Sleep(3000);
-        Menu.Start();
+        UserLoggedIn.Start();
     }
     public void ChangePassword(string password)
     {

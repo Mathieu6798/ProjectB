@@ -6,5 +6,40 @@
       1,
       2
     ]
+  },
+  {
+    "ShowId": 1,
+    "AccountID": 1,
+    "Chairs": [
+      38
+    ]
+  },
+  {
+    "ShowId": 1,
+    "AccountID": 1,
+    "Chairs": [
+      69
+    ]
+  },
+  {
+    "ShowId": 1,
+    "AccountID": 1,
+    "Chairs": [
+      1
+    ]
+  },
+  {
+    "ShowId": 1,
+    "AccountID": 1,
+    "Chairs": [
+      54
+    ]
+  },
+  {
+    "ShowId": 1,
+    "AccountID": 1,
+    "Chairs": [
+      70
+    ]
   }
 ]

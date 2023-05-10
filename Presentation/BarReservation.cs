@@ -55,7 +55,7 @@ public class BarReservation
             BarReservationAccess.WriteAll(_barreservations);
             Console.WriteLine("Your reservation has been added.");
             System.Threading.Thread.Sleep(3000);
-            Menu.Start();
+            UserLoggedIn.Start();
         }
     }
 }

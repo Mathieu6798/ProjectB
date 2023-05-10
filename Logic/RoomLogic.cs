@@ -45,12 +45,12 @@ public class RoomLogic
         // Retrieve chairs for the specified room
         // var roomChairIds = new List<int>(roomModel.Chairs);
         // var chairs = chairModels.Where(c => roomChairIds.Contains(c.ChairId));
-        var roomChairIds = new List<ChairModel>(roomModel.Chairs);
-        var chairs = chairModels.Where(c => roomChairIds.Contains(c));
+        var roomChairIds = new List<int>(roomModel.Chairs);
+        var chairs = chairModels.Where(c => roomChairIds.Contains(c.ChairId));
 
         foreach (var chairId in roomModel.Chairs)
         {
-            var chair = chairs.FirstOrDefault(c => c.ChairId == chairId.ChairId);
+            var chair = chairs.FirstOrDefault(c => c.ChairId == chairId);
 
             if (chair != null)
             {
@@ -65,6 +65,7 @@ public class RoomLogic
 
 
         Console.WriteLine("   " + string.Join("  ", Enumerable.Range(1, roomModel.Columns)));
+        Console.Clear();
 
         while (true)
         {
@@ -157,5 +158,29 @@ public class RoomLogic
 
             Console.ResetColor();
         }
+    }
+
+
+
+    public static void AdminRoom(int showId)
+    {
+        var pathroom = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/show.json"));
+        // Hier pakt het alle rooms van JSON file
+        var json = File.ReadAllText(pathroom);
+        var showModels = JsonSerializer.Deserialize<List<ShowModel>>(json);
+
+
+        // Hier zoekt het naar de showID
+        var showModel = showModels.FirstOrDefault(r => r.Id == showId);
+
+
+        if (showModel == null)
+        {
+            Console.WriteLine($"Show with ID {showId} not found.");
+            return;
+        }
+
+        var roomid = showModel.RoomId;
+
     }
 }

@@ -103,6 +103,8 @@ class ReservationLogic
         MovieLogic movielogic = new MovieLogic();
         MovieModel movie = movielogic.GetById(show.MovieId);
         Console.WriteLine(ReservationLogic.GetShowMovieInfo(reservation) + $"\nGenre: {movie.Genre} \nInfo: {movie.Info}");
+        Thread.Sleep(3500);
+        ReservationInfo.TicketOptions();
     }
 }
 

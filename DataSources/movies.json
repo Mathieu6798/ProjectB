@@ -26,5 +26,19 @@
     "Genre": "action",
     "Age": 24,
     "Info": "bananaV1"
+  },
+  {
+    "MovieId": 5,
+    "Name": "bats",
+    "Genre": "actie",
+    "Age": 18,
+    "Info": "bats"
+  },
+  {
+    "MovieId": 6,
+    "Name": "batu",
+    "Genre": "actie",
+    "Age": 18,
+    "Info": "bert"
   }
 ]

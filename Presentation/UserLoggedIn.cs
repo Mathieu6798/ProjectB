@@ -24,7 +24,8 @@ static class UserLoggedIn
             }
             else if (selectedIndex == 2)
             {
-                Console.WriteLine("This feature is not yet implemented");
+                // Console.WriteLine("This feature is not yet implemented");
+                RoomLogic.Start(1, 1);
             }
             else
             {

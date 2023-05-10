@@ -13,9 +13,9 @@ class RoomModel
     public int Columns { get; set; }
 
     [JsonPropertyName("chairs")]
-    public List<ChairModel> Chairs { get; set; }
+    public List<int> Chairs { get; set; }
 
-    public RoomModel(int id, int rows, int columns, List<ChairModel> chairs)
+    public RoomModel(int id, int rows, int columns, List<int> chairs)
     {
         Id = id;
         Rows = rows;

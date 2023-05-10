@@ -10,7 +10,6 @@ public class ChairModel
     public int Rownumber { get; set; }
     [JsonPropertyName("chairnumber")]
     public int Chairnumber { get; set; }
-    public bool IsBooked { get; set; }
 
     public ChairModel(int chairid, string rank, int rownumber, int chairnumber)
     {

@@ -5,8 +5,8 @@ public class BarReservation
     private static List<BarReservationModel> _barreservations;
     public static void Start()
     {
-        ReservationModel lastReservation = (ReservationAccess.LoadAll()).LastOrDefault();
-        ShowModel show = (ShowAccess.LoadAll()).FirstOrDefault(x => x.Id == lastReservation.ShowId);
+        ReservationModel lastReservation = (ReservationAccess.LoadAll()).Last();
+        ShowModel show = (ShowAccess.LoadAll()).First(x => x.Id == lastReservation.ShowId);
         try
         {
             _barreservations = BarReservationAccess.LoadAll();
@@ -41,7 +41,7 @@ public class BarReservation
             BarReservationAccess.WriteAll(_barreservations);
             Console.WriteLine("Your reservation has been added.");
             System.Threading.Thread.Sleep(3000);
-            Menu.Start();
+            UserLoggedIn.Start();
         }
         else
         {
@@ -54,7 +54,7 @@ public class BarReservation
             _barreservations.Add(new BarReservationModel(name, people, show.Time));
             BarReservationAccess.WriteAll(_barreservations);
             Console.WriteLine("Your reservation has been added.");
-            System.Threading.Thread.Sleep(3000);
+            Thread.Sleep(3000);
             UserLoggedIn.Start();
         }
     }

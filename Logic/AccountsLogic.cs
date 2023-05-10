@@ -90,7 +90,7 @@ class AccountsLogic
         {
             if (i.EmailAddress == email)
             {
-                Console.WriteLine("\nThe is email number already exists.");
+                Console.WriteLine("\nThis email address already exists.");
                 System.Threading.Thread.Sleep(3000);
                 UserLoggedIn.Start();
             }

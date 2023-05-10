@@ -1,15 +1,22 @@
 public class BuyTicket
 {
     public ReservationModel ticket;
-    public BuyTicket(int showId, int accountID, List<int> chairs)
+    public BuyTicket(int accountID, int showId, List<int> chairs)
     {
         ticket = new ReservationModel(showId, accountID, chairs);
         // Overview(new ReservationModel(showId, accountID, chairs));
     }
     public void Overview()
     {
-        string Ticket = $"Ticket: \nShow ID: {ticket.ShowId} \nAccount ID: {ticket.AccountID} \nSeat: {ticket.Chairs}";
-        string prompt1 = $@" {ticket}          
+        ShowModel show = (ShowAccess.LoadAll()).First(x => x.Id == ticket.ShowId);
+        MovieModel movie = (MoviesAccess.LoadAll()).First(x => x.MovieId == show.MovieId);
+        // string Ticket = $"Ticket: \nShow ID: {movie.Name} \nAccount ID: {ticket.AccountID} \nSeat: ";
+        string Ticket = $"Ticket: \n Movie: {movie.Name} \n Time: {show.Time} \n Date: {show.Date} \n Seat: ";
+        for (int i = 0; i < ticket.Chairs.Count; i++)
+        {
+            Ticket += $"{ticket.Chairs[i]}";
+        }
+        string prompt1 = $@" {Ticket}          
         Do you want to buy this ticket?";
         string[] options1 = { "Yes", "No" };
         KeyBoardLogic mainMenu1 = new KeyBoardLogic(prompt1, options1);

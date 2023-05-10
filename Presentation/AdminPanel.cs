@@ -52,12 +52,12 @@ static class AdminPanel
         else if (selectedIndexAdmin == 2)
         {
             Console.WriteLine("Remove movie");
-            AdminEdit.RemoveMovie();
+            AdminEdit.RemoveMovieChoice();
         }
         else if (selectedIndexAdmin == 3)
         {
             Console.WriteLine("Remove show");
-            AdminEdit.RemoveShow();
+            AdminEdit.RemoveShowChoice();
         }
         else if (selectedIndexAdmin == 4)
         {

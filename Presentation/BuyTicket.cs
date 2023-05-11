@@ -1,19 +1,20 @@
 public class BuyTicket
 {
     public ReservationModel ticket;
-    public BuyTicket(int showId, int accountID, List<int> chairs)
+    public BuyTicket(int accountID, int showId, List<int> chairs)
     {
         ticket = new ReservationModel(showId, accountID, chairs);
         // Overview(new ReservationModel(showId, accountID, chairs));
     }
     public void Overview()
     {
-        ShowModel show = (ShowAccess.LoadAll()).FirstOrDefault(x => x.Id == ticket.ShowId);
-        MovieModel movie = (MoviesAccess.LoadAll()).FirstOrDefault(x => x.MovieId == show.MovieId);
+        ShowModel show = (ShowAccess.LoadAll()).First(x => x.Id == ticket.ShowId);
+        MovieModel movie = (MoviesAccess.LoadAll()).First(x => x.MovieId == show.MovieId);
+        // string Ticket = $"Ticket: \nShow ID: {movie.Name} \nAccount ID: {ticket.AccountID} \nSeat: ";
         string Ticket = $"Ticket: \n Movie: {movie.Name} \n Time: {show.Time} \n Date: {show.Date} \n Seat: ";
-        foreach (var i in ticket.Chairs)
+        for (int i = 0; i < ticket.Chairs.Count; i++)
         {
-            Ticket += i;
+            Ticket += $"{ticket.Chairs[i]}";
         }
         string prompt1 = $@" {Ticket}          
         Do you want to buy this ticket?";

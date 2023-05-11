@@ -19,7 +19,7 @@ public static class AccountInfo
         {
             case 0:
                 //change email
-                Console.WriteLine("What do you want the new password to be?");
+                Console.WriteLine("What do you want the new email to be?");
                 string email = Console.ReadLine();
                 while (!email.Contains("@"))
                 {

@@ -163,25 +163,95 @@ public class RoomLogic
 
 
 
-    public static void AdminRoom(int showId)
+    public static void AdminRoomCheck(int showId)
     {
-        var pathroom = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/show.json"));
-        // Hier pakt het alle rooms van JSON file
-        var json = File.ReadAllText(pathroom);
-        var showModels = JsonSerializer.Deserialize<List<ShowModel>>(json);
+        ShowLogic showlogic = new ShowLogic();
+        ShowModel show = showlogic.GetById(showId);
 
+        var roomId = show.RoomId;
+        var roomModel = GetRoomById(roomId);
 
-        // Hier zoekt het naar de showID
-        var showModel = showModels.FirstOrDefault(r => r.Id == showId);
-
-
-        if (showModel == null)
+        if (roomModel == null)
         {
-            Console.WriteLine($"Show with ID {showId} not found.");
+            Console.WriteLine($"Room with ID {roomId} not found.");
             return;
         }
 
-        var roomid = showModel.RoomId;
+        CreateSeatingChart(roomId, showId);
+        // Display seating chart and allow seat selection
+        // ... (rest of the code)
+    }
 
+    private static RoomModel GetRoomById(int roomId)
+    {
+        var pathroom = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/Rooms.json"));
+        var json = File.ReadAllText(pathroom);
+        var roomModels = JsonSerializer.Deserialize<List<RoomModel>>(json);
+
+        return roomModels.FirstOrDefault(r => r.Id == roomId);
+    }
+
+    private static void CreateSeatingChart(int roomId, int showId)
+    {
+        var pathroom = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/Rooms.json"));
+        var json = File.ReadAllText(pathroom);
+        var roomModels = JsonSerializer.Deserialize<List<RoomModel>>(json);
+
+        var roomModel = roomModels.FirstOrDefault(r => r.Id == roomId);
+
+        if (roomModel == null)
+        {
+            Console.WriteLine($"Room with ID {roomId} not found.");
+            return;
+        }
+
+        Console.WriteLine($"Seating chart for room {roomModel.Id}:");
+        Console.WriteLine("   " + string.Join("  ", Enumerable.Range(1, roomModel.Columns)));
+
+        var path = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/reservation.json"));
+        json = File.ReadAllText(path);
+        var reservationModels = JsonSerializer.Deserialize<List<ReservationModel>>(json);
+
+        foreach (var reservation in reservationModels)
+        {
+            if (reservation.ShowId == showId)
+            {
+                foreach (var chairId in reservation.Chairs)
+                {
+                    var row = (chairId - 1) / roomModel.Columns;
+                    var column = (chairId - 1) % roomModel.Columns;
+
+                    if (row < roomModel.Rows && column < roomModel.Columns)
+                    {
+                        Console.SetCursorPosition((column * 2) + 3, row + 2);
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write("X");
+                    }
+                }
+            }
+        }
+
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine();
+
+        for (int i = 1; i <= roomModel.Rows; i++)
+        {
+            Console.Write($"{i + 1}  ");
+            for (int j = 1; j <= roomModel.Columns; j++)
+            {
+                var chairId = (i - 1) * roomModel.Columns + j;
+                if (roomModel.Chairs.Contains(chairId))
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("O ");
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.Write("- ");
+                }
+            }
+            Console.WriteLine();
+        }
     }
 }

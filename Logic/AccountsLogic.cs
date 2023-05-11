@@ -122,7 +122,7 @@ public class AccountsLogic
         }
         AccountsAccess.WriteAll(_accounts);
         System.Threading.Thread.Sleep(3000);
-        Menu.Start();
+        UserLoggedIn.Start();
     }
 }
 

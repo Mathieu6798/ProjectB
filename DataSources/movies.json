@@ -40,5 +40,12 @@
     "Genre": "actie",
     "Age": 18,
     "Info": "bert"
+  },
+  {
+    "MovieId": 7,
+    "Name": "Milan avontuur",
+    "Genre": "horror",
+    "Age": 200000,
+    "Info": "Milan is de beste"
   }
 ]

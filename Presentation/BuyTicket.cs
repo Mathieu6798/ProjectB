@@ -1,7 +1,7 @@
 public class BuyTicket
 {
     public ReservationModel ticket;
-    public BuyTicket(int accountID, int showId, List<int> chairs)
+    public BuyTicket(int showId, int accountID, List<int> chairs)
     {
         ticket = new ReservationModel(showId, accountID, chairs);
         // Overview(new ReservationModel(showId, accountID, chairs));

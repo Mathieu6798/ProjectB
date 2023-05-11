@@ -120,7 +120,7 @@ class MovieLogic
             // System.Console.WriteLine("OK");
             // Menu.Start();
             string[] split = optionList2[input2].Split("-----");
-            ShowModel show1 = (ShowAccess.LoadAll()).FirstOrDefault(x => x.Date == split[0] || x.Time == split[1]);
+            ShowModel show1 = (ShowAccess.LoadAll()).First(x => x.Date == split[0] || x.Time == split[1]);
             ShowLogic logic = new ShowLogic();
 
             // ShowModel show1 = logic.GetById(input2);

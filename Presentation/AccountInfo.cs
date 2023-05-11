@@ -10,8 +10,7 @@ public static class AccountInfo
 /    |    \  \__\  \__(  <_> )  |  /   |  \  |   |   |   |  \  | (  <_> )
 \____|__  /\___  >___  >____/|____/|___|  /__|   |___|___|  /__|  \____/ 
         \/     \/    \/                 \/                \/                            
-
-        Welcome {Menu.loggedaccount.FullName} to your account.";
+";
         string[] options = { "Change Email", "Change Password", "Tickets Info", "Delete Account", "Back" };
         KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
         int selectedIndex = mainMenu.Run();
@@ -32,7 +31,7 @@ public static class AccountInfo
                 break;
             case 1:
                 //change password
-                Console.WriteLine("Put in the old password");
+                Console.WriteLine("Type in the old password");
                 string oldpassword = "";
                 while (true)
                 {
@@ -63,7 +62,7 @@ public static class AccountInfo
                     Thread.Sleep(3500);
                     Start();
                 }
-                Console.WriteLine("What do you want the new password to be?");
+                Console.WriteLine("\nWhat do you want the new password to be?");
                 string password = "";
                 while (true)
                 {

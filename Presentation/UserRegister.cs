@@ -71,22 +71,47 @@ static class UserRegister
         while (confirmpassword != password)
         {
             Console.WriteLine("\nPlease confirm password");
-            confirmpassword = Console.ReadLine();
-        }
+            // confirmpassword = Console.ReadLine();
+            string confirmpassword2 = "";
+            while (true)
+            {
+                ConsoleKeyInfo key = Console.ReadKey(true);
+                if (key.Key == ConsoleKey.Enter)
+                {
+                    break;
+                }
+                else if (key.Key == ConsoleKey.Backspace && confirmpassword2.Length > 0)
+                {
+                    //removes latest letter if backspace is pressed
+                    confirmpassword2 = confirmpassword2.Substring(0, confirmpassword2.Length - 1);
+                    Console.Write("\b \b");
+                }
+                else if (Char.IsLetterOrDigit(key.KeyChar))
+                {
+                    //turn the letter into the star.
+                    confirmpassword2 += key.KeyChar;
+                    Console.Write(key.KeyChar);
+                    System.Threading.Thread.Sleep(100);
+                    Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                    Console.Write("*");
+                }
+                confirmpassword = confirmpassword2;
+            }
 
-        AccountModel acc = accountsLogic.CheckExistingEmail(email);
-        if (acc != null)
-        {
-            Console.WriteLine("This email adress already exists on another account.");
-            Thread.Sleep(3500);
-            Menu.Start();
-        }
-        else
-        {
-            accountsLogic.AddAcount(name, email, password);
-            Console.WriteLine("\nYour account has been added");
-            Thread.Sleep(3500);
-            Menu.Start();
+            AccountModel acc = accountsLogic.CheckExistingEmail(email);
+            if (acc != null)
+            {
+                Console.WriteLine("This email adress already exists on another account.");
+                Thread.Sleep(3500);
+                Menu.Start();
+            }
+            else
+            {
+                accountsLogic.AddAcount(name, email, password);
+                Console.WriteLine("\nYour account has been added");
+                Thread.Sleep(3500);
+                Menu.Start();
+            }
         }
     }
 }

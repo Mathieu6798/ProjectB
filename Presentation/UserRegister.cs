@@ -42,11 +42,35 @@ static class UserRegister
                 Console.Write("*");
             }
         }
-        Console.WriteLine("Please confirm password");
-        string confirmpassword = Console.ReadLine();
+        Console.WriteLine("\nPlease confirm password");
+        // string confirmpassword = Console.ReadLine();
+        string confirmpassword = "";
+        while (true)
+        {
+            ConsoleKeyInfo key = Console.ReadKey(true);
+            if (key.Key == ConsoleKey.Enter)
+            {
+                break;
+            }
+            else if (key.Key == ConsoleKey.Backspace && confirmpassword.Length > 0)
+            {
+                //removes latest letter if backspace is pressed
+                confirmpassword = confirmpassword.Substring(0, confirmpassword.Length - 1);
+                Console.Write("\b \b");
+            }
+            else if (Char.IsLetterOrDigit(key.KeyChar))
+            {
+                //turn the letter into the star.
+                confirmpassword += key.KeyChar;
+                Console.Write(key.KeyChar);
+                System.Threading.Thread.Sleep(100);
+                Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                Console.Write("*");
+            }
+        }
         while (confirmpassword != password)
         {
-            Console.WriteLine("Please confirm password");
+            Console.WriteLine("\nPlease confirm password");
             confirmpassword = Console.ReadLine();
         }
 
@@ -60,7 +84,7 @@ static class UserRegister
         else
         {
             accountsLogic.AddAcount(name, email, password);
-            Console.WriteLine("Youre account has been added");
+            Console.WriteLine("\nYour account has been added");
             Thread.Sleep(3500);
             Menu.Start();
         }

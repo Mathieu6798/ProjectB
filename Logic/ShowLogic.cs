@@ -18,14 +18,13 @@ class ShowLogic
     {
         try
         {
-            DateTime dateTime = DateTime.Parse(date);
+            DateTime dateTime = DateTime.ParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
             DateTime Time = DateTime.ParseExact(time, "HH:mm", CultureInfo.InvariantCulture);
-            Console.WriteLine($"TEST FOR SUCCES");
             ShowLogic.AddShow(date, time, roomId, movieId);
         }
         catch (FormatException)
         {
-            Console.WriteLine($"Incorrect date or time format");
+            Console.WriteLine($"\nIncorrect date or time format");
             Console.WriteLine($"The correct format for the date is: dd/mm/yyyy and for time it is: HH:mm\n ");
             AdminEdit.AddShow();
         }

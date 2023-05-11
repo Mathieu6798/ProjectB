@@ -8,8 +8,14 @@ public class BuyTicket
     }
     public void Overview()
     {
-        string Ticket = $"Ticket: \nShow ID: {ticket.ShowId} \nAccount ID: {ticket.AccountID} \nSeat: {ticket.Chairs}";
-        string prompt1 = $@" {ticket}          
+        ShowModel show = (ShowAccess.LoadAll()).FirstOrDefault(x => x.Id == ticket.ShowId);
+        MovieModel movie = (MoviesAccess.LoadAll()).FirstOrDefault(x => x.MovieId == show.MovieId);
+        string Ticket = $"Ticket: \n Movie: {movie.Name} \n Time: {show.Time} \n Date: {show.Date} \n Seat: ";
+        foreach (var i in ticket.Chairs)
+        {
+            Ticket += i;
+        }
+        string prompt1 = $@" {Ticket}          
         Do you want to buy this ticket?";
         string[] options1 = { "Yes", "No" };
         KeyBoardLogic mainMenu1 = new KeyBoardLogic(prompt1, options1);

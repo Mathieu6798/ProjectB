@@ -12,6 +12,7 @@ public class AdminEdit
         string info = Console.ReadLine();
         MovieLogic logic = new MovieLogic();
         MovieLogic.AddMovie(title, genre, age, info);
+        AdminPanel.AdminMenu();
     }
 
 

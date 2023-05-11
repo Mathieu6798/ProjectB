@@ -10,7 +10,7 @@ static class AdminLogin
         string email = Console.ReadLine();
         Console.WriteLine("Please enter the admin password");
         string password = Console.ReadLine();
-        AccountModel acc = adminLogic.CheckLogin(email, password);
+        AdminAccountModel acc = adminLogic.CheckLogin(email, password);
         if (acc != null)
         {
             Console.WriteLine("Welcome back " + acc.FullName);

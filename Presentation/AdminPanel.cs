@@ -5,39 +5,9 @@ static class AdminPanel
         Console.WriteLine("Welcome to the Admin panel");
         Console.WriteLine("What would you like to do?: ");
         Console.WriteLine("1. Add a movie\n2. Remove a movie\n3. Add a show\n4. Remove a show\nM. Back to the Menu\nQ. Quit program");
-        // string choice = Console.ReadLine().ToUpper();
-        // if (choice != null)
-        // {
-        //     switch (choice)
-        //     {
-        //         case "1":
-        //             AdminEdit.AddMovie();
-        //             break;
-        //         case "2":
-        //             AdminEdit.RemoveMovie();
-        //             break;
-        //         case "3":
-        //             AdminEdit.AddShow();
-        //             break;
-        //         case "4":
-        //             AdminEdit.RemoveShow();
-        //             break;
-        //         case "M":
-        //             Menu.Start();
-        //             break;
-        //         case "Q":
-        //             Environment.Exit(0);
-        //             break;
-        //     }
-        // }
-        // else
-        // {
-        //     Console.WriteLine("That was not an option");
-        //     AdminMenu();
-        // }
 
         string promptAdmin = "Welcome Admin";
-        string[] optionsAdmin = { "Add a movie", "Add a show", "Remove a movie", "Remove a show", "Check booked seats" };
+        string[] optionsAdmin = { "Add a movie", "Add a show", "Remove a movie", "Remove a show", "Check booked seats", "Logout" };
         KeyBoardLogic adminMenu = new KeyBoardLogic(promptAdmin, optionsAdmin);
         int selectedIndexAdmin = adminMenu.Run();
         if (selectedIndexAdmin == 0)
@@ -59,9 +29,17 @@ static class AdminPanel
             Console.WriteLine("Remove show");
             AdminEdit.RemoveShowChoice();
         }
-        else if (selectedIndexAdmin == 4)
+        else if (selectedIndexAdmin == 4){
+          //
+        }
+        else if (selectedIndexAdmin == 5)
         {
-            //
+            Menu.loggedaccount = null;
+            Console.Clear();
+            Console.WriteLine("You are now logged out");
+            Thread.Sleep(3000);
+            Menu.Start();
+
         }
         else
         {

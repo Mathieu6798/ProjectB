@@ -61,11 +61,15 @@ static class UserLogin
             Thread.Sleep(3500);
             Menu.Start();
         }
-        else if (acc.EmailAddress == "admin@admin678.nl")
-        {
-            AdminPanel.AdminMenu();
-        }
-        else if (acc != null && acc.EmailAddress != "admin@admin678.nl")
+
+
+
+
+
+
+        /////////////////////////////////////////////////
+
+        else if (acc != null && acc.EmailAddress != null)
         {
             Console.WriteLine("Welcome back " + acc.FullName + "!");
             Console.WriteLine("Your email number is " + acc.EmailAddress);
@@ -78,5 +82,8 @@ static class UserLogin
             Thread.Sleep(3500);
             Menu.Start();
         }
+        //////////////////////////////////////////////////////
+
+
     }
 }

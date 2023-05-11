@@ -104,7 +104,7 @@ public class RoomLogic
                     bookedChairs.Add(selectedSeat.ChairId);
                     int accid = Menu.loggedaccount.Id;
                     int Showid = showid;
-                    BuyTicket ticket = new BuyTicket(accid, Showid, bookedChairs);
+                    BuyTicket ticket = new BuyTicket(Showid, accid, bookedChairs);
                     Thread.Sleep(3500);
                     ticket.Overview();
                 }

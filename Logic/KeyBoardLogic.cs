@@ -29,7 +29,7 @@ class KeyBoardLogic
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Black;
             }
-            Console.WriteLine($"{prefix} <<{currentOption}>>");
+            Console.WriteLine($"{prefix} {currentOption}");
         }
         Console.ResetColor();
     }

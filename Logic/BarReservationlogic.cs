@@ -1,4 +1,4 @@
-public class BarReservationLogic
+public class BarReservationLogic : ReservationLogic
 {
     private static int MaxReservations = 40;
     private static int ActualReservations;
@@ -9,7 +9,7 @@ public class BarReservationLogic
     }
     public bool AddBarReservations()
     {
-        ReservationModel lastReservation = (ReservationAccess.LoadAll()).Last();
+        ReservationModel lastReservation = (_reservations).Last();
         ShowModel show = (ShowAccess.LoadAll()).First(x => x.Id == lastReservation.ShowId);
         MovieModel movie = (MoviesAccess.LoadAll()).First(x => x.MovieId == show.MovieId);
         foreach (var i in _barreservations)

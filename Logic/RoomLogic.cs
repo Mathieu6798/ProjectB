@@ -64,8 +64,8 @@ public class RoomLogic
         List<int> bookedChairs = new List<int>();
 
 
-        Console.WriteLine("   " + string.Join("  ", Enumerable.Range(1, roomModel.Columns)));
-        Console.Clear();
+        // Console.WriteLine("   " + string.Join("  ", Enumerable.Range(1, roomModel.Columns)));
+        // Console.Clear();
 
         while (true)
         {

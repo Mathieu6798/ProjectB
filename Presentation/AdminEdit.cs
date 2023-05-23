@@ -93,7 +93,14 @@ public class AdminEdit
         string date = Console.ReadLine();
         Console.WriteLine("Enter time: ");
         string time = Console.ReadLine();
-        ShowLogic.RemoveShow(id, date, time);
+        if (ShowLogic.RemoveShow(id, date, time) == null)
+        {
+            RemoveShow();
+        }
+        else
+        {
+            Console.WriteLine(ShowLogic.RemoveShow(id, date, time));
+        }
     }
 
 }

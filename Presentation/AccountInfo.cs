@@ -27,7 +27,16 @@ public static class AccountInfo
                     email = Console.ReadLine();
                 }
                 AccountsLogic logic = new AccountsLogic();
-                logic.ChangeEmail(email);
+                if (logic.ChangeEmail(email) == true)
+                {
+                    Console.WriteLine("\nEmail has been changed.");
+                    System.Threading.Thread.Sleep(3000);
+                }
+                else
+                {
+                    Console.WriteLine("\nThis email address already exists.");
+                    System.Threading.Thread.Sleep(3000);
+                }
                 break;
             case 1:
                 //change password
@@ -88,7 +97,17 @@ public static class AccountInfo
                     }
                 }
                 logic = new AccountsLogic();
-                logic.ChangePassword(password);
+                // logic.ChangePassword(password);
+                if (logic.ChangePassword(password) == true)
+                {
+                    Console.WriteLine("\nPassword has been changed.");
+                    System.Threading.Thread.Sleep(3000);
+                }
+                else
+                {
+                    Console.WriteLine("\nCan't change the password");
+                    System.Threading.Thread.Sleep(3000);
+                }
                 break;
 
             case 2:

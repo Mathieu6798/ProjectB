@@ -2,6 +2,7 @@ class MovieLogic
 {
     private static List<MovieModel> _movies;
 
+
     public MovieLogic()
     {
         _movies = MoviesAccess.LoadAll();
@@ -13,7 +14,7 @@ class MovieLogic
     }
 
 
-    public static void AddMovie(string title, string genre, int age, string info)
+    public static bool AddMovie(string title, string genre, int age, string info)
     {
         int count = 0;
         int id;
@@ -38,7 +39,9 @@ class MovieLogic
 
         _movies.Add(movie);
         MoviesAccess.WriteAll(_movies);
+        return true;
     }
+
 
  public static void RemoveMovieChoice()
     {
@@ -65,18 +68,24 @@ class MovieLogic
             MovieLogic.RemoveMovieChoice();
         }
     }
-    public static void Removemovie(string name)
+
+
+    public static bool Removemovie(string name)
+
     {
         if (_movies.Find(i => i.Name == name) == null)
         {
-            Console.WriteLine("No movie found with that name");
-            AdminEdit.RemoveMovie();
+            //Console.WriteLine("No movie found with that name");
+            return false;
+
+
         }
         else
         {
             _movies.Remove(_movies.Find(i => i.Name == name));
             MoviesAccess.WriteAll(_movies);
-            Console.WriteLine("The movie has been removed");
+            return true;
+            //Console.WriteLine("The movie has been removed");
             // AdminPanel.AdminMenu();
         }
     }

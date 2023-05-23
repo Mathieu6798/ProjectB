@@ -5,9 +5,9 @@ using System.Text.Json;
 
 
 //This class is not static so later on we can use inheritance and interfaces
-class ReservationLogic
+public class ReservationLogic
 {
-    private List<ReservationModel> _reservations;
+    protected List<ReservationModel> _reservations;
 
     //Static properties are shared across all instances of the class
     //This can be used to get the current logged in account from anywhere in the program
@@ -73,7 +73,7 @@ class ReservationLogic
         ShowModel show = showlogic.GetById(reservation.ShowId);
         MovieLogic movielogic = new MovieLogic();
         MovieModel movie = movielogic.GetById(show.MovieId);
-        return $"Ticket: \nMovie Name: {movie.Name} \nDate: {show.Date} \nTime: {show.Time}";
+        return $"Ticket: \nMovie: {movie.Name} \nDate: {show.Date} \nTime: {show.Time}";
     }
     public string[] MenuOptions(List<ReservationModel> reservationlist)
     {
@@ -95,16 +95,17 @@ class ReservationLogic
         index++;
         return options;
     }
-    public void PrintInformation(List<ReservationModel> reservationlist, int counter)
+    public string PrintInformation(List<ReservationModel> reservationlist, int counter)
     {
         ReservationModel reservation = _reservations.Find(i => i == reservationlist[counter]);
         ShowLogic showlogic = new ShowLogic();
         ShowModel show = showlogic.GetById(reservation.ShowId);
         MovieLogic movielogic = new MovieLogic();
         MovieModel movie = movielogic.GetById(show.MovieId);
-        Console.WriteLine(ReservationLogic.GetShowMovieInfo(reservation) + $"\nGenre: {movie.Genre} \nInfo: {movie.Info}");
-        Thread.Sleep(3500);
-        ReservationInfo.TicketOptions();
+        // Console.WriteLine(ReservationLogic.GetShowMovieInfo(reservation) + $"\nGenre: {movie.Genre} \nInfo: {movie.Info}");
+        return $"{ReservationLogic.GetShowMovieInfo(reservation)} \nGenre: {movie.Genre} \nInfo: {movie.Info}";
+        // Thread.Sleep(3500);
+        // ReservationInfo.TicketOptions();
     }
 }
 

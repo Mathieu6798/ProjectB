@@ -94,7 +94,7 @@ class ShowLogic
             }
         }
     }
-    public static void RemoveShow(int id, string date, string time)
+    public static string RemoveShow(int id, string date, string time)
     {
         if (_shows == null)
         {
@@ -102,25 +102,30 @@ class ShowLogic
         }
         if (_shows.Find(i => i.Id == id) == null)
         {
-            Console.WriteLine("No show found with that movie id");
+            // Console.WriteLine("No show found with that movie id");
+            return "No show found with that movie id";
         }
         if (_shows.Find(i => i.Date == date) == null)
         {
-            Console.WriteLine("No show found with that date");
+            // Console.WriteLine("No show found with that date");
+            return "No show found with that date";
         }
         if (_shows.Find(i => i.Time == time) == null)
         {
-            Console.WriteLine("No show found with that time");
+            // Console.WriteLine("No show found with that time");
+            return "No show found with that time";
         }
         if (_shows.Find(i => i.Id == id) == null || _shows.Find(i => i.Date == date) == null || _shows.Find(i => i.Time == time) == null)
         {
-            AdminEdit.RemoveShow();
+            // AdminEdit.RemoveShow();
+            return null;
         }
         else
         {
             _shows.Remove(_shows.Find(i => i.Id == id && i.Date == date && i.Time == time));
             ShowAccess.WriteAll(_shows);
-            Console.WriteLine("Show is removed");
+            // Console.WriteLine("Show is removed");
+            return "Show is removed";
         }
     }
 }

@@ -65,7 +65,15 @@ public class ReservationInfo
         {
             if (selectedIndex == counter)
             {
-                logic.PrintInformation(reservationlist, counter);
+                string prompt2 = @$"{logic.PrintInformation(reservationlist, counter)}";
+                string[] options2 = { "Back" };
+                KeyBoardLogic mainMenu2 = new KeyBoardLogic(prompt2, options2);
+                int selectedIndex2 = mainMenu2.Run();
+                if (selectedIndex2 == 0)
+                {
+                    TicketOptions();
+                }
+                // logic.PrintInformation(reservationlist, counter);
                 // System.Threading.Thread.Sleep(3000);
                 // TicketOptions();
             }

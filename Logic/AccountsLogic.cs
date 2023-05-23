@@ -83,16 +83,17 @@ public class AccountsLogic
         _accounts.Add(new AccountModel(id, email, password, name));
         AccountsAccess.WriteAll(_accounts);
     }
-    public void ChangeEmail(string email)
+    public bool ChangeEmail(string email)
     {
         CurrentAccount = Menu.loggedaccount;
         foreach (var i in _accounts)
         {
             if (i.EmailAddress == email)
             {
-                Console.WriteLine("\nThis email address already exists.");
-                System.Threading.Thread.Sleep(3000);
-                UserLoggedIn.Start();
+                // Console.WriteLine("\nThis email address already exists.");
+                // System.Threading.Thread.Sleep(3000);
+                // UserLoggedIn.Start();
+                return false;
             }
         }
         foreach (var i in _accounts)
@@ -101,14 +102,17 @@ public class AccountsLogic
             {
                 i.EmailAddress = email;
                 CurrentAccount.EmailAddress = email;
-                Console.WriteLine("\nEmail has been changed.");
+                AccountsAccess.WriteAll(_accounts);
+                // Console.WriteLine("\nEmail has been changed.");
+                return true;
             }
         }
-        AccountsAccess.WriteAll(_accounts);
-        System.Threading.Thread.Sleep(3000);
-        UserLoggedIn.Start();
+        return false;
+        // AccountsAccess.WriteAll(_accounts);
+        // System.Threading.Thread.Sleep(3000);
+        // UserLoggedIn.Start();
     }
-    public void ChangePassword(string password)
+    public bool ChangePassword(string password)
     {
         CurrentAccount = Menu.loggedaccount;
         foreach (var i in _accounts)
@@ -117,12 +121,15 @@ public class AccountsLogic
             {
                 i.Password = password;
                 CurrentAccount.Password = password;
-                Console.WriteLine("\nPassword has been changed.");
+                AccountsAccess.WriteAll(_accounts);
+                // Console.WriteLine("\nPassword has been changed.");
+                return true;
             }
         }
-        AccountsAccess.WriteAll(_accounts);
-        System.Threading.Thread.Sleep(3000);
-        UserLoggedIn.Start();
+        return false;
+        // AccountsAccess.WriteAll(_accounts);
+        // System.Threading.Thread.Sleep(3000);
+        // UserLoggedIn.Start();
     }
 }
 

@@ -12,12 +12,5 @@
     "RoomId": 1,
     "MovieId": 2,
     "Id": 2
-  },
-  {
-    "Date": "2005-01-13",
-    "Time": "13:01",
-    "RoomId": 3,
-    "MovieId": 3,
-    "Id": 3
   }
 ]

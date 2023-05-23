@@ -6,8 +6,15 @@ static class BarReservationAccess
 
     public static List<BarReservationModel> LoadAll()
     {
-        string json = File.ReadAllText(path);
-        return JsonSerializer.Deserialize<List<BarReservationModel>>(json);
+        try
+        {
+            string json = File.ReadAllText(path);
+            return JsonSerializer.Deserialize<List<BarReservationModel>>(json);
+        }
+        catch (Exception)
+        {
+            return new List<BarReservationModel>();
+        }
     }
 
 

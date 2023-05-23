@@ -20,7 +20,31 @@ class ShowLogic
         {
             DateTime dateTime = DateTime.ParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
             DateTime Time = DateTime.ParseExact(time, "HH:mm", CultureInfo.InvariantCulture);
-            ShowLogic.AddShow(date, time, roomId, movieId);
+            bool timeIsOccupied = true;
+            foreach (var show in ShowAccess.LoadAll())
+            {
+                if (DateTime.Parse(show.Time) <= Time.AddHours(4))
+                {
+                    if (DateTime.Parse(show.Time).AddHours(4) >= Time)
+                    {
+                        if (date == show.Date)
+                        {
+                            if (show.RoomId == roomId)
+                            {
+                                System.Console.WriteLine("Already a show in that room. Choose a different room or time");
+                                timeIsOccupied = false;
+                                AdminEdit.AddShow();
+                                break;
+                            }
+                        }
+                    }
+                }
+
+            }
+            if (timeIsOccupied)
+            {
+                ShowLogic.AddShow(date, time, roomId, movieId);
+            }
         }
         catch (FormatException)
         {

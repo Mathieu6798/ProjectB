@@ -2,6 +2,7 @@ public class AdminEdit
 {
     public static void AddMovie()
     {
+        Console.Clear();
         Console.WriteLine("Enter the title: ");
         string title = Console.ReadLine();
         Console.WriteLine("Enter the genre: ");
@@ -12,15 +13,26 @@ public class AdminEdit
         string info = Console.ReadLine();
         MovieLogic logic = new MovieLogic();
         MovieLogic.AddMovie(title, genre, age, info);
+        if (MovieLogic.AddMovie(title, genre, age, info))
+        {
+            Console.WriteLine("Your movie has been added");
+            Thread.Sleep(3000);
+        }
+        else
+        {
+            Console.WriteLine("The move was not added");
+        }
         AdminPanel.AdminMenu();
     }
 
 
     public static void AddShow()
     {
-        Console.WriteLine("Enter the date: ");
+        Console.Clear();
+        Console.WriteLine("Add Show\n");
+        Console.WriteLine("Enter the date: (dd/mm/yyyy)");
         string date = Console.ReadLine();
-        Console.WriteLine("Enter Time: ");
+        Console.WriteLine("Enter Time: (HH:mm)");
         string time = Console.ReadLine();
         Console.WriteLine("Enter Room number: ");
         int roomId = Convert.ToInt32(Console.ReadLine());

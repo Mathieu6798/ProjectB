@@ -1,6 +1,7 @@
 static class Menu
 {
     static public AccountModel loggedaccount;
+    public static AdminAccountModel loggedaccount2;
 
     //This shows the menu. You can call back to this method to show the menu again
     //after another presentation method is completed.
@@ -16,7 +17,7 @@ static class Menu
               |__/                     
 
         Welcome to the Cinema";
-        string[] options = { "Login", "Register Account", "Select a movie", "Admin Login" };
+        string[] options = { "Login", "Register Account", "Select a movie", "Quit" };
         KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
         int selectedIndex = mainMenu.Run();
 
@@ -37,7 +38,7 @@ static class Menu
             }
             else if (selectedIndex == 3)
             {
-                AdminLogin.Start();
+                Environment.Exit(0);
             }
             else
             {

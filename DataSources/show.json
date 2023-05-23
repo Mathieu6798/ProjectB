@@ -19,5 +19,26 @@
     "RoomId": 3,
     "MovieId": 3,
     "Id": 3
+  },
+  {
+    "Date": "13/03/2005",
+    "Time": "13:56",
+    "RoomId": 1,
+    "MovieId": 2,
+    "Id": 4
+  },
+  {
+    "Date": "13/01/2205",
+    "Time": "13:01",
+    "RoomId": 1,
+    "MovieId": 2,
+    "Id": 5
+  },
+  {
+    "Date": "13/12/2005",
+    "Time": "13:12",
+    "RoomId": 1,
+    "MovieId": 1,
+    "Id": 6
   }
 ]

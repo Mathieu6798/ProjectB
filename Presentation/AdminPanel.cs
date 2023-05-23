@@ -2,11 +2,12 @@ static class AdminPanel
 {
     public static void AdminMenu()
     {
+        Console.Clear();
+        Console.Clear();
         Console.WriteLine("Welcome to the Admin panel");
-        Console.WriteLine("What would you like to do?: ");
         Console.WriteLine("1. Add a movie\n2. Remove a movie\n3. Add a show\n4. Remove a show\nM. Back to the Menu\nQ. Quit program");
 
-        string promptAdmin = "Welcome Admin";
+        string promptAdmin = "What would you like to do?";
         string[] optionsAdmin = { "Add a movie", "Add a show", "Remove a movie", "Remove a show", "Check booked seats", "Logout" };
         KeyBoardLogic adminMenu = new KeyBoardLogic(promptAdmin, optionsAdmin);
         int selectedIndexAdmin = adminMenu.Run();
@@ -29,8 +30,9 @@ static class AdminPanel
             Console.WriteLine("Remove show");
             AdminEdit.RemoveShowChoice();
         }
-        else if (selectedIndexAdmin == 4){
-          //
+        else if (selectedIndexAdmin == 4)
+        {
+            //
         }
         else if (selectedIndexAdmin == 5)
         {

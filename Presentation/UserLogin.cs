@@ -1,10 +1,12 @@
 static class UserLogin
 {
     static private AccountsLogic accountsLogic = new AccountsLogic();
+    static private AdminLogic adminLogic = new AdminLogic();
 
 
     public static void Start()
     {
+        Console.Clear();
         if (Menu.loggedaccount != null)
         {
             Console.WriteLine($"You are already logged in with this account: Fullname: {Menu.loggedaccount.FullName}, Email: {Menu.loggedaccount.EmailAddress}");
@@ -55,13 +57,13 @@ static class UserLogin
             }
         }
         AccountModel acc = accountsLogic.CheckLogin(email, password);
-        if (acc == null)
+        AdminAccountModel acc2 = adminLogic.CheckLogin(email, password);
+        if (acc == null && acc2 == null)
         {
             Console.WriteLine("No account found with that email and password");
             Thread.Sleep(3500);
             Menu.Start();
         }
-
 
 
 
@@ -75,6 +77,14 @@ static class UserLogin
             Console.WriteLine("Your email number is " + acc.EmailAddress);
             Menu.loggedaccount = acc;
             UserLoggedIn.Start();
+        }
+        else if (acc2 != null && acc2.EmailAddress != null)
+        {
+            Console.WriteLine("Welcome back " + acc2.FullName + "!");
+            Console.WriteLine("Your email number is " + acc2.EmailAddress);
+            Menu.loggedaccount2 = acc2;
+            // UserLoggedIn.Start();
+            AdminPanel.AdminMenu();
         }
         else
         {

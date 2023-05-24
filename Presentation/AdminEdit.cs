@@ -42,6 +42,7 @@ public class AdminEdit
     }
     public static void RemoveMovie()
     {
+        Console.Clear();
         Console.WriteLine("Enter Movie Name To Remove: ");
         string input = Console.ReadLine();
         MovieLogic logic = new MovieLogic();
@@ -49,6 +50,7 @@ public class AdminEdit
     }
     public static void RemoveShow()
     {
+        Console.Clear();
         Console.WriteLine("Enter Movie id: ");
         int id = Convert.ToInt32(Console.ReadLine());
         Console.WriteLine("Enter date (year-month-day): ");
@@ -63,6 +65,22 @@ public class AdminEdit
         {
             Console.WriteLine(ShowLogic.RemoveShow(id, date, time));
         }
+    }
+
+    public static void AddAdmin()
+    {
+        Console.Clear();
+        Console.WriteLine("Enter the name of the account: ");
+        string accName = Console.ReadLine();
+        Console.WriteLine("Enter the email of the account: ");
+        string accEmail = Console.ReadLine();
+        Console.WriteLine("Enter the password of the new account: ");
+        string accPassword = Console.ReadLine();
+        AdminLogic logic = new AdminLogic();
+        logic.AddAccount(accName, accEmail, accPassword);
+        Console.WriteLine(logic.AddAccount(accName, accEmail, accPassword));
+        Thread.Sleep(3000);
+        AdminPanel.AdminMenu();
     }
 
 }

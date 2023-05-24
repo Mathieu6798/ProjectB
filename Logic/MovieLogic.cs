@@ -43,7 +43,7 @@ class MovieLogic
     }
 
 
- public static void RemoveMovieChoice()
+    public static void RemoveMovieChoice()
     {
         System.Console.WriteLine("Make a choice: \n1: See list of movies \n2: Remove movie by name");
         int input = Convert.ToInt32(Console.ReadLine());

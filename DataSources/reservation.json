@@ -63,5 +63,30 @@
       46
     ],
     "BarReservationID": 1
+  },
+  {
+    "ShowId": 1,
+    "AccountID": 1,
+    "Chairs": [
+      30
+    ],
+    "BarReservationID": 1
+  },
+  {
+    "ShowId": 1,
+    "AccountID": 1,
+    "Chairs": [
+      96
+    ],
+    "BarReservationID": 1
+  },
+  {
+    "ShowId": 1,
+    "AccountID": 1,
+    "Chairs": [
+      38,
+      72
+    ],
+    "BarReservationID": 1
   }
 ]

@@ -5,10 +5,10 @@ static class AdminPanel
         Console.Clear();
         Console.Clear();
         Console.WriteLine("Welcome to the Admin panel");
-        Console.WriteLine("1. Add a movie\n2. Remove a movie\n3. Add a show\n4. Remove a show\nM. Back to the Menu\nQ. Quit program");
+        //Console.WriteLine("1. Add a movie\n2. Remove a movie\n3. Add a show\n4. Remove a show\nM. Back to the Menu\nQ. Quit program");
 
         string promptAdmin = "What would you like to do?";
-        string[] optionsAdmin = { "Add a movie", "Add a show", "Remove a movie", "Remove a show", "Check booked seats", "Logout" };
+        string[] optionsAdmin = { "Add a movie", "Add a show", "Remove a movie", "Remove a show", "Check booked seats", "Add a admin account", "Logout" };
         KeyBoardLogic adminMenu = new KeyBoardLogic(promptAdmin, optionsAdmin);
         int selectedIndexAdmin = adminMenu.Run();
         if (selectedIndexAdmin == 0)
@@ -32,9 +32,13 @@ static class AdminPanel
         }
         else if (selectedIndexAdmin == 4)
         {
-            //
+            //booked seats shit moet hier//
         }
         else if (selectedIndexAdmin == 5)
+        {
+            AdminEdit.AddAdmin();
+        }
+        else if (selectedIndexAdmin == 6)
         {
             Menu.loggedaccount = null;
             Console.Clear();

@@ -32,4 +32,29 @@ class AdminLogic
         CurrentAccount = _adminAccounts.Find(i => i.EmailAddress == email && i.Password == password);
         return CurrentAccount;
     }
+
+
+    public string AddAccount(string name, string email, string password)
+    {
+        try
+        {
+            var lastaccount = _adminAccounts.LastOrDefault();
+            int id = 0;
+            if (lastaccount == null)
+            {
+                id = 1;
+            }
+            else
+            {
+                id = lastaccount.Id + 1;
+            }
+            _adminAccounts.Add(new AdminAccountModel(id, email, password, name));
+            AdminAccountsAccess.WriteAll(_adminAccounts);
+            return $"The new account has been added";
+        }
+        catch (Exception)
+        {
+            return $"An error has occurred";
+        }
+    }
 }

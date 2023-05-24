@@ -55,5 +55,27 @@
     "Chairs": [
       38
     ]
+  },
+  {
+    "ShowId": 1,
+    "AccountID": 1,
+    "Chairs": [
+      30
+    ]
+  },
+  {
+    "ShowId": 1,
+    "AccountID": 1,
+    "Chairs": [
+      96
+    ]
+  },
+  {
+    "ShowId": 1,
+    "AccountID": 1,
+    "Chairs": [
+      38,
+      72
+    ]
   }
 ]

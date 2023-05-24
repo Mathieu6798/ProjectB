@@ -109,9 +109,28 @@ public class ReservationLogic
         string chairs = "";
         for (int i = 0; i < reservation.Chairs.Count; i++)
         {
-            chairs += $"{reservation.Chairs[i]}";
+            if (i + 1 == reservation.Chairs.Count)
+            {
+                chairs += $" {reservation.Chairs[i]}";
+            }
+            else if (i == 0)
+            {
+                chairs += $"{reservation.Chairs[i]},";
+            }
+            else
+            {
+                chairs += $" {reservation.Chairs[i]},";
+            }
+            // chairs += $"{reservation.Chairs[i]}";
         }
-        return $"{ReservationLogic.GetShowMovieInfo(reservation)} \nSeats: {chairs} \nGenre: {movie.Genre} \nInfo: {movie.Info}";
+        if (reservation.BarReservationID == 0)
+        {
+            return $"{ReservationLogic.GetShowMovieInfo(reservation)} \nSeats: {chairs} \nBar reservation: You don't have a reservation for the bar \nGenre: {movie.Genre} \nInfo: {movie.Info}";
+        }
+        else
+        {
+            return $"{ReservationLogic.GetShowMovieInfo(reservation)} \nSeats: {chairs} \nBar reservation: You have a reservation for the bar \nGenre: {movie.Genre} \nInfo: {movie.Info}";
+        }
         // Thread.Sleep(3500);
         // ReservationInfo.TicketOptions();
     }

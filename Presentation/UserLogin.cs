@@ -60,7 +60,7 @@ static class UserLogin
         AdminAccountModel acc2 = adminLogic.CheckLogin(email, password);
         if (acc == null && acc2 == null)
         {
-            Console.WriteLine("No account found with that email and password");
+            Console.WriteLine("\nNo account found with that email and password");
             Thread.Sleep(3500);
             Menu.Start();
         }
@@ -73,22 +73,24 @@ static class UserLogin
 
         else if (acc != null && acc.EmailAddress != null)
         {
-            Console.WriteLine("Welcome back " + acc.FullName + "!");
-            Console.WriteLine("Your email number is " + acc.EmailAddress);
+            Console.WriteLine("\nWelcome back " + acc.FullName + "!");
+            // Console.WriteLine("Your email is " + acc.EmailAddress);
             Menu.loggedaccount = acc;
+            Thread.Sleep(3500);
             UserLoggedIn.Start();
         }
         else if (acc2 != null && acc2.EmailAddress != null)
         {
-            Console.WriteLine("Welcome back " + acc2.FullName + "!");
-            Console.WriteLine("Your email number is " + acc2.EmailAddress);
+            Console.WriteLine("\nWelcome back " + acc2.FullName + "!");
+            // Console.WriteLine("Your email is " + acc2.EmailAddress);
             Menu.loggedaccount2 = acc2;
             // UserLoggedIn.Start();
+            Thread.Sleep(3500);
             AdminPanel.AdminMenu();
         }
         else
         {
-            Console.WriteLine("No account found with that email and password");
+            Console.WriteLine("\nNo account found with that email and password");
             Thread.Sleep(3500);
             Menu.Start();
         }

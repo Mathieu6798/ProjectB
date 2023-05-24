@@ -70,7 +70,7 @@ static class UserRegister
         }
         while (confirmpassword != password)
         {
-            Console.WriteLine("\nPlease confirm password");
+            Console.WriteLine("\nPlease confirm password again");
             // confirmpassword = Console.ReadLine();
             string confirmpassword2 = "";
             while (true)
@@ -97,21 +97,20 @@ static class UserRegister
                 }
                 confirmpassword = confirmpassword2;
             }
-
-            AccountModel acc = accountsLogic.CheckExistingEmail(email);
-            if (acc != null)
-            {
-                Console.WriteLine("This email adress already exists on another account.");
-                Thread.Sleep(3500);
-                Menu.Start();
-            }
-            else
-            {
-                accountsLogic.AddAcount(name, email, password);
-                Console.WriteLine("\nYour account has been added");
-                Thread.Sleep(3500);
-                Menu.Start();
-            }
+        }
+        AccountModel acc = accountsLogic.CheckExistingEmail(email);
+        if (acc != null)
+        {
+            Console.WriteLine("This email adress already exists on another account.");
+            Thread.Sleep(3500);
+            Menu.Start();
+        }
+        else
+        {
+            accountsLogic.AddAcount(name, email, password);
+            Console.WriteLine("\nYour account has been added");
+            Thread.Sleep(3500);
+            Menu.Start();
         }
     }
 }

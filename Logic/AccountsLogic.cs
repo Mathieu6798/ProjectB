@@ -21,7 +21,7 @@ public class AccountsLogic
 
     public void DeleteAccount(AccountModel currentaccount)
     {
-        var itemToRemove = _accounts.Single(r => r.Id == currentaccount.Id);
+        var itemToRemove = _accounts.First(r => r.Id == currentaccount.Id);
         _accounts.Remove(itemToRemove);
         AccountsAccess.WriteAll(_accounts);
     }
@@ -83,9 +83,9 @@ public class AccountsLogic
         _accounts.Add(new AccountModel(id, email, password, name));
         AccountsAccess.WriteAll(_accounts);
     }
-    public bool ChangeEmail(string email)
+    public AccountModel ChangeEmail(string email, AccountModel currentAccount)
     {
-        CurrentAccount = Menu.loggedaccount;
+        // CurrentAccount = Menu.loggedaccount;
         foreach (var i in _accounts)
         {
             if (i.EmailAddress == email)
@@ -93,40 +93,42 @@ public class AccountsLogic
                 // Console.WriteLine("\nThis email address already exists.");
                 // System.Threading.Thread.Sleep(3000);
                 // UserLoggedIn.Start();
-                return false;
+                return null;
             }
         }
         foreach (var i in _accounts)
         {
-            if (i.EmailAddress == CurrentAccount.EmailAddress && i.Password == CurrentAccount.Password)
+            if (i.EmailAddress == currentAccount.EmailAddress && i.Password == currentAccount.Password)
             {
                 i.EmailAddress = email;
-                CurrentAccount.EmailAddress = email;
-                AccountsAccess.WriteAll(_accounts);
+                currentAccount.EmailAddress = email;
+                // AccountsAccess.WriteAll(_accounts);
                 // Console.WriteLine("\nEmail has been changed.");
-                return true;
+                // return true;
             }
         }
-        return false;
+        AccountsAccess.WriteAll(_accounts);
+        return currentAccount;
         // AccountsAccess.WriteAll(_accounts);
         // System.Threading.Thread.Sleep(3000);
         // UserLoggedIn.Start();
     }
-    public bool ChangePassword(string password)
+    public AccountModel ChangePassword(string password, AccountModel currentAccount)
     {
-        CurrentAccount = Menu.loggedaccount;
+        // CurrentAccount = Menu.loggedaccount;
         foreach (var i in _accounts)
         {
-            if (i.EmailAddress == CurrentAccount.EmailAddress && i.Password == CurrentAccount.Password)
+            if (i.EmailAddress == currentAccount.EmailAddress && i.Password == currentAccount.Password)
             {
                 i.Password = password;
-                CurrentAccount.Password = password;
-                AccountsAccess.WriteAll(_accounts);
+                currentAccount.Password = password;
+                // AccountsAccess.WriteAll(_accounts);
                 // Console.WriteLine("\nPassword has been changed.");
-                return true;
+                // return true;
             }
         }
-        return false;
+        AccountsAccess.WriteAll(_accounts);
+        return currentAccount;
         // AccountsAccess.WriteAll(_accounts);
         // System.Threading.Thread.Sleep(3000);
         // UserLoggedIn.Start();

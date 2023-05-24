@@ -1,7 +1,9 @@
 
 using System.Text.Json.Serialization;
-class BarReservationModel
+public class BarReservationModel
 {
+    [JsonPropertyName("ID")]
+    public int ID { get; set; }
     [JsonPropertyName("Name")]
     public string Name { get; set; }
 
@@ -11,8 +13,9 @@ class BarReservationModel
     [JsonPropertyName("ShowTime")]
     public string ShowTime { get; set; }
 
-    public BarReservationModel(string name, int amountOfPeople, string showTime)
+    public BarReservationModel(int id, string name, int amountOfPeople, string showTime)
     {
+        ID = id;
         Name = name;
         AmountOfPeople = amountOfPeople;
         ShowTime = showTime;

@@ -65,7 +65,16 @@ public class ReservationInfo
         {
             if (selectedIndex == counter)
             {
-                string prompt2 = @$"{logic.PrintInformation(reservationlist, counter)}";
+                // string prompt2 = @$"{logic.PrintInformation(reservationlist, counter)}";
+                // string[] options2 = { "Back" };
+                // KeyBoardLogic mainMenu2 = new KeyBoardLogic(prompt2, options2);
+                // int selectedIndex2 = mainMenu2.Run();
+                // if (selectedIndex2 == 0)
+                // {
+                //     TicketOptions();
+                // }
+
+                string prompt2 = @$"{logic.GetInformation(reservationlist, counter)}";
                 string[] options2 = { "Back" };
                 KeyBoardLogic mainMenu2 = new KeyBoardLogic(prompt2, options2);
                 int selectedIndex2 = mainMenu2.Run();
@@ -73,6 +82,9 @@ public class ReservationInfo
                 {
                     TicketOptions();
                 }
+                // logic.PrintInformation(reservationlist, counter);
+                // System.Threading.Thread.Sleep(3000);
+                // TicketOptions();
                 // logic.PrintInformation(reservationlist, counter);
                 // System.Threading.Thread.Sleep(3000);
                 // TicketOptions();
@@ -90,8 +102,7 @@ public class ReservationInfo
       \ \  \ \ \  \ \  \____\ \  \\ \  \ \  \_|\ \  \ \  \       \ \  \ \  \\ \  \ \  \_| \ \  \\\  \ 
        \ \__\ \ \__\ \_______\ \__\\ \__\ \_______\  \ \__\       \ \__\ \__\\ \__\ \__\   \ \_______\
         \|__|  \|__|\|_______|\|__| \|__|\|_______|   \|__|        \|__|\|__| \|__|\|__|    \|_______|
-                                                                                                                                                                                       
-        Would you like to see you're tickets or remove a ticket?";
+    ";
         string[] options = { "Tickets", "Cancel Ticket", "Back" };
         KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
         int selectedIndex = mainMenu.Run();

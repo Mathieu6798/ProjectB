@@ -27,8 +27,10 @@ public static class AccountInfo
                     email = Console.ReadLine();
                 }
                 AccountsLogic logic = new AccountsLogic();
-                if (logic.ChangeEmail(email) == true)
+                var account = logic.ChangeEmail(email, Menu.loggedaccount);
+                if (account != null)
                 {
+                    Menu.loggedaccount = account;
                     Console.WriteLine("\nEmail has been changed.");
                     System.Threading.Thread.Sleep(3000);
                 }
@@ -98,15 +100,19 @@ public static class AccountInfo
                 }
                 logic = new AccountsLogic();
                 // logic.ChangePassword(password);
-                if (logic.ChangePassword(password) == true)
+                var account2 = logic.ChangePassword(password, Menu.loggedaccount);
+                if (account2 != null)
                 {
+                    Menu.loggedaccount = account2;
                     Console.WriteLine("\nPassword has been changed.");
                     System.Threading.Thread.Sleep(3000);
+                    Start();
                 }
                 else
                 {
                     Console.WriteLine("\nCan't change the password");
                     System.Threading.Thread.Sleep(3000);
+                    Start();
                 }
                 break;
 

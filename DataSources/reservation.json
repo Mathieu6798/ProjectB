@@ -5,70 +5,80 @@
     "Chairs": [
       1,
       2
-    ]
+    ],
+    "BarReservationID": 0
   },
   {
     "ShowId": 1,
     "AccountID": 1,
     "Chairs": [
       38
-    ]
+    ],
+    "BarReservationID": 0
   },
   {
     "ShowId": 1,
     "AccountID": 1,
     "Chairs": [
       69
-    ]
+    ],
+    "BarReservationID": 0
   },
   {
     "ShowId": 1,
     "AccountID": 1,
     "Chairs": [
       1
-    ]
+    ],
+    "BarReservationID": 0
   },
   {
     "ShowId": 1,
     "AccountID": 1,
     "Chairs": [
       54
-    ]
+    ],
+    "BarReservationID": 0
   },
   {
     "ShowId": 1,
     "AccountID": 1,
     "Chairs": [
       70
-    ]
+    ],
+    "BarReservationID": 0
   },
   {
     "ShowId": 4,
     "AccountID": 1,
     "Chairs": [
       46
-    ]
+    ],
+    "BarReservationID": 0
   },
   {
-    "ShowId": 1,
-    "AccountID": 1,
+    "ShowId": 2,
+    "AccountID": 7,
     "Chairs": [
-      38
-    ]
+      46
+    ],
+    "BarReservationID": 1
   },
   {
     "ShowId": 1,
     "AccountID": 1,
     "Chairs": [
       30
-    ]
+    ],
+    "BarReservationID": 1
   },
   {
     "ShowId": 1,
     "AccountID": 1,
     "Chairs": [
       96
-    ]
+    ],
+    "BarReservationID": 1
   },
   {
     "ShowId": 1,
@@ -76,6 +86,7 @@
     "Chairs": [
       38,
       72
-    ]
+    ],
+    "BarReservationID": 1
   }
 ]

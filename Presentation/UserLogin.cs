@@ -73,6 +73,7 @@ static class UserLogin
 
         else if (acc != null && acc.EmailAddress != null)
         {
+            Console.Clear();
             Console.WriteLine("\nWelcome back " + acc.FullName + "!");
             // Console.WriteLine("Your email is " + acc.EmailAddress);
             Menu.loggedaccount = acc;
@@ -81,7 +82,8 @@ static class UserLogin
         }
         else if (acc2 != null && acc2.EmailAddress != null)
         {
-            Console.WriteLine("\nWelcome back " + acc2.FullName + "!");
+            Console.Clear();
+            Console.WriteLine("Welcome back " + acc2.FullName + "!");
             // Console.WriteLine("Your email is " + acc2.EmailAddress);
             Menu.loggedaccount2 = acc2;
             // UserLoggedIn.Start();
@@ -90,6 +92,7 @@ static class UserLogin
         }
         else
         {
+            Console.Clear();
             Console.WriteLine("\nNo account found with that email and password");
             Thread.Sleep(3500);
             Menu.Start();

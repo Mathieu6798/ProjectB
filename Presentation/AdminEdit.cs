@@ -12,15 +12,15 @@ public class AdminEdit
         Console.WriteLine("Enter the discription: ");
         string info = Console.ReadLine();
         MovieLogic logic = new MovieLogic();
-        MovieLogic.AddMovie(title, genre, age, info);
         if (MovieLogic.AddMovie(title, genre, age, info))
         {
-            Console.WriteLine("Your movie has been added");
+            Console.WriteLine("\nYour movie has been added");
             Thread.Sleep(3000);
         }
         else
         {
-            Console.WriteLine("The move was not added");
+            Console.WriteLine("\nThe move was not added");
+            Thread.Sleep(3000);
         }
         AdminPanel.AdminMenu();
     }

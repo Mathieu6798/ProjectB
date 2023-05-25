@@ -33,11 +33,13 @@ public static class AccountInfo
                     Menu.loggedaccount = account;
                     Console.WriteLine("\nEmail has been changed.");
                     System.Threading.Thread.Sleep(3000);
+                    Start();
                 }
                 else
                 {
                     Console.WriteLine("\nThis email address already exists.");
                     System.Threading.Thread.Sleep(3000);
+                    Start();
                 }
                 break;
             case 1:

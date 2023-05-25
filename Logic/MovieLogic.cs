@@ -16,30 +16,37 @@ class MovieLogic
 
     public static bool AddMovie(string title, string genre, int age, string info)
     {
-        int count = 0;
-        int id;
-        if (_movies == null)
+        try
         {
-            _movies = MoviesAccess.LoadAll();
+            int count = 0;
+            int id;
+            if (_movies == null)
+            {
+                _movies = MoviesAccess.LoadAll();
+            }
+            foreach (MovieModel _movies in _movies)
+            {
+                count++;
+            }
+            id = count += 1;
+
+            var movie = new MovieModel
+            (
+                id,
+                title,
+                genre,
+                age,
+                info
+            );
+
+            _movies.Add(movie);
+            MoviesAccess.WriteAll(_movies);
+            return true;
         }
-        foreach (MovieModel _movies in _movies)
+        catch (FormatException)
         {
-            count++;
+            return false;
         }
-        id = count += 1;
-
-        var movie = new MovieModel
-        (
-            id,
-            title,
-            genre,
-            age,
-            info
-        );
-
-        _movies.Add(movie);
-        MoviesAccess.WriteAll(_movies);
-        return true;
     }
 
 

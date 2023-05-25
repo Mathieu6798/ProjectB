@@ -33,6 +33,9 @@ static class AdminPanel
         else if (selectedIndexAdmin == 4)
         {
             //booked seats shit moet hier//
+            Console.WriteLine("Show ID:");
+            int inp = int.Parse(Console.ReadLine());
+            RoomLogic.AdminRoomCheck(inp);
         }
         else if (selectedIndexAdmin == 5)
         {

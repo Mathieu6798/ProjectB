@@ -9,14 +9,16 @@ static class Menu
     static public void Start()
     {
         string prompt = @"
-   ___           _           _     ___ 
-  / _ \_ __ ___ (_) ___  ___| |_  / __\
- / /_)/ '__/ _ \| |/ _ \/ __| __|/__\//
-/ ___/| | | (_) | |  __/ (__| |_/ \/  \
-\/    |_|  \___// |\___|\___|\__\_____/
-              |__/                     
 
-        Welcome to the Cinema";
+  _________.__    .__                              
+ /   _____/|  |__ |__| ____   ____   _____ _____   
+ \_____  \ |  |  \|  |/    \_/ __ \ /     \\__  \  
+ /        \|   Y  \  |   |  \  ___/|  Y Y  \/ __ \_
+/_______  /|___|  /__|___|  /\___  >__|_|  (____  /
+        \/      \/        \/     \/      \/     \/ 
+     
+
+        Welcome to Shinema";
         string[] options = { "Login", "Register Account", "Select a movie", "Quit" };
         KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
         int selectedIndex = mainMenu.Run();

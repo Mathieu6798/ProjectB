@@ -1,8 +1,8 @@
 [
     {
         "id": 1,
-        "rows": 10,
-        "columns": 15,
+        "rows": 14,
+        "columns": 12,
         "chairs": [
             1,
             2,
@@ -158,8 +158,8 @@
     },
     {
         "id": 2,
-        "rows": 20,
-        "columns": 15,
+        "rows": 19,
+        "columns": 18,
         "chairs": [
             151,
             152,
@@ -466,7 +466,7 @@
     {
         "id": 3,
         "rows": 20,
-        "columns": 25,
+        "columns": 30,
         "chairs": [
             451,
             452,

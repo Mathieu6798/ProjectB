@@ -8,6 +8,10 @@ using System.Text.Json;
 public class ReservationLogic
 {
     protected List<ReservationModel> _reservations;
+    // private static int MaxReservations = 40;
+    // private static int ActualReservations;
+    private int MaxReservations = 40;
+    private int ActualReservations;
 
     //Static properties are shared across all instances of the class
     //This can be used to get the current logged in account from anywhere in the program
@@ -23,6 +27,7 @@ public class ReservationLogic
         {
             _reservations = new List<ReservationModel>();
         }
+
     }
 
 
@@ -65,8 +70,8 @@ public class ReservationLogic
     {
         ReservationModel reservation = _reservations.Find(i => i == reservationlist[counter]);
         _reservations.Remove(reservation);
-        BarReservationLogic bar = new();
-        bar.RemoveBarReservation(reservation.BarReservationID);
+        // BarReservationLogic bar = new();
+        // bar.RemoveBarReservation(reservation.BarReservation);
         ReservationAccess.WriteAll(_reservations);
     }
     public static string GetShowMovieInfo(ReservationModel reservation)
@@ -133,6 +138,31 @@ public class ReservationLogic
         }
         // Thread.Sleep(3500);
         // ReservationInfo.TicketOptions();
+    }
+    public bool AddBarReservations()
+    {
+        ReservationModel lastReservation = (_reservations).Last();
+        ShowModel show = (ShowAccess.LoadAll()).First(x => x.Id == lastReservation.ShowId);
+        MovieModel movie = (MoviesAccess.LoadAll()).First(x => x.MovieId == show.MovieId);
+        foreach (var i in _reservations)
+        {
+            if (i.BarReservationID != 0)
+            {
+                ActualReservations += i.Chairs.Count;
+            }
+        }
+        if (ActualReservations + lastReservation.Chairs.Count <= MaxReservations)
+        {
+            _reservations.Remove(lastReservation);
+            lastReservation.BarReservationID = 1;
+            _reservations.Add(lastReservation);
+            ReservationAccess.WriteAll(_reservations);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
 

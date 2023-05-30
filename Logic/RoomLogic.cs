@@ -72,7 +72,20 @@ public class RoomLogic
                     {
                         int accid = Menu.loggedaccount.Id;
                         int Showid = showid;
-                        BuyTicket ticket = new BuyTicket(Showid, accid, bookedChairs);
+                        int Price = 0;
+                        if (selectedSeat.Rank == "A")
+                        {
+                            Price = 8;
+                        }
+                        else if (selectedSeat.Rank == "B")
+                        {
+                            Price = 10;
+                        }
+                        else if (selectedSeat.Rank == "C")
+                        {
+                            Price = 12;
+                        }
+                        BuyTicket ticket = new BuyTicket(Showid, accid, bookedChairs, Price);
                         Thread.Sleep(3500);
                         ticket.Overview();
                     }

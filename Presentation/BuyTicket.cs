@@ -27,7 +27,6 @@ public class BuyTicket
             if (selectedIndex2 == 0)
             {
                 //bar cs file voor 40 plekken en tot 2 uur na de film vlgnsmij.
-                // BarReservation.Start();
                 Bar();
             }
             else

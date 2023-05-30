@@ -8,8 +8,6 @@ using System.Text.Json;
 public class ReservationLogic
 {
     protected List<ReservationModel> _reservations;
-    // private static int MaxReservations = 40;
-    // private static int ActualReservations;
     private int MaxReservations = 40;
     private int ActualReservations;
 
@@ -59,10 +57,6 @@ public class ReservationLogic
     }
     public void AddReservation(ReservationModel ticket)
     {
-        // if (_reservations == null)
-        // {
-        //     _reservations = ReservationAccess.LoadAll();
-        // }
         _reservations.Add(ticket);
         ReservationAccess.WriteAll(_reservations);
     }
@@ -70,8 +64,6 @@ public class ReservationLogic
     {
         ReservationModel reservation = _reservations.Find(i => i == reservationlist[counter]);
         _reservations.Remove(reservation);
-        // BarReservationLogic bar = new();
-        // bar.RemoveBarReservation(reservation.BarReservation);
         ReservationAccess.WriteAll(_reservations);
     }
     public static string GetShowMovieInfo(ReservationModel reservation)
@@ -110,7 +102,6 @@ public class ReservationLogic
         ShowModel show = showlogic.GetById(reservation.ShowId);
         MovieLogic movielogic = new MovieLogic();
         MovieModel movie = movielogic.GetById(show.MovieId);
-        // Console.WriteLine(ReservationLogic.GetShowMovieInfo(reservation) + $"\nGenre: {movie.Genre} \nInfo: {movie.Info}");
         string chairs = "";
         for (int i = 0; i < reservation.Chairs.Count; i++)
         {
@@ -126,7 +117,6 @@ public class ReservationLogic
             {
                 chairs += $" {reservation.Chairs[i]},";
             }
-            // chairs += $"{reservation.Chairs[i]}";
         }
         if (reservation.BarReservationID == 0)
         {
@@ -136,8 +126,6 @@ public class ReservationLogic
         {
             return $"{ReservationLogic.GetShowMovieInfo(reservation)} \nSeats: {chairs} \nBar reservation: You have a reservation for the bar \nGenre: {movie.Genre} \nInfo: {movie.Info}";
         }
-        // Thread.Sleep(3500);
-        // ReservationInfo.TicketOptions();
     }
     public bool AddBarReservations()
     {

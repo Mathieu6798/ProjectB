@@ -57,4 +57,25 @@ class AdminLogic
             return $"An error has occurred";
         }
     }
+
+
+    public string DeleteAdmin(int ID, string email)
+    {
+        var targetAccount = _adminAccounts.FirstOrDefault(x => x.Id == ID && x.EmailAddress == email);
+
+        if (targetAccount != null)
+        {
+            if (_adminAccounts.Count() > 1)
+            {
+                _adminAccounts.Remove(targetAccount);
+                AdminAccountsAccess.WriteAll(_adminAccounts);
+                return $"The account with ID: {ID} and email: {email} has been deleted";
+            }
+        }
+        else
+        {
+            return $"The account with ID: {ID} and email: {email} does not exist";
+        }
+        return "";
+    }
 }

@@ -67,6 +67,8 @@ public class AdminEdit
         }
     }
 
+
+    /////////////accounts/////////////
     public static void AddAdmin()
     {
         Console.Clear();
@@ -77,8 +79,20 @@ public class AdminEdit
         Console.WriteLine("Enter the password of the new account: ");
         string accPassword = Console.ReadLine();
         AdminLogic logic = new AdminLogic();
-        logic.AddAccount(accName, accEmail, accPassword);
         Console.WriteLine(logic.AddAccount(accName, accEmail, accPassword));
+        Thread.Sleep(3000);
+        AdminPanel.AdminMenu();
+    }
+
+    public static void DeleteAdmin()
+    {
+        Console.Clear();
+        Console.WriteLine("Enter the ID of the account: ");
+        int accID = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Enter the email of the account: ");
+        string accEmail = Console.ReadLine();
+        AdminLogic logic = new AdminLogic();
+        Console.WriteLine(logic.DeleteAdmin(accID, accEmail));
         Thread.Sleep(3000);
         AdminPanel.AdminMenu();
     }

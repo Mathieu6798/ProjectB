@@ -7,14 +7,11 @@ using System.Text.Json;
 
 public class RoomLogic
 {
-    private static List<RoomModel> _rooms;
-    private static List<ChairModel> _chairs;
+    private static List<RoomModel> _rooms = RoomAccess.LoadAll();
+    private static List<ChairModel> _chairs = ChairAccess.LoadAll();
+    private static List<ReservationModel> _reservations = ReservationAccess.LoadAll();
 
-    public RoomLogic()
-    {
-        _rooms = RoomAccess.LoadAll();
-        _chairs = ChairAccess.LoadAll();
-    }
+
 
     public static void Start(int roomId, int showid)
     {
@@ -107,23 +104,15 @@ public class RoomLogic
 
     private static RoomModel GetRoomById(int roomId)
     {
-        var pathroom = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/Rooms.json"));
-        var json = File.ReadAllText(pathroom);
-        var roomModels = JsonSerializer.Deserialize<List<RoomModel>>(json);
-
-        return roomModels.FirstOrDefault(r => r.Id == roomId);
+        return _rooms.FirstOrDefault(r => r.Id == roomId);
     }
 
     private static ChairModel[,] CreateSeatingChart(RoomModel roomModel)
     {
         var seatingChart = new ChairModel[roomModel.Rows, roomModel.Columns];
 
-        var pathchair = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/Chairs.json"));
-        var json = File.ReadAllText(pathchair);
-        var chairModels = JsonSerializer.Deserialize<List<ChairModel>>(json);
-
         var roomChairIds = new List<int>(roomModel.Chairs);
-        var chairs = chairModels.Where(c => roomChairIds.Contains(c.ChairId));
+        var chairs = _chairs.Where(c => roomChairIds.Contains(c.ChairId));
 
         foreach (var chairId in roomModel.Chairs)
         {
@@ -174,7 +163,7 @@ public class RoomLogic
                 else
                 {
                     Console.ResetColor();
-                    Console.Write("X ");
+                    Console.Write("  ");
                 }
             }
             Console.ResetColor();
@@ -188,9 +177,8 @@ public class RoomLogic
     {
         Console.WriteLine($"Seating chart for room {roomModel.Id}:");
 
-        var path = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/reservation.json"));
-        var json = File.ReadAllText(path);
-        var reservationModels = JsonSerializer.Deserialize<List<ReservationModel>>(json);
+
+        var reservationModels = _reservations;
 
         foreach (var reservation in reservationModels)
         {
@@ -257,9 +245,7 @@ public class RoomLogic
         Console.WriteLine($"Seating chart for room {roomModel.Id}:");
         // Console.WriteLine("   " + string.Join("  ", Enumerable.Range(1, roomModel.Columns)));
 
-        var path = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/reservation.json"));
-        var json = File.ReadAllText(path);
-        var reservationModels = JsonSerializer.Deserialize<List<ReservationModel>>(json);
+        var reservationModels = _reservations;
 
         foreach (var reservation in reservationModels)
         {
@@ -314,9 +300,7 @@ public class RoomLogic
 
     private static bool IsSeatBooked(int showId, int chairId)
     {
-        var path = System.IO.Path.GetFullPath(System.IO.Path.Combine(Environment.CurrentDirectory, @"DataSources/reservation.json"));
-        var json = File.ReadAllText(path);
-        var reservationModels = JsonSerializer.Deserialize<List<ReservationModel>>(json);
+        var reservationModels = _reservations;
 
         foreach (var reservation in reservationModels)
         {
@@ -329,4 +313,3 @@ public class RoomLogic
         return false;
     }
 }
-//gg

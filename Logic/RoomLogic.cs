@@ -54,7 +54,7 @@ public class RoomLogic
             else if (key == ConsoleKey.Enter)
             {
                 var selectedSeat = seatingChart[selectedRow, selectedColumn];
-                if (bookedChairs.Contains(selectedSeat.ChairId))
+                if (bookedChairs.Contains(selectedSeat.Id))
                 {
                     Console.WriteLine($"Seat {selectedSeat.Chairnumber} at row {selectedSeat.Rownumber} is already booked.");
                 }
@@ -62,7 +62,7 @@ public class RoomLogic
                 {
                     Console.Clear();
                     Console.WriteLine($"You've successfully booked seat {selectedSeat.Chairnumber} at row {selectedSeat.Rownumber}");
-                    bookedChairs.Add(selectedSeat.ChairId);
+                    bookedChairs.Add(selectedSeat.Id);
 
                     if (PromptForAnotherSeat())
                     {
@@ -131,7 +131,7 @@ public class RoomLogic
     }
     public static ChairModel GetChairById(int chairId)
     {
-        return _chairs.FirstOrDefault(x => x.ChairId == chairId);
+        return _chairs.FirstOrDefault(x => x.Id == chairId);
     }
 
     private static ChairModel[,] CreateSeatingChart(RoomModel roomModel)
@@ -139,11 +139,11 @@ public class RoomLogic
         var seatingChart = new ChairModel[roomModel.Rows, roomModel.Columns];
 
         var roomChairIds = new List<int>(roomModel.Chairs);
-        var chairs = _chairs.Where(c => roomChairIds.Contains(c.ChairId));
+        var chairs = _chairs.Where(c => roomChairIds.Contains(c.Id));
 
         foreach (var chairId in roomModel.Chairs)
         {
-            var chair = chairs.FirstOrDefault(c => c.ChairId == chairId);
+            var chair = chairs.FirstOrDefault(c => c.Id == chairId);
 
             if (chair != null)
             {
@@ -167,7 +167,7 @@ public class RoomLogic
 
                 if (seat != null)
                 {
-                    char displayChar = bookedChairs.Contains(seat.ChairId) ? 'X' : 'O';
+                    char displayChar = bookedChairs.Contains(seat.Id) ? 'X' : 'O';
                     if (i == selectedRow && j == selectedColumn)
                     {
                         Console.BackgroundColor = ConsoleColor.White;

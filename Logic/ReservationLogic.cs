@@ -28,7 +28,19 @@ public class ReservationLogic
 
     }
 
-
+    public int GetLastId()
+    {
+        int id = 0;
+        if (_reservations.LastOrDefault() == null)
+        {
+            id = 1;
+        }
+        else
+        {
+            id = _reservations.LastOrDefault().Id;
+        }
+        return id;
+    }
     public void UpdateShowReservation(ReservationModel acc)
     {
         //Find if there is already an model with the same id
@@ -131,7 +143,7 @@ public class ReservationLogic
     {
         ReservationModel lastReservation = (_reservations).Last();
         ShowModel show = (ShowAccess.LoadAll()).First(x => x.Id == lastReservation.ShowId);
-        MovieModel movie = (MoviesAccess.LoadAll()).First(x => x.MovieId == show.MovieId);
+        MovieModel movie = (MoviesAccess.LoadAll()).First(x => x.Id == show.MovieId);
         foreach (var i in _reservations)
         {
             if (i.BarReservationID != 0)

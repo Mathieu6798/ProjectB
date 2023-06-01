@@ -50,11 +50,11 @@ class AdminLogic
             }
             _adminAccounts.Add(new AdminAccountModel(id, email, password, name));
             AdminAccountsAccess.WriteAll(_adminAccounts);
-            return $"The new account has been added";
+            return $"\nThe new account has been added";
         }
         catch (Exception)
         {
-            return $"An error has occurred";
+            return $"\nAn error has occurred";
         }
     }
 
@@ -77,5 +77,15 @@ class AdminLogic
             return $"The account with ID: {ID} and email: {email} does not exist";
         }
         return "";
+    }
+
+    public AdminAccountModel CheckExistingEmail(string email)
+    {
+        if (email == null)
+        {
+            return null;
+        }
+        CurrentAccount = _adminAccounts.Find(i => i.EmailAddress == email);
+        return CurrentAccount;
     }
 }

@@ -72,20 +72,8 @@ public class RoomLogic
                     {
                         int accid = Menu.loggedaccount.Id;
                         int Showid = showid;
-                        int Price = 0;
-                        if (selectedSeat.Rank == "A")
-                        {
-                            Price = 8;
-                        }
-                        else if (selectedSeat.Rank == "B")
-                        {
-                            Price = 10;
-                        }
-                        else if (selectedSeat.Rank == "C")
-                        {
-                            Price = 12;
-                        }
-                        BuyTicket ticket = new BuyTicket(Showid, accid, bookedChairs, Price);
+                        double Price = GetPrices(selectedSeat);
+                        BuyTicket ticket = new BuyTicket(Showid, accid, bookedChairs);
                         Thread.Sleep(3500);
                         ticket.Overview();
                     }
@@ -95,7 +83,29 @@ public class RoomLogic
             DisplaySeatingChart(seatingChart, roomModel, selectedRow, selectedColumn, bookedChairs);
         }
     }
-
+    public static double GetPrices(ChairModel selectedSeat)
+    {
+        double Price = 0;
+        if (selectedSeat.Rank == "A")
+        {
+            Price = 8;
+            return Price;
+        }
+        else if (selectedSeat.Rank == "B")
+        {
+            Price = 10;
+            return Price;
+        }
+        else if (selectedSeat.Rank == "C")
+        {
+            Price = 12;
+            return Price;
+        }
+        else
+        {
+            return 0;
+        }
+    }
     public static void AdminRoomCheck(int showId)
     {
         ShowLogic showlogic = new ShowLogic();
@@ -118,6 +128,10 @@ public class RoomLogic
     private static RoomModel GetRoomById(int roomId)
     {
         return _rooms.FirstOrDefault(r => r.Id == roomId);
+    }
+    public static ChairModel GetChairById(int chairId)
+    {
+        return _chairs.FirstOrDefault(x => x.ChairId == chairId);
     }
 
     private static ChairModel[,] CreateSeatingChart(RoomModel roomModel)

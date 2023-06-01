@@ -7,7 +7,7 @@ static class UserLoggedIn
     {
 
         string prompt = @"HOME PAGE";
-        string[] options = { "Select a movie", "Account info", "Do Someting else", "Logout" };
+        string[] options = { "Select a movie", "Account info", "Logout" };
         KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
         int selectedIndex = mainMenu.Run();
 
@@ -25,10 +25,7 @@ static class UserLoggedIn
             else if (selectedIndex == 2)
             {
                 // Console.WriteLine("This feature is not yet implemented");
-                RoomLogic.Start(1, 1);
-            }
-            else if (selectedIndex == 3)
-            {
+                // RoomLogic.Start(1, 1);
                 Menu.loggedaccount = null;
                 Menu.Start();
             }

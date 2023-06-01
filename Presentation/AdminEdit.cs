@@ -67,6 +67,8 @@ public class AdminEdit
         }
     }
 
+
+    /////////////accounts/////////////
     public static void AddAdmin()
     {
         Console.Clear();
@@ -74,11 +76,53 @@ public class AdminEdit
         string accName = Console.ReadLine();
         Console.WriteLine("Enter the email of the account: ");
         string accEmail = Console.ReadLine();
+        while (!accEmail.Contains("@"))
+        {
+            Console.WriteLine("Invalid Email");
+            Console.WriteLine("Please enter email adres");
+            accEmail = Console.ReadLine();
+        }
         Console.WriteLine("Enter the password of the new account: ");
-        string accPassword = Console.ReadLine();
+
+        string password = "";
+        while (true)
+        {
+            ConsoleKeyInfo key = Console.ReadKey(true);
+            if (key.Key == ConsoleKey.Enter)
+            {
+                break;
+            }
+            else if (key.Key == ConsoleKey.Backspace && password.Length > 0)
+            {
+                //removes latest letter if backspace is pressed
+                password = password.Substring(0, password.Length - 1);
+                Console.Write("\b \b");
+            }
+            else if (Char.IsLetterOrDigit(key.KeyChar))
+            {
+                //turn the letter into the star.
+                password += key.KeyChar;
+                Console.Write(key.KeyChar);
+                System.Threading.Thread.Sleep(100);
+                Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                Console.Write("*");
+            }
+        }
         AdminLogic logic = new AdminLogic();
-        logic.AddAccount(accName, accEmail, accPassword);
-        Console.WriteLine(logic.AddAccount(accName, accEmail, accPassword));
+        Console.WriteLine(logic.AddAccount(accName, accEmail, password));
+        Thread.Sleep(3000);
+        AdminPanel.AdminMenu();
+
+    }
+    public static void DeleteAdmin()
+    {
+        Console.Clear();
+        Console.WriteLine("Enter the ID of the account: ");
+        int accID = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Enter the email of the account: ");
+        string accEmail = Console.ReadLine();
+        AdminLogic logic = new AdminLogic();
+        Console.WriteLine(logic.DeleteAdmin(accID, accEmail));
         Thread.Sleep(3000);
         AdminPanel.AdminMenu();
     }

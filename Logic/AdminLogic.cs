@@ -50,11 +50,42 @@ class AdminLogic
             }
             _adminAccounts.Add(new AdminAccountModel(id, email, password, name));
             AdminAccountsAccess.WriteAll(_adminAccounts);
-            return $"The new account has been added";
+            return $"\nThe new account has been added";
         }
         catch (Exception)
         {
-            return $"An error has occurred";
+            return $"\nAn error has occurred";
         }
+    }
+
+
+    public string DeleteAdmin(int ID, string email)
+    {
+        var targetAccount = _adminAccounts.FirstOrDefault(x => x.Id == ID && x.EmailAddress == email);
+
+        if (targetAccount != null)
+        {
+            if (_adminAccounts.Count() > 1)
+            {
+                _adminAccounts.Remove(targetAccount);
+                AdminAccountsAccess.WriteAll(_adminAccounts);
+                return $"The account with ID: {ID} and email: {email} has been deleted";
+            }
+        }
+        else
+        {
+            return $"The account with ID: {ID} and email: {email} does not exist";
+        }
+        return "";
+    }
+
+    public AdminAccountModel CheckExistingEmail(string email)
+    {
+        if (email == null)
+        {
+            return null;
+        }
+        CurrentAccount = _adminAccounts.Find(i => i.EmailAddress == email);
+        return CurrentAccount;
     }
 }

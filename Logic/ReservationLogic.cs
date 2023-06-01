@@ -66,14 +66,14 @@ public class ReservationLogic
         _reservations.Remove(reservation);
         ReservationAccess.WriteAll(_reservations);
     }
-    public static string GetShowMovieInfo(ReservationModel reservation)
-    {
-        ShowLogic showlogic = new ShowLogic();
-        ShowModel show = showlogic.GetById(reservation.ShowId);
-        MovieLogic movielogic = new MovieLogic();
-        MovieModel movie = movielogic.GetById(show.MovieId);
-        return $"Ticket: \nMovie: {movie.Name} \nTime: {show.Time} \nDate: {show.Date}";
-    }
+    // public static string GetShowMovieInfo(ReservationModel reservation)
+    // {
+    //     ShowLogic showlogic = new ShowLogic();
+    //     ShowModel show = showlogic.GetById(reservation.ShowId);
+    //     MovieLogic movielogic = new MovieLogic();
+    //     MovieModel movie = movielogic.GetById(show.MovieId);
+    //     return $"Ticket: \nMovie: {movie.Name} \nTime: {show.Time} \nDate: {show.Date}";
+    // }
     public string[] MenuOptions(List<ReservationModel> reservationlist)
     {
         string[] options = new string[10];
@@ -85,7 +85,7 @@ public class ReservationLogic
             {
                 Array.Resize(ref options, index + 1);
                 reservationlist.Add(i);
-                options[index] = ReservationLogic.GetShowMovieInfo(i);
+                options[index] = BuyTicketLogic.GetTicket(i);
                 index++;
             }
         }
@@ -120,11 +120,11 @@ public class ReservationLogic
         }
         if (reservation.BarReservationID == 0)
         {
-            return $"{ReservationLogic.GetShowMovieInfo(reservation)} \nSeats: {chairs} \nBar reservation: You don't have a reservation for the bar \nGenre: {movie.Genre} \nInfo: {movie.Info}";
+            return $"{BuyTicketLogic.GetTicket(reservation)} \n Bar reservation: You don't have a reservation for the bar \n Genre: {movie.Genre} \n Info: {movie.Info}";
         }
         else
         {
-            return $"{ReservationLogic.GetShowMovieInfo(reservation)} \nSeats: {chairs} \nBar reservation: You have a reservation for the bar \nGenre: {movie.Genre} \nInfo: {movie.Info}";
+            return $"{BuyTicketLogic.GetTicket(reservation)} \n Bar reservation: You have a reservation for the bar \n Genre: {movie.Genre} \n Info: {movie.Info}";
         }
     }
     public bool AddBarReservations()

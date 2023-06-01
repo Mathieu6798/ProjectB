@@ -19,6 +19,7 @@ static class Menu
      
 
         Welcome to Shinema";
+        Console.CursorVisible = false;
         string[] options = { "Login", "Register Account", "Select a movie", "Quit" };
         KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
         int selectedIndex = mainMenu.Run();

@@ -7,6 +7,7 @@ static class UserLogin
     public static void Start()
     {
         Console.Clear();
+        Console.CursorVisible = true;
         if (Menu.loggedaccount != null)
         {
             Console.WriteLine($"You are already logged in with this account: Fullname: {Menu.loggedaccount.FullName}, Email: {Menu.loggedaccount.EmailAddress}");

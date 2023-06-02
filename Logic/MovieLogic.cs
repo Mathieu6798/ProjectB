@@ -10,7 +10,7 @@ class MovieLogic
 
     public MovieModel GetById(int id)
     {
-        return _movies.Find(i => i.MovieId == id);
+        return _movies.Find(i => i.Id == id);
     }
 
 

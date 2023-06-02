@@ -2,8 +2,10 @@ public class BuyTicketLogic
 {
     public static string GetTicket(ReservationModel ticket)
     {
-        ShowModel show = (ShowAccess.LoadAll()).First(x => x.Id == ticket.ShowId);
-        MovieModel movie = (MoviesAccess.LoadAll()).First(x => x.Id == show.MovieId);
+        ShowLogic showlogic = new ShowLogic();
+        ShowModel show = showlogic.GetById(ticket.ShowId);
+        MovieLogic movielogic = new MovieLogic();
+        MovieModel movie = movielogic.GetById(show.MovieId);
         double Price = 0;
         foreach (var i in ticket.Chairs)
         {

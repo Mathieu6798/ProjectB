@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Serialization;
-public class AccountModel
+public class AccountModel : IModel
 {
     [JsonPropertyName("id")]
     public int Id { get; set; }

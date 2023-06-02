@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-public class ChairModel
+public class ChairModel : IModel
 {
     [JsonPropertyName("id")]
     public int Id { get; set; }

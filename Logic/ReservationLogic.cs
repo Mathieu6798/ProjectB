@@ -5,9 +5,9 @@ using System.Text.Json;
 
 
 //This class is not static so later on we can use inheritance and interfaces
-public class ReservationLogic
+public class ReservationLogic : BasicLogic<ReservationModel>
 {
-    protected List<ReservationModel> _reservations;
+    // protected List<ReservationModel> _items;
     private int MaxReservations = 40;
     private int ActualReservations;
 
@@ -19,11 +19,11 @@ public class ReservationLogic
     {
         try
         {
-            _reservations = ReservationAccess.LoadAll();
+            _items = ReservationAccess.LoadAll();
         }
         catch (Exception)
         {
-            _reservations = new List<ReservationModel>();
+            _items = new List<ReservationModel>();
         }
 
     }
@@ -31,52 +31,52 @@ public class ReservationLogic
     public int GetLastId()
     {
         int id = 0;
-        if (_reservations.LastOrDefault() == null)
+        if (_items.LastOrDefault() == null)
         {
             id = 1;
         }
         else
         {
-            id = _reservations.LastOrDefault().Id;
+            id = _items.LastOrDefault().Id;
         }
         return id;
     }
-    public void UpdateShowReservation(ReservationModel acc)
+    public override void UpdateList(ReservationModel acc)
     {
         //Find if there is already an model with the same id
-        int index = _reservations.FindIndex(s => s.ShowId == acc.ShowId);
+        int index = _items.FindIndex(s => s.ShowId == acc.ShowId);
 
         if (index != -1)
         {
             //update existing model
-            _reservations[index] = acc;
+            _items[index] = acc;
         }
         else
         {
             //add new model
-            _reservations.Add(acc);
+            _items.Add(acc);
         }
-        ReservationAccess.WriteAll(_reservations);
+        ReservationAccess.WriteAll(_items);
     }
 
     public ReservationModel GetAccountId(int id)
     {
-        return _reservations.Find(i => i.ShowId == id);
+        return _items.Find(i => i.ShowId == id);
     }
     public ReservationModel GetShowId(int id)
     {
-        return _reservations.Find(i => i.ShowId == id);
+        return _items.Find(i => i.ShowId == id);
     }
     public void AddReservation(ReservationModel ticket)
     {
-        _reservations.Add(ticket);
-        ReservationAccess.WriteAll(_reservations);
+        _items.Add(ticket);
+        ReservationAccess.WriteAll(_items);
     }
     public void RemoveReservation(List<ReservationModel> reservationlist, int counter)
     {
-        ReservationModel reservation = _reservations.Find(i => i == reservationlist[counter]);
-        _reservations.Remove(reservation);
-        ReservationAccess.WriteAll(_reservations);
+        ReservationModel reservation = _items.Find(i => i == reservationlist[counter]);
+        _items.Remove(reservation);
+        ReservationAccess.WriteAll(_items);
     }
     // public static string GetShowMovieInfo(ReservationModel reservation)
     // {
@@ -91,7 +91,7 @@ public class ReservationLogic
         string[] options = new string[10];
         AccountModel CurrentAccount = Menu.loggedaccount;
         int index = 0;
-        foreach (var i in _reservations)
+        foreach (var i in _items)
         {
             if (i.AccountID == CurrentAccount.Id)
             {
@@ -109,7 +109,7 @@ public class ReservationLogic
 
     public string GetInformation(List<ReservationModel> reservationlist, int counter)
     {
-        ReservationModel reservation = _reservations.Find(i => i == reservationlist[counter]);
+        ReservationModel reservation = _items.Find(i => i == reservationlist[counter]);
         ShowLogic showlogic = new ShowLogic();
         ShowModel show = showlogic.GetById(reservation.ShowId);
         MovieLogic movielogic = new MovieLogic();
@@ -141,10 +141,10 @@ public class ReservationLogic
     }
     public bool AddBarReservations()
     {
-        ReservationModel lastReservation = (_reservations).Last();
+        ReservationModel lastReservation = (_items).Last();
         ShowModel show = (ShowAccess.LoadAll()).First(x => x.Id == lastReservation.ShowId);
         MovieModel movie = (MoviesAccess.LoadAll()).First(x => x.Id == show.MovieId);
-        foreach (var i in _reservations)
+        foreach (var i in _items)
         {
             if (i.BarReservationID != 0)
             {
@@ -153,10 +153,10 @@ public class ReservationLogic
         }
         if (ActualReservations + lastReservation.Chairs.Count <= MaxReservations)
         {
-            _reservations.Remove(lastReservation);
+            _items.Remove(lastReservation);
             lastReservation.BarReservationID = 1;
-            _reservations.Add(lastReservation);
-            ReservationAccess.WriteAll(_reservations);
+            _items.Add(lastReservation);
+            ReservationAccess.WriteAll(_items);
             return true;
         }
         else

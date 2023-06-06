@@ -46,7 +46,18 @@ public class AdminEdit
         Console.WriteLine("Enter Movie Name To Remove: ");
         string input = Console.ReadLine();
         MovieLogic logic = new MovieLogic();
-        MovieLogic.Removemovie(input);
+        if (MovieLogic.Removemovie(input) == true)
+        {
+            Console.WriteLine("The movie has been removed");
+            Console.WriteLine("No movie found with that name");
+        }
+        else
+        {
+            Console.WriteLine("No movie found with that name");
+        }
+        Console.WriteLine(MovieLogic.Removemovie(input));
+        Thread.Sleep(3000);
+        AdminPanelOptions.MovieOptions();
     }
     public static void RemoveShow()
     {

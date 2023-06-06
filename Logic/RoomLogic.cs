@@ -70,12 +70,24 @@ public class RoomLogic
                     }
                     else
                     {
-                        int accid = Menu.loggedaccount.Id;
-                        int Showid = showid;
-                        double Price = GetPrices(selectedSeat);
-                        BuyTicket ticket = new BuyTicket(Showid, accid, bookedChairs);
-                        Thread.Sleep(3500);
-                        ticket.Overview();
+                        if (Menu.loggedaccount == null)
+                        {
+                            // int accid = Menu.loggedaccount.Id;
+                            int Showid = showid;
+                            double Price = GetPrices(selectedSeat);
+                            BuyTicket ticket = new BuyTicket(Showid, 0, bookedChairs);
+                            Thread.Sleep(3500);
+                            ticket.Overview();
+                        }
+                        else
+                        {
+                            int accid = Menu.loggedaccount.Id;
+                            int Showid = showid;
+                            double Price = GetPrices(selectedSeat);
+                            BuyTicket ticket = new BuyTicket(Showid, accid, bookedChairs);
+                            Thread.Sleep(3500);
+                            ticket.Overview();
+                        }
                     }
                 }
             }

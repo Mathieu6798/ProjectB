@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-class ShowModel
+class ShowModel : IModel
 {
     // [JsonPropertyName("Date")]
     public string Date { get; set; }

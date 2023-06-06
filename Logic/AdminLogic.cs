@@ -4,9 +4,9 @@ using System.IO;
 using System.Text.Json;
 
 //This class is not static so later on we can use inheritance and interfaces
-class AdminLogic
+public class AdminLogic : BasicLogic<AdminAccountModel>
 {
-    private List<AdminAccountModel> _adminAccounts;
+    // private List<AdminAccountModel> _adminAccounts;
 
     //Static properties are shared across all instances of the class
     //This can be used to get the current logged in account from anywhere in the program
@@ -15,13 +15,13 @@ class AdminLogic
 
     public AdminLogic()
     {
-        _adminAccounts = AdminAccountsAccess.LoadAll();
+        _items = AdminAccountsAccess.LoadAll();
     }
 
-    public AdminAccountModel GetById(int id)
-    {
-        return _adminAccounts.Find(i => i.Id == id);
-    }
+    // public AdminAccountModel GetById(int id)
+    // {
+    //     return _adminAccounts.Find(i => i.Id == id);
+    // }
 
     public AdminAccountModel CheckLogin(string email, string password)
     {
@@ -29,7 +29,7 @@ class AdminLogic
         {
             return null;
         }
-        CurrentAccount = _adminAccounts.Find(i => i.EmailAddress == email && i.Password == password);
+        CurrentAccount = _items.Find(i => i.EmailAddress == email && i.Password == password);
         return CurrentAccount;
     }
 
@@ -38,7 +38,7 @@ class AdminLogic
     {
         try
         {
-            var lastaccount = _adminAccounts.LastOrDefault();
+            var lastaccount = _items.LastOrDefault();
             int id = 0;
             if (lastaccount == null)
             {
@@ -48,8 +48,8 @@ class AdminLogic
             {
                 id = lastaccount.Id + 1;
             }
-            _adminAccounts.Add(new AdminAccountModel(id, email, password, name));
-            AdminAccountsAccess.WriteAll(_adminAccounts);
+            _items.Add(new AdminAccountModel(id, email, password, name));
+            AdminAccountsAccess.WriteAll(_items);
             return $"\nThe new account has been added";
         }
         catch (Exception)
@@ -61,14 +61,14 @@ class AdminLogic
 
     public string DeleteAdmin(int ID, string email)
     {
-        var targetAccount = _adminAccounts.FirstOrDefault(x => x.Id == ID && x.EmailAddress == email);
+        var targetAccount = _items.FirstOrDefault(x => x.Id == ID && x.EmailAddress == email);
 
         if (targetAccount != null)
         {
-            if (_adminAccounts.Count() > 1)
+            if (_items.Count() > 1)
             {
-                _adminAccounts.Remove(targetAccount);
-                AdminAccountsAccess.WriteAll(_adminAccounts);
+                _items.Remove(targetAccount);
+                AdminAccountsAccess.WriteAll(_items);
                 return $"The account with ID: {ID} and email: {email} has been deleted";
             }
         }
@@ -85,7 +85,24 @@ class AdminLogic
         {
             return null;
         }
-        CurrentAccount = _adminAccounts.Find(i => i.EmailAddress == email);
+        CurrentAccount = _items.Find(i => i.EmailAddress == email);
         return CurrentAccount;
+    }
+    public override void UpdateList(AdminAccountModel acc)
+    {
+        //Find if there is already an model with the same id
+        int index = _items.FindIndex(s => s.Id == acc.Id);
+
+        if (index != -1)
+        {
+            //update existing model
+            _items[index] = acc;
+        }
+        else
+        {
+            //add new model
+            _items.Add(acc);
+        }
+        AdminAccountsAccess.WriteAll(_items);
     }
 }

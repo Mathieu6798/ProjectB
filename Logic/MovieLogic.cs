@@ -1,16 +1,33 @@
-class MovieLogic
+class MovieLogic : BasicLogic<MovieModel>
 {
-    private static List<MovieModel> _movies;
+    // private static List<MovieModel> _items;
 
 
     public MovieLogic()
     {
-        _movies = MoviesAccess.LoadAll();
+        _items = MoviesAccess.LoadAll();
+    }
+    public override void UpdateList(MovieModel acc)
+    {
+        //Find if there is already an model with the same id
+        int index = _items.FindIndex(s => s.Id == acc.Id);
+
+        if (index != -1)
+        {
+            //update existing model
+            _items[index] = acc;
+        }
+        else
+        {
+            //add new model
+            _items.Add(acc);
+        }
+        MoviesAccess.WriteAll(_items);
     }
 
     public MovieModel GetById(int id)
     {
-        return _movies.Find(i => i.Id == id);
+        return _items.Find(i => i.Id == id);
     }
 
 
@@ -20,11 +37,11 @@ class MovieLogic
         {
             int count = 0;
             int id;
-            if (_movies == null)
+            if (_items == null)
             {
-                _movies = MoviesAccess.LoadAll();
+                _items = MoviesAccess.LoadAll();
             }
-            foreach (MovieModel _movies in _movies)
+            foreach (MovieModel _items in _items)
             {
                 count++;
             }
@@ -39,8 +56,8 @@ class MovieLogic
                 info
             );
 
-            _movies.Add(movie);
-            MoviesAccess.WriteAll(_movies);
+            _items.Add(movie);
+            MoviesAccess.WriteAll(_items);
             return true;
         }
         catch (FormatException)
@@ -80,7 +97,7 @@ class MovieLogic
     public static bool Removemovie(string name)
 
     {
-        if (_movies.Find(i => i.Name == name) == null)
+        if (_items.Find(i => i.Name == name) == null)
         {
             //Console.WriteLine("No movie found with that name");
             return false;
@@ -89,8 +106,8 @@ class MovieLogic
         }
         else
         {
-            _movies.Remove(_movies.Find(i => i.Name == name));
-            MoviesAccess.WriteAll(_movies);
+            _items.Remove(_items.Find(i => i.Name == name));
+            MoviesAccess.WriteAll(_items);
             return true;
             //Console.WriteLine("The movie has been removed");
             // AdminPanel.AdminMenu();

@@ -5,9 +5,9 @@ using System.Text.Json;
 
 
 //This class is not static so later on we can use inheritance and interfaces
-public class AccountsLogic
+public class AccountsLogic : BasicLogic<AccountModel>
 {
-    private List<AccountModel> _accounts;
+    // private List<AccountModel> _accounts;
 
     //Static properties are shared across all instances of the class
     //This can be used to get the current logged in account from anywhere in the program
@@ -16,37 +16,36 @@ public class AccountsLogic
 
     public AccountsLogic()
     {
-        _accounts = AccountsAccess.LoadAll();
+        _items = AccountsAccess.LoadAll();
     }
 
     public void DeleteAccount(AccountModel currentaccount)
     {
-        var itemToRemove = _accounts.First(r => r.Id == currentaccount.Id);
-        _accounts.Remove(itemToRemove);
-        AccountsAccess.WriteAll(_accounts);
+        var itemToRemove = _items.First(r => r.Id == currentaccount.Id);
+        _items.Remove(itemToRemove);
+        AccountsAccess.WriteAll(_items);
     }
-    public void UpdateList(AccountModel acc)
+    public override void UpdateList(AccountModel acc)
     {
         //Find if there is already an model with the same id
-        int index = _accounts.FindIndex(s => s.Id == acc.Id);
+        int index = _items.FindIndex(s => s.Id == acc.Id);
 
         if (index != -1)
         {
             //update existing model
-            _accounts[index] = acc;
+            _items[index] = acc;
         }
         else
         {
             //add new model
-            _accounts.Add(acc);
+            _items.Add(acc);
         }
-        AccountsAccess.WriteAll(_accounts);
-
+        AccountsAccess.WriteAll(_items);
     }
 
     public AccountModel GetById(int id)
     {
-        return _accounts.Find(i => i.Id == id);
+        return _items.Find(i => i.Id == id);
     }
 
     public AccountModel CheckLogin(string email, string password)
@@ -55,7 +54,7 @@ public class AccountsLogic
         {
             return null;
         }
-        CurrentAccount = _accounts.Find(i => i.EmailAddress == email && i.Password == password);
+        CurrentAccount = _items.Find(i => i.EmailAddress == email && i.Password == password);
         return CurrentAccount;
     }
     public AccountModel CheckExistingEmail(string email)
@@ -64,13 +63,13 @@ public class AccountsLogic
         {
             return null;
         }
-        CurrentAccount = _accounts.Find(i => i.EmailAddress == email);
+        CurrentAccount = _items.Find(i => i.EmailAddress == email);
         return CurrentAccount;
     }
 
     public void AddAcount(string name, string email, string password)
     {
-        var lastaccount = _accounts.LastOrDefault();
+        var lastaccount = _items.LastOrDefault();
         int id = 0;
         if (lastaccount == null)
         {
@@ -80,13 +79,13 @@ public class AccountsLogic
         {
             id = lastaccount.Id + 1;
         }
-        _accounts.Add(new AccountModel(id, email, password, name));
-        AccountsAccess.WriteAll(_accounts);
+        _items.Add(new AccountModel(id, email, password, name));
+        AccountsAccess.WriteAll(_items);
     }
     public AccountModel ChangeEmail(string email, AccountModel currentAccount)
     {
         // CurrentAccount = Menu.loggedaccount;
-        foreach (var i in _accounts)
+        foreach (var i in _items)
         {
             if (i.EmailAddress == email)
             {
@@ -96,7 +95,7 @@ public class AccountsLogic
                 return null;
             }
         }
-        foreach (var i in _accounts)
+        foreach (var i in _items)
         {
             if (i.EmailAddress == currentAccount.EmailAddress && i.Password == currentAccount.Password)
             {
@@ -107,7 +106,7 @@ public class AccountsLogic
                 // return true;
             }
         }
-        AccountsAccess.WriteAll(_accounts);
+        AccountsAccess.WriteAll(_items);
         return currentAccount;
         // AccountsAccess.WriteAll(_accounts);
         // System.Threading.Thread.Sleep(3000);
@@ -116,7 +115,7 @@ public class AccountsLogic
     public AccountModel ChangePassword(string password, AccountModel currentAccount)
     {
         // CurrentAccount = Menu.loggedaccount;
-        foreach (var i in _accounts)
+        foreach (var i in _items)
         {
             if (i.EmailAddress == currentAccount.EmailAddress && i.Password == currentAccount.Password)
             {
@@ -127,7 +126,7 @@ public class AccountsLogic
                 // return true;
             }
         }
-        AccountsAccess.WriteAll(_accounts);
+        AccountsAccess.WriteAll(_items);
         return currentAccount;
         // AccountsAccess.WriteAll(_accounts);
         // System.Threading.Thread.Sleep(3000);

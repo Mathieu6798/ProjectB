@@ -12,54 +12,5 @@
     "Genre": "adventure",
     "Age": 4,
     "Info": "spongebob bla bla bla bla"
-  },
-  {
-    "MovieId": 3,
-    "Name": "bobspons",
-    "Genre": "action",
-    "Age": 21,
-    "Info": "bobsponsV2"
-  },
-  {
-    "MovieId": 4,
-    "Name": "banana1",
-    "Genre": "action",
-    "Age": 24,
-    "Info": "bananaV1"
-  },
-  {
-    "MovieId": 5,
-    "Name": "bats",
-    "Genre": "actie",
-    "Age": 18,
-    "Info": "bats"
-  },
-  {
-    "MovieId": 6,
-    "Name": "batu",
-    "Genre": "actie",
-    "Age": 18,
-    "Info": "bert"
-  },
-  {
-    "MovieId": 7,
-    "Name": "Milan avontuur",
-    "Genre": "horror",
-    "Age": 200000,
-    "Info": "Milan is de beste"
-  },
-  {
-    "MovieId": 8,
-    "Name": "banana2213",
-    "Genre": "action",
-    "Age": 34,
-    "Info": "ban21223sdas"
-  },
-  {
-    "MovieId": 9,
-    "Name": "banana2213",
-    "Genre": "action",
-    "Age": 34,
-    "Info": "ban21223sdas"
   }
 ]

@@ -1,5 +1,7 @@
 public class AdminEdit
 {
+    public static bool check = true;
+    public static int age;
     public static void AddMovie()
     {
         Console.Clear();
@@ -7,23 +9,41 @@ public class AdminEdit
         string title = Console.ReadLine();
         Console.WriteLine("Enter the genre: ");
         string genre = Console.ReadLine();
-        Console.WriteLine("Enter the recommended age ");
-        int age = Convert.ToInt32(Console.ReadLine());
+        while (check)
+        {
+            Console.WriteLine("Enter the recommended age ");
+            try
+            {
+                int age = Convert.ToInt32(Console.ReadLine());
+                if (age > 21 || age < 12)
+                {
+                    Console.WriteLine($"The age was either too high or too low (12-21)");
+                    check = true;
+                }
+                else
+                {
+                    check = false;
+                }
+                //age = Convert.ToInt32(strAge);
+                // check = false;
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine($"The age you entered was not a valid age");
+                check = true;
+            }
+        }
+
+
         Console.WriteLine("Enter the discription: ");
         string info = Console.ReadLine();
         MovieLogic logic = new MovieLogic();
-        if (MovieLogic.AddMovie(title, genre, age, info))
-        {
-            Console.WriteLine("\nYour movie has been added");
-            Thread.Sleep(3000);
-        }
-        else
-        {
-            Console.WriteLine("\nThe move was not added");
-            Thread.Sleep(3000);
-        }
+        Console.WriteLine(MovieLogic.AddMovie(title, genre, age, info));
+        Thread.Sleep(3000);
         AdminPanel.AdminMenu();
     }
+
+
 
 
     public static void AddShow()
@@ -46,10 +66,9 @@ public class AdminEdit
         Console.WriteLine("Enter Movie Name To Remove: ");
         string input = Console.ReadLine();
         MovieLogic logic = new MovieLogic();
-        if (MovieLogic.Removemovie(input) == true)
+        if (MovieLogic.Removemovie(input))
         {
             Console.WriteLine("The movie has been removed");
-            Console.WriteLine("No movie found with that name");
         }
         else
         {
@@ -90,7 +109,7 @@ public class AdminEdit
         while (!accEmail.Contains("@"))
         {
             Console.WriteLine("Invalid Email");
-            Console.WriteLine("Please enter email adres");
+            Console.WriteLine("Please enter email adress");
             accEmail = Console.ReadLine();
         }
         Console.WriteLine("Enter the password of the new account: ");

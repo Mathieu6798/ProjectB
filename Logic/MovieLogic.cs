@@ -31,7 +31,7 @@ class MovieLogic : BasicLogic<MovieModel>
     }
 
 
-    public static bool AddMovie(string title, string genre, int age, string info)
+    public static string AddMovie(string title, string genre, int age, string info)
     {
         try
         {
@@ -58,11 +58,11 @@ class MovieLogic : BasicLogic<MovieModel>
 
             _items.Add(movie);
             MoviesAccess.WriteAll(_items);
-            return true;
+            return $"The movie {title} has been added";
         }
         catch (FormatException)
         {
-            return false;
+            return $"The movie {title} was not added";
         }
     }
 

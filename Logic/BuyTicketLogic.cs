@@ -12,7 +12,7 @@ public class BuyTicketLogic
             ChairModel chair = RoomLogic.GetChairById(i);
             Price += RoomLogic.GetPrices(chair);
         }
-        string Ticket = $"Ticket: \n Movie: {movie.Name} \n Time: {show.Time} \n Date: {show.Date} \n Price: {Price} euro \n Seat: ";
+        string Ticket = $"Ticket: \n Movie: {movie.Name} \n Time: {show.Time} \n Date: {show.Date} \n Duration: {movie.Duration} minutes \n Price: {Price} euro \n Seat:";
         for (int i = 0; i < ticket.Chairs.Count; i++)
         {
             if (i + 1 == ticket.Chairs.Count)

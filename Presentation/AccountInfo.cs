@@ -139,6 +139,7 @@ public static class AccountInfo
                     }
                     AccountsLogic accountlogic = new AccountsLogic();
                     accountlogic.DeleteAccount(Menu.loggedaccount);
+                    Menu.loggedaccount = null;
                     Console.WriteLine("The account has been deleted.");
                     Thread.Sleep(3500);
                     Menu.Start();

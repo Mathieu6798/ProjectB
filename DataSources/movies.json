@@ -4,6 +4,7 @@
     "Name": "john wick",
     "Genre": "action",
     "Age": 16,
+    "Duration": 250,
     "Info": "John wick fights a bunch of guys"
   },
   {
@@ -11,6 +12,23 @@
     "Name": "spongebob",
     "Genre": "adventure",
     "Age": 4,
+    "Duration": 230,
     "Info": "spongebob bla bla bla bla"
+  },
+  {
+    "MovieId": 3,
+    "Name": "godzilla 3",
+    "Genre": "action",
+    "Age": 150,
+    "Duration": 3,
+    "Info": "death reckoning"
+  },
+  {
+    "MovieId": 4,
+    "Name": "godzilla 4",
+    "Genre": "Action",
+    "Age": 0,
+    "Duration": 250,
+    "Info": "Roar"
   }
 ]

@@ -33,12 +33,27 @@ public class AdminEdit
                 check = true;
             }
         }
-
-
+        double duration = 301;
+        while (duration > 300)
+        {
+            Console.WriteLine("Enter the duration in minutes.");
+            try
+            {
+                duration = Convert.ToDouble(Console.ReadLine());
+                if (duration > 300 || duration < 0)
+                {
+                    Console.WriteLine("The duration was invalid. A movie cannot be shorter than 0 minutes and not longer than 300 minutes.");
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Invalid number");
+            }
+        }
         Console.WriteLine("Enter the discription: ");
         string info = Console.ReadLine();
         MovieLogic logic = new MovieLogic();
-        Console.WriteLine(MovieLogic.AddMovie(title, genre, age, info));
+        Console.WriteLine(MovieLogic.AddMovie(title, genre, age, duration, info));
         Thread.Sleep(3000);
         AdminPanel.AdminMenu();
     }

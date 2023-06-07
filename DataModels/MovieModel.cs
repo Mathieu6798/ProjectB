@@ -16,15 +16,19 @@ class MovieModel : IModel
     [JsonPropertyName("Age")]
     public int Age { get; set; }
 
+    [JsonPropertyName("Duration")]
+    public double Duration { get; set; }
+
     [JsonPropertyName("Info")]
     public string Info { get; set; }
 
-    public MovieModel(int id, string name, string genre, int age, string info)
+    public MovieModel(int id, string name, string genre, int age, double duration, string info)
     {
         Id = id;
         Name = name;
         Genre = genre;
         Age = age;
+        Duration = duration;
         Info = info;
     }
 

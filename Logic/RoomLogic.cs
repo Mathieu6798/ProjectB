@@ -54,7 +54,7 @@ public class RoomLogic
             else if (key == ConsoleKey.Enter)
             {
                 var selectedSeat = seatingChart[selectedRow, selectedColumn];
-                if (bookedChairs.Contains(selectedSeat.Id))
+                if (bookedChairs.Contains(selectedSeat.Id) || IsSeatBooked(showid, selectedSeat.Id))
                 {
                     Console.WriteLine($"Seat {selectedSeat.Chairnumber} at row {selectedSeat.Rownumber} is already booked.");
                 }

@@ -133,6 +133,12 @@ public class RoomLogic
         ShowLogic showlogic = new ShowLogic();
         ShowModel show = showlogic.GetById(showId);
 
+        if (show == null)
+        {
+            Console.WriteLine($"Show with ID {showId} not found.");
+            return;
+        }
+
         var roomId = show.RoomId;
         var roomModel = GetRoomById(roomId);
 
@@ -253,6 +259,7 @@ public class RoomLogic
         Console.ResetColor();
         Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
+        AdminPanel.AdminMenu();
     }
 
 

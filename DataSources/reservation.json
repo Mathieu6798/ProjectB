@@ -161,5 +161,24 @@
       130
     ],
     "BarReservationID": 1
+  },
+  {
+    "Id": 4,
+    "ShowId": 1,
+    "AccountID": 4,
+    "Chairs": [
+      95
+    ],
+    "BarReservationID": 1
+  },
+  {
+    "Id": 5,
+    "ShowId": 1,
+    "AccountID": 4,
+    "Chairs": [
+      86,
+      149
+    ],
+    "BarReservationID": 1
   }
 ]

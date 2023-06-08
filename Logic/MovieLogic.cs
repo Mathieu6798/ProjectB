@@ -117,81 +117,122 @@ class MovieLogic : BasicLogic<MovieModel>
     public static void chooseMovie()
     {
         // while (optie1 == null)
+        //     List<string> optionList = new List<string> { "Back" };
+        //     foreach (var item in MoviesAccess.LoadAll())
+        //     {
+        //         optionList.Add(item.Name);
+        //     }
+        //     int input1 = -2;
+        //     while (input1 < 0 || input1 >= optionList.Count)
+        //     {
+        //         Console.Clear();
+        //         System.Console.WriteLine("Choose a option by typing the number");
+        //         System.Console.WriteLine($"0: {optionList[0]}");
+        //         for (int i = 1; i < optionList.Count; i++)
+        //         {
+        //             System.Console.WriteLine($"{i}: {optionList[i]}");
+        //         }
+        //         input1 = Convert.ToInt32(System.Console.ReadLine());
+        //     }
+        //     if (input1 == 0)
+        //     {
+        //         Menu.Start();
+        //     }
+        //     else
+        //     {
+        //         chooseDateTime(input1);
+        //     }
+        // }
+        string prompt = @"choose a movie: ";
         List<string> optionList = new List<string> { "Back" };
         foreach (var item in MoviesAccess.LoadAll())
         {
             optionList.Add(item.Name);
         }
-        int input1 = -2;
-        while (input1 < 0 || input1 >= optionList.Count)
-        {
-            Console.Clear();
-            System.Console.WriteLine("Choose a option by typing the number");
-            System.Console.WriteLine($"0: {optionList[0]}");
-            for (int i = 1; i < optionList.Count; i++)
-            {
-                System.Console.WriteLine($"{i}: {optionList[i]}");
-            }
-            input1 = Convert.ToInt32(System.Console.ReadLine());
-        }
-        if (input1 == 0)
+        string[] options = optionList.ToArray();
+        KeyBoardLogic MovieMenu = new KeyBoardLogic(prompt, options);
+        int selectedIndex = MovieMenu.Run();
+        int counter = 0;
+        if (selectedIndex == 0)
         {
             Menu.Start();
         }
-        else
+        else if (selectedIndex > 0)
         {
-            chooseDateTime(input1);
-        }
-    }
-
-
-    public static void chooseDateTime(int input1)
-    {
-        List<string> optionList2 = new List<string> { "Back" };
-        foreach (var show in ShowAccess.LoadAll())
-        {
-            if (input1 == show.MovieId)
+            foreach (var movie in optionList)
             {
-                optionList2.Add($"{show.Date}-----{show.Time}-----Room {show.RoomId}");
+                if (counter == selectedIndex)
+                {
+                    chooseDateTime(counter);
+                }
+                counter++;
             }
         }
+
+
+        static void chooseDateTime(int input1)
+        {
+            string prompt = "Choose a show time:";
+            List<string> optionList2 = new List<string> { "Back" };
+            foreach (var show in ShowAccess.LoadAll())
+            {
+                if (input1 == show.MovieId)
+                {
+                    optionList2.Add($"{show.Date}-----{show.Time}-----Room {show.RoomId}");
+                }
+            }
+            string[] options = optionList2.ToArray();
+            KeyBoardLogic MovieMenu = new KeyBoardLogic(prompt, options);
+            int selectedIndex = MovieMenu.Run();
+            if (selectedIndex == 0)
+            {
+                chooseMovie();
+            }
+            else if (selectedIndex > 0)
+            {
+                foreach (var show in ShowAccess.LoadAll())
+                {
+                    if (show.Id == selectedIndex)
+                    {
+                        RoomLogic.Start(show.RoomId, selectedIndex);
+                    }
+                }
+            }
+        }
+
         ////////////////////////////////////////////////////// optie 2      
-        int input2 = -3;
-        while (input2 < 0 || input2 >= optionList2.Count)
-        {
-            Console.Clear();
-            System.Console.WriteLine("Choose a option by typing the number");
-            System.Console.WriteLine($"0: {optionList2[0]}");
-            for (int i = 1; i < optionList2.Count; i++)
-            {
-                System.Console.WriteLine($"{i}: {optionList2[i]}");
-            }
-            input2 = Convert.ToInt32(System.Console.ReadLine());
-        }
-        if (input2 == 0)
-        {
-            chooseMovie();
-        }
-        else
-        {
-            // System.Console.WriteLine("OK");
-            // Menu.Start();
-            string[] split = optionList2[input2].Split("-----");
-            ShowModel show1 = (ShowAccess.LoadAll()).First(x => x.Date == split[0] || x.Time == split[1]);
-            ShowLogic logic = new ShowLogic();
+        // int input2 = -3;
+        // while (input2 < 0 || input2 >= optionList2.Count)
+        // {
+        //     Console.Clear();
+        //     System.Console.WriteLine("Choose a option by typing the number");
+        //     System.Console.WriteLine($"0: {optionList2[0]}");
+        //     for (int i = 1; i < optionList2.Count; i++)
+        //     {
+        //         System.Console.WriteLine($"{i}: {optionList2[i]}");
+        //     }
+        //     input2 = Convert.ToInt32(System.Console.ReadLine());
+        // }
+        // if (input2 == 0)
+        // {
+        //     chooseMovie();
+        // }
+        // else
+        // {
+        // System.Console.WriteLine("OK");
+        // Menu.Start();
+        // string[] split = optionList2[input2].Split("-----");
+        // ShowModel show1 = (ShowAccess.LoadAll()).First(x => x.Date == split[0] || x.Time == split[1]);
+        // ShowLogic logic = new ShowLogic();
 
-            // ShowModel show1 = logic.GetById(input2);
-            RoomLogic.Start(show1.RoomId, show1.Id);
-            // ShowModel show1 = logic.GetById(input2);
-            // RoomLogic.Start(show1.RoomId, input2);
-
-
+        // // ShowModel show1 = logic.GetById(input2);
+        // RoomLogic.Start(show1.RoomId, show1.Id);
+        // // ShowModel show1 = logic.GetById(input2);
+        // // RoomLogic.Start(show1.RoomId, input2);
 
 
-            //functieDami(ShowId);////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        }
+
+
+        //functieDami(ShowId);////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
-
-
-
 }

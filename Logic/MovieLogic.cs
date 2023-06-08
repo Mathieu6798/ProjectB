@@ -164,7 +164,14 @@ class MovieLogic : BasicLogic<MovieModel>
         int counter = 0;
         if (selectedIndex == 0)
         {
-            Menu.Start();
+            if (Menu.loggedaccount == null)
+            {
+                Menu.Start();
+            }
+            else
+            {
+                UserLoggedIn.Start();
+            }
         }
         else if (selectedIndex > 0)
         {

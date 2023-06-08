@@ -38,7 +38,7 @@ class ShowLogic : BasicLogic<ShowModel>
             DateTime dateTime = DateTime.ParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
             DateTime Time = DateTime.ParseExact(time, "HH:mm", CultureInfo.InvariantCulture);
             bool timeIsOccupied = true;
-            foreach (var show in ShowAccess.LoadAll())
+            foreach (var show in _items)
             {
                 if (DateTime.Parse(show.Time) <= Time.AddHours(4))
                 {
@@ -49,6 +49,7 @@ class ShowLogic : BasicLogic<ShowModel>
                             if (show.RoomId == roomId)
                             {
                                 System.Console.WriteLine("Already a show in that room. Choose a different room or time");
+                                Thread.Sleep(3000);
                                 timeIsOccupied = false;
                                 AdminEdit.AddShow();
                                 break;
@@ -67,6 +68,7 @@ class ShowLogic : BasicLogic<ShowModel>
         {
             Console.WriteLine($"\nIncorrect date or time format");
             Console.WriteLine($"The correct format for the date is: dd/mm/yyyy and for time it is: HH:mm\n ");
+            Thread.Sleep(3500);
             AdminEdit.AddShow();
         }
 
@@ -78,14 +80,22 @@ class ShowLogic : BasicLogic<ShowModel>
         //Console.WriteLine(_shows);
         _items = ShowAccess.LoadAll();
         int showId = 0;
-        int count = 0;
+        // int count = 0;
 
         if (_items != null)
         {
             try
             {
-                count = _items.Count();
-                showId = count += 1;
+                if (_items.LastOrDefault() == null)
+                {
+                    showId = 1;
+                }
+                else
+                {
+                    showId = _items.LastOrDefault().Id;
+                }
+                // count = _items.Count();
+                // showId = count += 1;
                 _items.Add(new ShowModel
             (
                 date,

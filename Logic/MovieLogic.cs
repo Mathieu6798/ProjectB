@@ -31,21 +31,29 @@ class MovieLogic : BasicLogic<MovieModel>
     }
 
 
-    public static bool AddMovie(string title, string genre, int age, string info)
+    public static string AddMovie(string title, string genre, int age, double duration, string info)
     {
         try
         {
-            int count = 0;
-            int id;
-            if (_items == null)
+            // int count = 0;
+            // int id;
+            // if (_items == null)
+            // {
+            //     _items = MoviesAccess.LoadAll();
+            // }
+            // foreach (MovieModel _items in _items)
+            // {
+            //     count++;
+            // }
+            int id = 0;
+            if (_items.LastOrDefault() == null)
             {
-                _items = MoviesAccess.LoadAll();
+                id = 1;
             }
-            foreach (MovieModel _items in _items)
+            else
             {
-                count++;
+                id = _items.LastOrDefault().Id + 1;
             }
-            id = count += 1;
 
             var movie = new MovieModel
             (
@@ -53,16 +61,17 @@ class MovieLogic : BasicLogic<MovieModel>
                 title,
                 genre,
                 age,
+                duration,
                 info
             );
 
             _items.Add(movie);
             MoviesAccess.WriteAll(_items);
-            return true;
+            return $"The movie {title} has been added";
         }
         catch (FormatException)
         {
-            return false;
+            return $"The movie {title} was not added";
         }
     }
 

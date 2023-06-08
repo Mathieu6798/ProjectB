@@ -92,8 +92,17 @@ public class RoomLogic
                 }
             }
 
-            DisplaySeatingChart(seatingChart, roomModel, selectedRow, selectedColumn, bookedChairs);
+            DisplaySeatingChart(seatingChart, roomModel, selectedRow, selectedColumn, bookedChairs, showid);
         }
+    }
+    public static int GetShows()
+    {
+
+        var options = _reservations.Select(reservation => reservation.ShowId.ToString()).Distinct().ToArray();
+        KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a ShowID", options);
+        int selectedIndex = mainMenu.Run();
+        return selectedIndex;
+
     }
 
     public static void AdminRoomCheck(int showId)
@@ -110,8 +119,6 @@ public class RoomLogic
             return;
         }
 
-        CreateSeatingChart(roomModel, showId);
-        // Display seating chart and allow seat selection
         DisplaySeatingChart(roomModel, showId);
     }
 
@@ -140,7 +147,7 @@ public class RoomLogic
         return seatingChart;
     }
 
-    private static void DisplaySeatingChart(ChairModel[,] seatingChart, RoomModel roomModel, int selectedRow, int selectedColumn, List<int> bookedChairs)
+    private static void DisplaySeatingChart(ChairModel[,] seatingChart, RoomModel roomModel, int selectedRow, int selectedColumn, List<int> bookedChairs, int showId)
     {
         Console.Clear();
 
@@ -153,7 +160,9 @@ public class RoomLogic
 
                 if (seat != null)
                 {
-                    char displayChar = bookedChairs.Contains(seat.ChairId) ? 'X' : 'O';
+                    bool isBooked = IsSeatBooked(showId, seat.ChairId);
+
+                    char displayChar = isBooked ? 'X' : 'O';
                     if (i == selectedRow && j == selectedColumn)
                     {
                         Console.BackgroundColor = ConsoleColor.White;
@@ -163,7 +172,7 @@ public class RoomLogic
                     else
                     {
                         Console.ResetColor();
-                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.ForegroundColor = isBooked ? ConsoleColor.Red : ConsoleColor.Green;
                         Console.Write($"{displayChar} ");
                     }
                 }
@@ -186,62 +195,42 @@ public class RoomLogic
         Console.ResetColor();
     }
 
+
+
     private static void DisplaySeatingChart(RoomModel roomModel, int showId)
     {
         Console.WriteLine($"Seating chart for room {roomModel.Id}:");
 
-
-        var reservationModels = _reservations;
-
-        foreach (var reservation in reservationModels)
-        {
-            if (reservation.ShowId == showId)
-            {
-                foreach (var chairId in reservation.Chairs)
-                {
-                    var row = (chairId - 1) / roomModel.Columns;
-                    var column = (chairId - 1) % roomModel.Columns;
-
-                    if (row < roomModel.Rows && column < roomModel.Columns)
-                    {
-                        Console.SetCursorPosition((column * 2) + 3, row + 2);
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.Write("X");
-                    }
-                }
-            }
-        }
-
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.WriteLine();
-
         for (int i = 1; i <= roomModel.Rows; i++)
         {
-            Console.Write($"{i + 1}  ");
+            Console.Write($"{i}  ");
             for (int j = 1; j <= roomModel.Columns; j++)
             {
                 var chairId = (i - 1) * roomModel.Columns + j;
                 if (roomModel.Chairs.Contains(chairId))
                 {
-                    Console.ForegroundColor = ConsoleColor.White;
-                    if (IsSeatBooked(showId, chairId))
-                    {
-                        Console.Write("X ");
-                    }
-                    else
-                    {
-                        Console.Write("O ");
-                    }
+                    bool isBooked = IsSeatBooked(showId, chairId);
+                    char displayChar = isBooked ? 'X' : 'O';
+
+                    Console.ForegroundColor = isBooked ? ConsoleColor.Red : ConsoleColor.White;
+                    Console.Write($"{displayChar} ");
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    Console.Write("- ");
+                    Console.Write("  ");
                 }
             }
             Console.WriteLine();
         }
+
+        Console.ResetColor();
+        Console.WriteLine("Press any key to continue...");
+        Console.ReadKey();
     }
+
+
+
+
 
     private static bool PromptForAnotherSeat()
     {
@@ -253,62 +242,7 @@ public class RoomLogic
         return selectedIndexAdmin == 0;
     }
 
-    private static void CreateSeatingChart(RoomModel roomModel, int showId)
-    {
-        Console.WriteLine($"Seating chart for room {roomModel.Id}:");
-        // Console.WriteLine("   " + string.Join("  ", Enumerable.Range(1, roomModel.Columns)));
 
-        var reservationModels = _reservations;
-
-        foreach (var reservation in reservationModels)
-        {
-            if (reservation.ShowId == showId)
-            {
-                foreach (var chairId in reservation.Chairs)
-                {
-                    var row = (chairId - 1) / roomModel.Columns;
-                    var column = (chairId - 1) % roomModel.Columns;
-
-                    if (row < roomModel.Rows && column < roomModel.Columns)
-                    {
-                        Console.SetCursorPosition((column * 2) + 3, row + 2);
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.Write("X");
-                    }
-                }
-            }
-        }
-
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.WriteLine();
-
-        for (int i = 1; i <= roomModel.Rows; i++)
-        {
-            Console.Write($"{i + 1}  ");
-            for (int j = 1; j <= roomModel.Columns; j++)
-            {
-                var chairId = (i - 1) * roomModel.Columns + j;
-                if (roomModel.Chairs.Contains(chairId))
-                {
-                    Console.ForegroundColor = ConsoleColor.White;
-                    if (IsSeatBooked(showId, chairId))
-                    {
-                        Console.Write("X ");
-                    }
-                    else
-                    {
-                        Console.Write("O ");
-                    }
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    Console.Write("- ");
-                }
-            }
-            Console.WriteLine();
-        }
-    }
 
 
     private static bool IsSeatBooked(int showId, int chairId)

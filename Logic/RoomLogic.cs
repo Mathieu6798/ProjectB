@@ -187,7 +187,7 @@ public class RoomLogic
 
                 if (seat != null)
                 {
-                    bool isBooked = IsSeatBooked(showId, seat.ChairId);
+                    bool isBooked = IsSeatBooked(showId, seat.Id);
 
                     char displayChar = isBooked ? 'X' : 'O';
                     if (i == selectedRow && j == selectedColumn)

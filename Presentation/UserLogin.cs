@@ -2,11 +2,12 @@ static class UserLogin
 {
     static private AccountsLogic accountsLogic = new AccountsLogic();
     static private AdminLogic adminLogic = new AdminLogic();
-
+    public static bool isMakingAReservation = false;
 
     public static void Start()
     {
         Console.Clear();
+        Console.CursorVisible = true;
         if (Menu.loggedaccount != null)
         {
             Console.WriteLine($"You are already logged in with this account: Fullname: {Menu.loggedaccount.FullName}, Email: {Menu.loggedaccount.EmailAddress}");
@@ -74,11 +75,21 @@ static class UserLogin
         else if (acc != null && acc.EmailAddress != null)
         {
             Console.Clear();
-            Console.WriteLine("\nWelcome back " + acc.FullName + "!");
-            // Console.WriteLine("Your email is " + acc.EmailAddress);
-            Menu.loggedaccount = acc;
-            Thread.Sleep(3500);
-            UserLoggedIn.Start();
+            if (isMakingAReservation == true)
+            {
+                Console.WriteLine("You can now continue with your reservation");
+                Menu.loggedaccount = acc;
+                Thread.Sleep(3500);
+                return;
+            }
+            else
+            {
+                Console.WriteLine("\nWelcome back " + acc.FullName + "!");
+                // Console.WriteLine("Your email is " + acc.EmailAddress);
+                Menu.loggedaccount = acc;
+                Thread.Sleep(3500);
+                UserLoggedIn.Start();
+            }
         }
         else if (acc2 != null && acc2.EmailAddress != null)
         {

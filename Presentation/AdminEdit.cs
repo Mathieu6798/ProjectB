@@ -1,5 +1,7 @@
 public class AdminEdit
 {
+    public static bool check = true;
+    public static int age;
     public static void AddMovie()
     {
         Console.Clear();
@@ -7,23 +9,56 @@ public class AdminEdit
         string title = Console.ReadLine();
         Console.WriteLine("Enter the genre: ");
         string genre = Console.ReadLine();
-        Console.WriteLine("Enter the recommended age ");
-        int age = Convert.ToInt32(Console.ReadLine());
+        while (check)
+        {
+            Console.WriteLine("Enter the recommended age ");
+            try
+            {
+                int age = Convert.ToInt32(Console.ReadLine());
+                if (age > 21 || age < 12)
+                {
+                    Console.WriteLine($"The age was either too high or too low (12-21)");
+                    check = true;
+                }
+                else
+                {
+                    check = false;
+                }
+                //age = Convert.ToInt32(strAge);
+                // check = false;
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine($"The age you entered was not a valid age");
+                check = true;
+            }
+        }
+        double duration = 301;
+        while (duration > 300)
+        {
+            Console.WriteLine("Enter the duration in minutes.");
+            try
+            {
+                duration = Convert.ToDouble(Console.ReadLine());
+                if (duration > 300 || duration < 0)
+                {
+                    Console.WriteLine("The duration was invalid. A movie cannot be shorter than 0 minutes and not longer than 300 minutes.");
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Invalid number");
+            }
+        }
         Console.WriteLine("Enter the discription: ");
         string info = Console.ReadLine();
         MovieLogic logic = new MovieLogic();
-        if (MovieLogic.AddMovie(title, genre, age, info))
-        {
-            Console.WriteLine("\nYour movie has been added");
-            Thread.Sleep(3000);
-        }
-        else
-        {
-            Console.WriteLine("\nThe move was not added");
-            Thread.Sleep(3000);
-        }
+        Console.WriteLine(MovieLogic.AddMovie(title, genre, age, duration, info));
+        Thread.Sleep(3000);
         AdminPanel.AdminMenu();
     }
+
+
 
 
     public static void AddShow()
@@ -46,7 +81,17 @@ public class AdminEdit
         Console.WriteLine("Enter Movie Name To Remove: ");
         string input = Console.ReadLine();
         MovieLogic logic = new MovieLogic();
-        MovieLogic.Removemovie(input);
+        if (MovieLogic.Removemovie(input))
+        {
+            Console.WriteLine("The movie has been removed");
+        }
+        else
+        {
+            Console.WriteLine("No movie found with that name");
+        }
+        Console.WriteLine(MovieLogic.Removemovie(input));
+        Thread.Sleep(3000);
+        AdminPanelOptions.MovieOptions();
     }
     public static void RemoveShow()
     {
@@ -67,6 +112,8 @@ public class AdminEdit
         }
     }
 
+
+    /////////////accounts/////////////
     public static void AddAdmin()
     {
         Console.Clear();
@@ -74,11 +121,53 @@ public class AdminEdit
         string accName = Console.ReadLine();
         Console.WriteLine("Enter the email of the account: ");
         string accEmail = Console.ReadLine();
+        while (!accEmail.Contains("@"))
+        {
+            Console.WriteLine("Invalid Email");
+            Console.WriteLine("Please enter email adress");
+            accEmail = Console.ReadLine();
+        }
         Console.WriteLine("Enter the password of the new account: ");
-        string accPassword = Console.ReadLine();
+
+        string password = "";
+        while (true)
+        {
+            ConsoleKeyInfo key = Console.ReadKey(true);
+            if (key.Key == ConsoleKey.Enter)
+            {
+                break;
+            }
+            else if (key.Key == ConsoleKey.Backspace && password.Length > 0)
+            {
+                //removes latest letter if backspace is pressed
+                password = password.Substring(0, password.Length - 1);
+                Console.Write("\b \b");
+            }
+            else if (Char.IsLetterOrDigit(key.KeyChar))
+            {
+                //turn the letter into the star.
+                password += key.KeyChar;
+                Console.Write(key.KeyChar);
+                System.Threading.Thread.Sleep(100);
+                Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                Console.Write("*");
+            }
+        }
         AdminLogic logic = new AdminLogic();
-        logic.AddAccount(accName, accEmail, accPassword);
-        Console.WriteLine(logic.AddAccount(accName, accEmail, accPassword));
+        Console.WriteLine(logic.AddAccount(accName, accEmail, password));
+        Thread.Sleep(3000);
+        AdminPanel.AdminMenu();
+
+    }
+    public static void DeleteAdmin()
+    {
+        Console.Clear();
+        Console.WriteLine("Enter the ID of the account: ");
+        int accID = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Enter the email of the account: ");
+        string accEmail = Console.ReadLine();
+        AdminLogic logic = new AdminLogic();
+        Console.WriteLine(logic.DeleteAdmin(accID, accEmail));
         Thread.Sleep(3000);
         AdminPanel.AdminMenu();
     }

@@ -1,10 +1,33 @@
 public class BuyTicket
 {
     public ReservationModel ticket;
-    public BuyTicket(int showId, int accountID, List<int> chairs, int price)
+    public BuyTicket(int showId, int accountID, List<int> chairs)
     {
-        ticket = new ReservationModel(showId, accountID, chairs, 0);
-        // Overview(new ReservationModel(showId, accountID, chairs));
+        // ReservationLogic logic = new ReservationLogic();
+        // int id = logic.GetLastId();
+        // ticket = new ReservationModel(id + 1, showId, accountID, chairs, 0);
+        if (Menu.loggedaccount == null)
+        {
+            // Menu ding met ja of nee
+            string prompt = @"To continue the reservation you have to be logged in. Do you want to login and continue with the reservation or get send back to the menu?";
+            // Console.CursorVisible = false;
+            string[] options = { "Yes", "No" };
+            KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
+            int selectedIndex = mainMenu.Run();
+            if (selectedIndex == 0)
+            {
+                UserLogin.isMakingAReservation = true;
+                UserLogin.Start();
+            }
+            else
+            {
+                Menu.Start();
+            }
+        }
+        accountID = Menu.loggedaccount.Id;
+        ReservationLogic logic = new ReservationLogic();
+        int id = logic.GetLastId();
+        ticket = new ReservationModel(id + 1, showId, accountID, chairs, 0);
     }
     public void Overview()
     {
@@ -27,7 +50,7 @@ public class BuyTicket
             if (selectedIndex2 == 0)
             {
                 //bar cs file voor 40 plekken en tot 2 uur na de film vlgnsmij.
-                BarReservation.Start();
+                Bar();
             }
             else
             {
@@ -36,6 +59,23 @@ public class BuyTicket
         }
         else
         {
+            UserLoggedIn.Start();
+        }
+    }
+    private void Bar()
+    {
+        ReservationLogic logic = new ReservationLogic();
+        var answer = logic.AddBarReservations();
+        if (answer == true)
+        {
+            Console.WriteLine("Your bar reservation has been added.");
+            System.Threading.Thread.Sleep(3000);
+            UserLoggedIn.Start();
+        }
+        else if (answer == false)
+        {
+            Console.WriteLine("There are not enough seats left for this amount of people.");
+            System.Threading.Thread.Sleep(3000);
             UserLoggedIn.Start();
         }
     }

@@ -1,29 +1,34 @@
 using System.Text.Json.Serialization;
-
-class MovieModel
+using System;
+using System.Collections.Generic;
+using System.Text.Json;
+class MovieModel : IModel
 {
-    // [JsonPropertyName("id")]
-    public int MovieId { get; set; }
+    [JsonPropertyName("MovieId")]
+    public int Id { get; set; }
 
-    // [JsonPropertyName("movieName")]
+    [JsonPropertyName("Name")]
     public string Name { get; set; }
 
-    // [JsonPropertyName("genre")]
+    [JsonPropertyName("Genre")]
     public string Genre { get; set; }
 
-    // [JsonPropertyName("dateTimeRoom")]
+    [JsonPropertyName("Age")]
     public int Age { get; set; }
 
-    // [JsonPropertyName("info")]
+    [JsonPropertyName("Duration")]
+    public double Duration { get; set; }
+
+    [JsonPropertyName("Info")]
     public string Info { get; set; }
 
-
-    public MovieModel(int movieId, string name, string genre, int age, string info)
+    public MovieModel(int id, string name, string genre, int age, double duration, string info)
     {
-        MovieId = movieId;
+        Id = id;
         Name = name;
         Genre = genre;
         Age = age;
+        Duration = duration;
         Info = info;
     }
 

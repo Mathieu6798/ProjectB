@@ -4,6 +4,7 @@
     "Name": "john wick",
     "Genre": "action",
     "Age": 16,
+    "Duration": 250,
     "Info": "John wick fights a bunch of guys"
   },
   {
@@ -11,55 +12,23 @@
     "Name": "spongebob",
     "Genre": "adventure",
     "Age": 4,
+    "Duration": 230,
     "Info": "spongebob bla bla bla bla"
   },
   {
     "MovieId": 3,
-    "Name": "bobspons",
+    "Name": "godzilla 3",
     "Genre": "action",
-    "Age": 21,
-    "Info": "bobsponsV2"
+    "Age": 150,
+    "Duration": 3,
+    "Info": "death reckoning"
   },
   {
     "MovieId": 4,
-    "Name": "banana1",
-    "Genre": "action",
-    "Age": 24,
-    "Info": "bananaV1"
-  },
-  {
-    "MovieId": 5,
-    "Name": "bats",
-    "Genre": "actie",
-    "Age": 18,
-    "Info": "bats"
-  },
-  {
-    "MovieId": 6,
-    "Name": "batu",
-    "Genre": "actie",
-    "Age": 18,
-    "Info": "bert"
-  },
-  {
-    "MovieId": 7,
-    "Name": "Milan avontuur",
-    "Genre": "horror",
-    "Age": 200000,
-    "Info": "Milan is de beste"
-  },
-  {
-    "MovieId": 8,
-    "Name": "banana2213",
-    "Genre": "action",
-    "Age": 34,
-    "Info": "ban21223sdas"
-  },
-  {
-    "MovieId": 9,
-    "Name": "banana2213",
-    "Genre": "action",
-    "Age": 34,
-    "Info": "ban21223sdas"
+    "Name": "godzilla 4",
+    "Genre": "Action",
+    "Age": 0,
+    "Duration": 250,
+    "Info": "Roar"
   }
 ]

@@ -4,41 +4,37 @@ static class AdminPanel
     {
         Console.Clear();
         Console.Clear();
+        Console.CursorVisible = false;
         Console.WriteLine("Welcome to the Admin panel");
-        //Console.WriteLine("1. Add a movie\n2. Remove a movie\n3. Add a show\n4. Remove a show\nM. Back to the Menu\nQ. Quit program");
-
         string promptAdmin = "What would you like to do?";
-        string[] optionsAdmin = { "Add a movie", "Add a show", "Remove a movie", "Remove a show", "Check booked seats", "Add a admin account", "Logout" };
+        string[] optionsAdmin = { "Movie Tools", "Show Tools", "Seat Tools", "Account Tools", "See map of showroom","Logout" };
         KeyBoardLogic adminMenu = new KeyBoardLogic(promptAdmin, optionsAdmin);
         int selectedIndexAdmin = adminMenu.Run();
         if (selectedIndexAdmin == 0)
         {
-            AdminEdit.AddMovie();
-
+            AdminPanelOptions.MovieOptions();
         }
         else if (selectedIndexAdmin == 1)
         {
-            AdminEdit.AddShow();
+            AdminPanelOptions.ShowOptions();
         }
         else if (selectedIndexAdmin == 2)
         {
-            Console.WriteLine("Remove movie");
-            MovieLogic.RemoveMovieChoice();
+            AdminPanelOptions.SeatOptions();
         }
         else if (selectedIndexAdmin == 3)
         {
-            Console.WriteLine("Remove show");
-            ShowLogic.RemoveShowChoice();
+            AdminPanelOptions.AccountOptions();
         }
         else if (selectedIndexAdmin == 4)
         {
             RoomLogic.AdminRoomCheck(RoomLogic.GetShows());
         }
+//         else if (selectedIndexAdmin == 5)
+//         {
+//             AdminEdit.AddAdmin();
+//         }
         else if (selectedIndexAdmin == 5)
-        {
-            AdminEdit.AddAdmin();
-        }
-        else if (selectedIndexAdmin == 6)
         {
             Menu.loggedaccount = null;
             Console.Clear();

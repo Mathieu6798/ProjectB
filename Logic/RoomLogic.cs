@@ -54,7 +54,7 @@ public class RoomLogic
             else if (key == ConsoleKey.Enter)
             {
                 var selectedSeat = seatingChart[selectedRow, selectedColumn];
-                if (bookedChairs.Contains(selectedSeat.ChairId))
+                if (bookedChairs.Contains(selectedSeat.Id))
                 {
                     Console.WriteLine($"Seat {selectedSeat.Chairnumber} at row {selectedSeat.Rownumber} is already booked.");
                 }
@@ -62,7 +62,7 @@ public class RoomLogic
                 {
                     Console.Clear();
                     Console.WriteLine($"You've successfully booked seat {selectedSeat.Chairnumber} at row {selectedSeat.Rownumber}");
-                    bookedChairs.Add(selectedSeat.ChairId);
+                    bookedChairs.Add(selectedSeat.Id);
 
                     if (PromptForAnotherSeat())
                     {
@@ -70,29 +70,52 @@ public class RoomLogic
                     }
                     else
                     {
-                        int accid = Menu.loggedaccount.Id;
-                        int Showid = showid;
-                        int Price = 0;
-                        if (selectedSeat.Rank == "A")
+                        if (Menu.loggedaccount == null)
                         {
-                            Price = 8;
+                            // int accid = Menu.loggedaccount.Id;
+                            int Showid = showid;
+                            double Price = GetPrices(selectedSeat);
+                            BuyTicket ticket = new BuyTicket(Showid, 0, bookedChairs);
+                            Thread.Sleep(3500);
+                            ticket.Overview();
                         }
-                        else if (selectedSeat.Rank == "B")
+                        else
                         {
-                            Price = 10;
+                            int accid = Menu.loggedaccount.Id;
+                            int Showid = showid;
+                            double Price = GetPrices(selectedSeat);
+                            BuyTicket ticket = new BuyTicket(Showid, accid, bookedChairs);
+                            Thread.Sleep(3500);
+                            ticket.Overview();
                         }
-                        else if (selectedSeat.Rank == "C")
-                        {
-                            Price = 12;
-                        }
-                        BuyTicket ticket = new BuyTicket(Showid, accid, bookedChairs, Price);
-                        Thread.Sleep(3500);
-                        ticket.Overview();
                     }
                 }
             }
 
             DisplaySeatingChart(seatingChart, roomModel, selectedRow, selectedColumn, bookedChairs, showid);
+        }
+    }
+    public static double GetPrices(ChairModel selectedSeat)
+    {
+        double Price = 0;
+        if (selectedSeat.Rank == "A")
+        {
+            Price = 8;
+            return Price;
+        }
+        else if (selectedSeat.Rank == "B")
+        {
+            Price = 10;
+            return Price;
+        }
+        else if (selectedSeat.Rank == "C")
+        {
+            Price = 12;
+            return Price;
+        }
+        else
+        {
+            return 0;
         }
     }
     public static int GetShows()
@@ -126,17 +149,21 @@ public class RoomLogic
     {
         return _rooms.FirstOrDefault(r => r.Id == roomId);
     }
+    public static ChairModel GetChairById(int chairId)
+    {
+        return _chairs.FirstOrDefault(x => x.Id == chairId);
+    }
 
     private static ChairModel[,] CreateSeatingChart(RoomModel roomModel)
     {
         var seatingChart = new ChairModel[roomModel.Rows, roomModel.Columns];
 
         var roomChairIds = new List<int>(roomModel.Chairs);
-        var chairs = _chairs.Where(c => roomChairIds.Contains(c.ChairId));
+        var chairs = _chairs.Where(c => roomChairIds.Contains(c.Id));
 
         foreach (var chairId in roomModel.Chairs)
         {
-            var chair = chairs.FirstOrDefault(c => c.ChairId == chairId);
+            var chair = chairs.FirstOrDefault(c => c.Id == chairId);
 
             if (chair != null)
             {

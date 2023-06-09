@@ -21,7 +21,7 @@ public class BuyTicketLogic
             }
             else if (i == 0)
             {
-                Ticket += $"{ticket.Chairs[i]},";
+                Ticket += $" {ticket.Chairs[i]},";
             }
             else
             {

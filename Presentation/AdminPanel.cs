@@ -7,7 +7,7 @@ static class AdminPanel
         Console.CursorVisible = false;
         Console.WriteLine("Welcome to the Admin panel");
         string promptAdmin = "What would you like to do?";
-        string[] optionsAdmin = { "Movie Tools", "Show Tools", "Seat Tools", "Account Tools", "See map of showroom", "Logout" };
+        string[] optionsAdmin = { "Movie Tools", "Show Tools", "Seat Tools", "Account Tools", "Logout" };
         KeyBoardLogic adminMenu = new KeyBoardLogic(promptAdmin, optionsAdmin);
         int selectedIndexAdmin = adminMenu.Run();
         if (selectedIndexAdmin == 0)
@@ -26,11 +26,13 @@ static class AdminPanel
         {
             AdminPanelOptions.AccountOptions();
         }
+        // else if (selectedIndexAdmin == 4)
+        // {
+        //     Tuple<RoomModel, int> tuple = RoomLogic.AdminRoomCheck(RoomLogic.GetShows());
+        //     RoomLogic.DisplaySeatingChart(tuple.Item1, tuple.Item2);
+        //     AdminPanel.AdminMenu();
+        // }
         else if (selectedIndexAdmin == 4)
-        {
-            RoomLogic.AdminRoomCheck(RoomLogic.GetShows());
-        }
-        else if (selectedIndexAdmin == 5)
         {
             Menu.loggedaccount = null;
             Console.Clear();

@@ -9,8 +9,15 @@ static class ShowAccess
 
     public static List<ShowModel> LoadAll()
     {
-        string json = File.ReadAllText(path);
-        return JsonSerializer.Deserialize<List<ShowModel>>(json);
+        try
+        {
+            string json = File.ReadAllText(path);
+            return JsonSerializer.Deserialize<List<ShowModel>>(json);
+        }
+        catch (Exception)
+        {
+            return new List<ShowModel>();
+        }
     }
 
     public static void WriteAll(List<ShowModel> shows)

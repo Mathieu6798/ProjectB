@@ -9,12 +9,13 @@ public class RoomLogic
 {
     private static List<RoomModel> _rooms = RoomAccess.LoadAll();
     private static List<ChairModel> _chairs = ChairAccess.LoadAll();
-    private static List<ReservationModel> _reservations = ReservationAccess.LoadAll();
-
+    // private static List<ReservationModel> _reservations = ReservationAccess.LoadAll();
+    private static List<ReservationModel> _reservations;
 
 
     public static void Start(int roomId, int showid)
     {
+        _reservations = ReservationAccess.LoadAll();
         var roomModel = GetRoomById(roomId);
 
         if (roomModel == null)

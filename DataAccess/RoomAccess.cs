@@ -7,8 +7,15 @@ static class RoomAccess
 
     public static List<RoomModel> LoadAll()
     {
-        string json = File.ReadAllText(path);
-        return JsonSerializer.Deserialize<List<RoomModel>>(json);
+        try
+        {
+            string json = File.ReadAllText(path);
+            return JsonSerializer.Deserialize<List<RoomModel>>(json);
+        }
+        catch (Exception)
+        {
+            return new List<RoomModel>();
+        }
     }
 
 

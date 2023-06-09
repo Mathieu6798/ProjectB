@@ -7,8 +7,15 @@ static class ReservationAccess
 
     public static List<ReservationModel> LoadAll()
     {
-        string json = File.ReadAllText(path);
-        return JsonSerializer.Deserialize<List<ReservationModel>>(json);
+        try
+        {
+            string json = File.ReadAllText(path);
+            return JsonSerializer.Deserialize<List<ReservationModel>>(json);
+        }
+        catch (Exception)
+        {
+            return new List<ReservationModel>();
+        }
     }
 
 

@@ -60,14 +60,14 @@ public class ReservationLogic : BasicLogic<ReservationModel>
         ReservationAccess.WriteAll(_items);
     }
 
-    public ReservationModel GetAccountId(int id)
-    {
-        return _items.Find(i => i.ShowId == id);
-    }
-    public ReservationModel GetShowId(int id)
-    {
-        return _items.Find(i => i.ShowId == id);
-    }
+    // public ReservationModel GetAccountId(int id)
+    // {
+    //     return _items.Find(i => i.AccountID == id);
+    // }
+    // public ReservationModel GetShowId(int id)
+    // {
+    //     return _items.Find(i => i.ShowId == id);
+    // }
     public void AddReservation(ReservationModel ticket)
     {
         _items.Add(ticket);

@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
-class MovieModel : IModel
+public class MovieModel : IModel
 {
     [JsonPropertyName("MovieId")]
     public int Id { get; set; }

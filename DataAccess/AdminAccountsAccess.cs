@@ -7,8 +7,15 @@ static class AdminAccountsAccess
 
     public static List<AdminAccountModel> LoadAll()
     {
-        string json = File.ReadAllText(path);
-        return JsonSerializer.Deserialize<List<AdminAccountModel>>(json);
+        try
+        {
+            string json = File.ReadAllText(path);
+            return JsonSerializer.Deserialize<List<AdminAccountModel>>(json);
+        }
+        catch (Exception)
+        {
+            return new List<AdminAccountModel>();
+        }
     }
 
 

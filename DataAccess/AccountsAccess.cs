@@ -6,8 +6,15 @@ static class AccountsAccess
     // static string path = System.IO.Path.GetFullPath(@"C:\Users\Mathieu\Documents\GitHub\ProjectB\DataSources\accounts.json");
     public static List<AccountModel> LoadAll()
     {
-        string json = File.ReadAllText(path);
-        return JsonSerializer.Deserialize<List<AccountModel>>(json);
+        try
+        {
+            string json = File.ReadAllText(path);
+            return JsonSerializer.Deserialize<List<AccountModel>>(json);
+        }
+        catch (Exception)
+        {
+            return new List<AccountModel>();
+        }
     }
 
 

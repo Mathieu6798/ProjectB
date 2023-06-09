@@ -7,14 +7,16 @@ using System.Text.Json;
 
 public class RoomLogic
 {
-    private static List<RoomModel> _rooms = RoomAccess.LoadAll();
-    private static List<ChairModel> _chairs = ChairAccess.LoadAll();
+    private static List<RoomModel> _rooms;
+    private static List<ChairModel> _chairs;
     // private static List<ReservationModel> _reservations = ReservationAccess.LoadAll();
     private static List<ReservationModel> _reservations;
 
 
     public static void Start(int roomId, int showid)
     {
+        _rooms = RoomAccess.LoadAll();
+        _chairs = ChairAccess.LoadAll();
         _reservations = ReservationAccess.LoadAll();
         var roomModel = GetRoomById(roomId);
 
@@ -121,15 +123,15 @@ public class RoomLogic
     }
     public static int GetShows()
     {
-
+        _reservations = ReservationAccess.LoadAll();
         var options = _reservations.Select(reservation => reservation.ShowId.ToString()).Distinct().ToArray();
         KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a ShowID", options);
         int selectedIndex = mainMenu.Run();
-        return selectedIndex;
-
+        // return selectedIndex;
+        return Convert.ToInt32(options[selectedIndex]);
     }
 
-    public static void AdminRoomCheck(int showId)
+    public static Tuple<RoomModel, int> AdminRoomCheck(int showId)
     {
         ShowLogic showlogic = new ShowLogic();
         ShowModel show = showlogic.GetById(showId);
@@ -137,27 +139,31 @@ public class RoomLogic
         if (show == null)
         {
             Console.WriteLine($"Show with ID {showId} not found.");
-            return;
+            return null;
         }
 
         var roomId = show.RoomId;
+        Console.WriteLine(roomId);
         var roomModel = GetRoomById(roomId);
 
         if (roomModel == null)
         {
             Console.WriteLine($"Room with ID {roomId} not found.");
-            return;
+            return null;
         }
-
-        DisplaySeatingChart(roomModel, showId);
+        Tuple<RoomModel, int> tuple = Tuple.Create(roomModel, showId);
+        return tuple;
+        // DisplaySeatingChart(roomModel, showId);
     }
 
     private static RoomModel GetRoomById(int roomId)
     {
+        _rooms = RoomAccess.LoadAll();
         return _rooms.FirstOrDefault(r => r.Id == roomId);
     }
     public static ChairModel GetChairById(int chairId)
     {
+        _chairs = ChairAccess.LoadAll();
         return _chairs.FirstOrDefault(x => x.Id == chairId);
     }
 
@@ -231,7 +237,7 @@ public class RoomLogic
 
 
 
-    private static void DisplaySeatingChart(RoomModel roomModel, int showId)
+    public static void DisplaySeatingChart(RoomModel roomModel, int showId)
     {
         Console.WriteLine($"Seating chart for room {roomModel.Id}:");
 
@@ -260,7 +266,7 @@ public class RoomLogic
         Console.ResetColor();
         Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
-        AdminPanel.AdminMenu();
+        // AdminPanel.AdminMenu();
     }
 
 

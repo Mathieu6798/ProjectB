@@ -210,7 +210,7 @@ class MovieLogic : BasicLogic<MovieModel>
                 {
                     if (show.Id == selectedIndex)
                     {
-                        RoomLogic.Start(show.RoomId, selectedIndex);
+                        SeatingChart.Start(show.RoomId, selectedIndex);
                     }
                 }
             }

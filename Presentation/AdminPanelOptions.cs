@@ -34,7 +34,7 @@ public static class AdminPanelOptions
             Console.CursorVisible = true;
             Console.WriteLine("Show ID:");
             int inp = int.Parse(Console.ReadLine());
-            RoomLogic.AdminRoomCheck(inp);
+            SeatingChart.AdminRoomCheck(inp);
         }
         else if (selectedIndexAdmin == 1)
         {

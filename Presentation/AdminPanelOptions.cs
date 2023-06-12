@@ -35,6 +35,9 @@ public static class AdminPanelOptions
             Console.WriteLine("Show ID:");
             int inp = int.Parse(Console.ReadLine());
             SeatingChart.AdminRoomCheck(inp);
+//             Tuple<RoomModel, int> tuple = RoomLogic.AdminRoomCheck(RoomLogic.GetShows());
+//             RoomLogic.DisplaySeatingChart(tuple.Item1, tuple.Item2);
+//             AdminPanel.AdminMenu();
         }
         else if (selectedIndexAdmin == 1)
         {

@@ -30,13 +30,17 @@ public class RoomLogic
             return 0;
         }
     }
-    public static RoomModel GetRoomById(int roomId)
+
+
+    private static RoomModel GetRoomById(int roomId)
     {
-        return RoomAccess.LoadAll().FirstOrDefault(r => r.Id == roomId);
+        _rooms = RoomAccess.LoadAll();
+        return _rooms.FirstOrDefault(r => r.Id == roomId);
     }
     public static ChairModel GetChairById(int chairId)
     {
-        return ChairAccess.LoadAll().FirstOrDefault(x => x.Id == chairId);
+        _chairs = ChairAccess.LoadAll();
+        return _chairs.FirstOrDefault(x => x.Id == chairId);
     }
 
     public static ChairModel[,] CreateSeatingChart(RoomModel roomModel)

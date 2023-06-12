@@ -7,8 +7,15 @@ static class ChairAccess
 
     public static List<ChairModel> LoadAll()
     {
-        string json = File.ReadAllText(path);
-        return JsonSerializer.Deserialize<List<ChairModel>>(json);
+        try
+        {
+            string json = File.ReadAllText(path);
+            return JsonSerializer.Deserialize<List<ChairModel>>(json);
+        }
+        catch (Exception)
+        {
+            return new List<ChairModel>();
+        }
     }
 
 

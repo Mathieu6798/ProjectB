@@ -1,6 +1,6 @@
 using System.Globalization;
 
-class ShowLogic : BasicLogic<ShowModel>
+public class ShowLogic : BasicLogic<ShowModel>
 {
     // private static List<ShowModel> _shows;
 

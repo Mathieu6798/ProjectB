@@ -21,6 +21,7 @@ static class AdminPanel
         else if (selectedIndexAdmin == 2)
         {
             AdminPanelOptions.SeatOptions();
+            AdminMenu();
         }
         else if (selectedIndexAdmin == 3)
         {
@@ -32,15 +33,15 @@ static class AdminPanel
         //     RoomLogic.DisplaySeatingChart(tuple.Item1, tuple.Item2);
         //     AdminPanel.AdminMenu();
         // }
-        else if (selectedIndexAdmin == 4)
-        {
-            SeatingChart.AdminRoomCheck(SeatingChart.GetShows());
-        }
+        // else if (selectedIndexAdmin == 4)
+        // {
+        //     SeatingChart.AdminRoomCheck(SeatingChart.GetShows());
+        // }
         //         else if (selectedIndexAdmin == 5)
         //         {
         //             AdminEdit.AddAdmin();
         //         }
-        else if (selectedIndexAdmin == 5)
+        else if (selectedIndexAdmin == 4)
         {
             Menu.loggedaccount = null;
             Console.Clear();

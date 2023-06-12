@@ -32,16 +32,17 @@ public static class AdminPanelOptions
         if (selectedIndexAdmin == 0)
         {
             Console.CursorVisible = true;
-            Console.WriteLine("Show ID:");
-            int inp = int.Parse(Console.ReadLine());
-            SeatingChart.AdminRoomCheck(inp);
-//             Tuple<RoomModel, int> tuple = RoomLogic.AdminRoomCheck(RoomLogic.GetShows());
-//             RoomLogic.DisplaySeatingChart(tuple.Item1, tuple.Item2);
-//             AdminPanel.AdminMenu();
+            // Console.WriteLine("Film ID:");
+            // int inp = int.Parse(Console.ReadLine());
+            // SeatingChart.AdminRoomCheck(inp);
+            Tuple<ChairModel[,], RoomModel, int> tuple = SeatingChart.AdminRoomCheck(SeatingChart.GetShows());
+            // Tuple<ChairModel[,], RoomModel, int> tuple = SeatingChart.AdminRoomCheck(inp);
+            SeatingChart.DisplaySeatingChart(tuple.Item1, tuple.Item2, tuple.Item3);
+            // AdminPanel.AdminMenu();
         }
         else if (selectedIndexAdmin == 1)
         {
-            AdminPanel.AdminMenu();
+            // AdminPanel.AdminMenu();
         }
     }
     public static void ShowOptions()

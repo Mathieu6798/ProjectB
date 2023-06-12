@@ -7,97 +7,6 @@ using System.Text.Json;
 
 public class RoomLogic
 {
-    private static List<RoomModel> _rooms;
-    private static List<ChairModel> _chairs;
-    // private static List<ReservationModel> _reservations = ReservationAccess.LoadAll();
-    private static List<ReservationModel> _reservations;
-
-
-    public static void Start(int roomId, int showid)
-    {
-        _rooms = RoomAccess.LoadAll();
-        _chairs = ChairAccess.LoadAll();
-        _reservations = ReservationAccess.LoadAll();
-        var roomModel = GetRoomById(roomId);
-
-        if (roomModel == null)
-        {
-            Console.WriteLine($"Room with ID {roomId} not found.");
-            return;
-        }
-
-        var seatingChart = CreateSeatingChart(roomModel);
-
-        int selectedRow = 0;
-        int selectedColumn = 0;
-        List<int> bookedChairs = new List<int>();
-
-        while (true)
-        {
-            Console.SetCursorPosition(0, 2);
-            Console.Write(new string(' ', Console.WindowWidth));
-
-            var key = Console.ReadKey(true).Key;
-            if (key == ConsoleKey.UpArrow && selectedRow > 0)
-            {
-                selectedRow--;
-            }
-            else if (key == ConsoleKey.DownArrow && selectedRow < roomModel.Rows - 1)
-            {
-                selectedRow++;
-            }
-            else if (key == ConsoleKey.LeftArrow && selectedColumn > 0)
-            {
-                selectedColumn--;
-            }
-            else if (key == ConsoleKey.RightArrow && selectedColumn < roomModel.Columns - 1)
-            {
-                selectedColumn++;
-            }
-            else if (key == ConsoleKey.Enter)
-            {
-                var selectedSeat = seatingChart[selectedRow, selectedColumn];
-                if (bookedChairs.Contains(selectedSeat.Id) || IsSeatBooked(showid, selectedSeat.Id))
-                {
-                    Console.WriteLine($"Seat {selectedSeat.Chairnumber} at row {selectedSeat.Rownumber} is already booked.");
-                }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine($"You've successfully booked seat {selectedSeat.Chairnumber} at row {selectedSeat.Rownumber}");
-                    bookedChairs.Add(selectedSeat.Id);
-
-                    if (PromptForAnotherSeat())
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        if (Menu.loggedaccount == null)
-                        {
-                            // int accid = Menu.loggedaccount.Id;
-                            int Showid = showid;
-                            double Price = GetPrices(selectedSeat);
-                            BuyTicket ticket = new BuyTicket(Showid, 0, bookedChairs);
-                            Thread.Sleep(3500);
-                            ticket.Overview();
-                        }
-                        else
-                        {
-                            int accid = Menu.loggedaccount.Id;
-                            int Showid = showid;
-                            double Price = GetPrices(selectedSeat);
-                            BuyTicket ticket = new BuyTicket(Showid, accid, bookedChairs);
-                            Thread.Sleep(3500);
-                            ticket.Overview();
-                        }
-                    }
-                }
-            }
-
-            DisplaySeatingChart(seatingChart, roomModel, selectedRow, selectedColumn, bookedChairs, showid);
-        }
-    }
     public static double GetPrices(ChairModel selectedSeat)
     {
         double Price = 0;
@@ -121,40 +30,7 @@ public class RoomLogic
             return 0;
         }
     }
-    public static int GetShows()
-    {
-        _reservations = ReservationAccess.LoadAll();
-        var options = _reservations.Select(reservation => reservation.ShowId.ToString()).Distinct().ToArray();
-        KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a ShowID", options);
-        int selectedIndex = mainMenu.Run();
-        // return selectedIndex;
-        return Convert.ToInt32(options[selectedIndex]);
-    }
 
-    public static Tuple<RoomModel, int> AdminRoomCheck(int showId)
-    {
-        ShowLogic showlogic = new ShowLogic();
-        ShowModel show = showlogic.GetById(showId);
-
-        if (show == null)
-        {
-            Console.WriteLine($"Show with ID {showId} not found.");
-            return null;
-        }
-
-        var roomId = show.RoomId;
-        Console.WriteLine(roomId);
-        var roomModel = GetRoomById(roomId);
-
-        if (roomModel == null)
-        {
-            Console.WriteLine($"Room with ID {roomId} not found.");
-            return null;
-        }
-        Tuple<RoomModel, int> tuple = Tuple.Create(roomModel, showId);
-        return tuple;
-        // DisplaySeatingChart(roomModel, showId);
-    }
 
     private static RoomModel GetRoomById(int roomId)
     {
@@ -167,12 +43,12 @@ public class RoomLogic
         return _chairs.FirstOrDefault(x => x.Id == chairId);
     }
 
-    private static ChairModel[,] CreateSeatingChart(RoomModel roomModel)
+    public static ChairModel[,] CreateSeatingChart(RoomModel roomModel)
     {
         var seatingChart = new ChairModel[roomModel.Rows, roomModel.Columns];
 
         var roomChairIds = new List<int>(roomModel.Chairs);
-        var chairs = _chairs.Where(c => roomChairIds.Contains(c.Id));
+        var chairs = ChairAccess.LoadAll().Where(c => roomChairIds.Contains(c.Id));
 
         foreach (var chairId in roomModel.Chairs)
         {
@@ -187,109 +63,10 @@ public class RoomLogic
         return seatingChart;
     }
 
-    private static void DisplaySeatingChart(ChairModel[,] seatingChart, RoomModel roomModel, int selectedRow, int selectedColumn, List<int> bookedChairs, int showId)
+    public static bool IsSeatBooked(int showId, int chairId)
     {
-        Console.Clear();
-
-        for (int i = 0; i < roomModel.Rows; i++)
-        {
-            Console.Write($"{i + 1}  ");
-            for (int j = 0; j < roomModel.Columns; j++)
-            {
-                var seat = seatingChart[i, j];
-
-                if (seat != null)
-                {
-                    bool isBooked = IsSeatBooked(showId, seat.Id);
-
-                    char displayChar = isBooked ? 'X' : 'O';
-                    if (i == selectedRow && j == selectedColumn)
-                    {
-                        Console.BackgroundColor = ConsoleColor.White;
-                        Console.ForegroundColor = ConsoleColor.Black;
-                        Console.Write($"{displayChar} ");
-                    }
-                    else
-                    {
-                        Console.ResetColor();
-                        Console.ForegroundColor = isBooked ? ConsoleColor.Red : ConsoleColor.Green;
-                        Console.Write($"{displayChar} ");
-                    }
-                }
-                else if (i == selectedRow && j == selectedColumn)
-                {
-                    Console.BackgroundColor = ConsoleColor.White;
-                    Console.ForegroundColor = ConsoleColor.Black;
-                    Console.Write("X ");
-                }
-                else
-                {
-                    Console.ResetColor();
-                    Console.Write("  ");
-                }
-            }
-            Console.ResetColor();
-            Console.WriteLine();
-        }
-
-        Console.ResetColor();
-    }
-
-
-
-    public static void DisplaySeatingChart(RoomModel roomModel, int showId)
-    {
-        Console.WriteLine($"Seating chart for room {roomModel.Id}:");
-
-        for (int i = 1; i <= roomModel.Rows; i++)
-        {
-            Console.Write($"{i}  ");
-            for (int j = 1; j <= roomModel.Columns; j++)
-            {
-                var chairId = (i - 1) * roomModel.Columns + j;
-                if (roomModel.Chairs.Contains(chairId))
-                {
-                    bool isBooked = IsSeatBooked(showId, chairId);
-                    char displayChar = isBooked ? 'X' : 'O';
-
-                    Console.ForegroundColor = isBooked ? ConsoleColor.Red : ConsoleColor.White;
-                    Console.Write($"{displayChar} ");
-                }
-                else
-                {
-                    Console.Write("  ");
-                }
-            }
-            Console.WriteLine();
-        }
-
-        Console.ResetColor();
-        Console.WriteLine("Press any key to continue...");
-        Console.ReadKey();
-        // AdminPanel.AdminMenu();
-    }
-
-
-
-
-
-    private static bool PromptForAnotherSeat()
-    {
-        string promptAdmin = "Do you want to book another seat?";
-        string[] optionsAdmin = { "Yes", "No" };
-        KeyBoardLogic adminMenu = new KeyBoardLogic(promptAdmin, optionsAdmin);
-        int selectedIndexAdmin = adminMenu.Run();
-
-        return selectedIndexAdmin == 0;
-    }
-
-
-
-
-    private static bool IsSeatBooked(int showId, int chairId)
-    {
-        var reservationModels = _reservations;
-
+        var reservationModels = ReservationAccess.LoadAll();
+        //foreach om te kijken of movieide klopt met showid van reservation
         foreach (var reservation in reservationModels)
         {
             if (reservation.ShowId == showId && reservation.Chairs.Contains(chairId))

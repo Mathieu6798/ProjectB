@@ -31,15 +31,13 @@ public static class AdminPanelOptions
         int selectedIndexAdmin = adminMenu.Run();
         if (selectedIndexAdmin == 0)
         {
-            // Console.CursorVisible = true;
-            // Console.WriteLine("Show ID:");
-            // int inp = int.Parse(Console.ReadLine());
-            // Tuple<RoomModel, int> tuple = RoomLogic.AdminRoomCheck(inp);
-            // RoomLogic.DisplaySeatingChart(tuple.Item1, tuple.Item2);
-            // AdminPanel.AdminMenu();
-            Tuple<RoomModel, int> tuple = RoomLogic.AdminRoomCheck(RoomLogic.GetShows());
-            RoomLogic.DisplaySeatingChart(tuple.Item1, tuple.Item2);
-            AdminPanel.AdminMenu();
+            Console.CursorVisible = true;
+            Console.WriteLine("Show ID:");
+            int inp = int.Parse(Console.ReadLine());
+            SeatingChart.AdminRoomCheck(inp);
+//             Tuple<RoomModel, int> tuple = RoomLogic.AdminRoomCheck(RoomLogic.GetShows());
+//             RoomLogic.DisplaySeatingChart(tuple.Item1, tuple.Item2);
+//             AdminPanel.AdminMenu();
         }
         else if (selectedIndexAdmin == 1)
         {

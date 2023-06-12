@@ -34,6 +34,14 @@ static class AdminPanel
         // }
         else if (selectedIndexAdmin == 4)
         {
+            SeatingChart.AdminRoomCheck(SeatingChart.GetShows());
+        }
+        //         else if (selectedIndexAdmin == 5)
+        //         {
+        //             AdminEdit.AddAdmin();
+        //         }
+        else if (selectedIndexAdmin == 5)
+        {
             Menu.loggedaccount = null;
             Console.Clear();
             Console.WriteLine("You are now logged out");

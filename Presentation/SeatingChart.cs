@@ -172,16 +172,24 @@ public class SeatingChart
 
         for (int i = 0; i < roomModel.Rows; i++)
         {
-            Console.Write($"{i + 1}  ");
+            if (i > 8)
+            {
+                Console.Write($"{i + 1}  ");
+            }
+            else
+            {
+                Console.Write($"0{i + 1}  ");
+            }
             for (int j = 0; j < roomModel.Columns; j++)
             {
                 var seat = seatingChart[i, j];
 
                 if (seat != null)
                 {
-                    bool isBooked = RoomLogic.IsSeatBooked(showId, seat.Id);
+                    bool isBookedInReservation = RoomLogic.IsSeatBooked(showId, seat.Id);
+                    bool isBookedInBookedChairs = bookedChairs.Contains(seat.Id);
 
-                    char displayChar = isBooked ? 'X' : 'O';
+                    char displayChar = isBookedInReservation || isBookedInBookedChairs ? 'X' : 'O';
                     if (i == selectedRow && j == selectedColumn)
                     {
                         Console.BackgroundColor = ConsoleColor.White;
@@ -193,15 +201,15 @@ public class SeatingChart
                         Console.ResetColor();
                         if (seat.Rank == "B")
                         {
-                            Console.ForegroundColor = isBooked ? ConsoleColor.Red : ConsoleColor.DarkYellow;
+                            Console.ForegroundColor = isBookedInReservation || isBookedInBookedChairs ? ConsoleColor.Red : ConsoleColor.DarkYellow;
                         }
                         else if (seat.Rank == "C")
                         {
-                            Console.ForegroundColor = isBooked ? ConsoleColor.Red : ConsoleColor.Cyan;
+                            Console.ForegroundColor = isBookedInReservation || isBookedInBookedChairs ? ConsoleColor.Red : ConsoleColor.Cyan;
                         }
                         else
                         {
-                            Console.ForegroundColor = isBooked ? ConsoleColor.Red : ConsoleColor.Green;
+                            Console.ForegroundColor = isBookedInReservation || isBookedInBookedChairs ? ConsoleColor.Red : ConsoleColor.Green;
                         }
                         Console.Write($"{displayChar} ");
                     }

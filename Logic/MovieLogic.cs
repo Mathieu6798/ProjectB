@@ -1,4 +1,4 @@
-class MovieLogic : BasicLogic<MovieModel>
+public class MovieLogic : BasicLogic<MovieModel>
 {
     // private static List<MovieModel> _items;
 
@@ -35,16 +35,7 @@ class MovieLogic : BasicLogic<MovieModel>
     {
         try
         {
-            // int count = 0;
-            // int id;
-            // if (_items == null)
-            // {
-            //     _items = MoviesAccess.LoadAll();
-            // }
-            // foreach (MovieModel _items in _items)
-            // {
-            //     count++;
-            // }
+
             int id = 0;
             if (_items.LastOrDefault() == null)
             {

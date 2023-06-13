@@ -153,11 +153,26 @@ public class AdminEdit
                 Console.Write("*");
             }
         }
-        AdminLogic logic = new AdminLogic();
-        Console.WriteLine(logic.AddAccount(accName, accEmail, password));
-        Thread.Sleep(3000);
-        AdminPanel.AdminMenu();
+        // AdminLogic logic = new AdminLogic();
+        // logic.AddAccount(accName, accEmail, password);
+        // Thread.Sleep(3000);
+        // AdminPanel.AdminMenu();
 
+        AdminLogic logic = new AdminLogic();
+        AdminAccountModel acc = logic.CheckExistingEmail(accEmail);
+        if (acc != null)
+        {
+            Console.WriteLine("This email adress already exists on another account.");
+            Thread.Sleep(3500);
+            Menu.Start();
+        }
+        else
+        {
+            logic.AddAccount(accName, accEmail, password);
+            Console.WriteLine("\nYour account has been added");
+            Thread.Sleep(3500);
+            Menu.Start();
+        }
     }
     public static void DeleteAdmin()
     {

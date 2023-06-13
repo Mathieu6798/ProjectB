@@ -89,7 +89,6 @@ public class AdminEdit
         {
             Console.WriteLine("No movie found with that name");
         }
-        // Console.WriteLine(MovieLogic.Removemovie(input));
         Thread.Sleep(3000);
         AdminPanelOptions.MovieOptions();
     }
@@ -113,7 +112,6 @@ public class AdminEdit
     }
 
 
-    /////////////accounts/////////////
     public static void AddAdmin()
     {
         Console.Clear();
@@ -139,13 +137,11 @@ public class AdminEdit
             }
             else if (key.Key == ConsoleKey.Backspace && password.Length > 0)
             {
-                //removes latest letter if backspace is pressed
                 password = password.Substring(0, password.Length - 1);
                 Console.Write("\b \b");
             }
             else if (Char.IsLetterOrDigit(key.KeyChar))
             {
-                //turn the letter into the star.
                 password += key.KeyChar;
                 Console.Write(key.KeyChar);
                 System.Threading.Thread.Sleep(100);
@@ -153,10 +149,7 @@ public class AdminEdit
                 Console.Write("*");
             }
         }
-        // AdminLogic logic = new AdminLogic();
-        // logic.AddAccount(accName, accEmail, password);
-        // Thread.Sleep(3000);
-        // AdminPanel.AdminMenu();
+      
 
         AdminLogic logic = new AdminLogic();
         AdminAccountModel acc = logic.CheckExistingEmail(accEmail);

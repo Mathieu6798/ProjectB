@@ -32,7 +32,6 @@ static class UserLogin
         Console.WriteLine("Please enter your email address");
         string email = Console.ReadLine();
         Console.WriteLine("Please enter your password");
-        // string password = Console.ReadLine();
         string password = "";
         while (true)
         {
@@ -43,13 +42,11 @@ static class UserLogin
             }
             else if (key.Key == ConsoleKey.Backspace && password.Length > 0)
             {
-                //removes latest letter if backspace is pressed
                 password = password.Substring(0, password.Length - 1);
                 Console.Write("\b \b");
             }
             else if (Char.IsLetterOrDigit(key.KeyChar))
             {
-                //turn the letter into the star.
                 password += key.KeyChar;
                 Console.Write(key.KeyChar);
                 System.Threading.Thread.Sleep(100);
@@ -70,7 +67,6 @@ static class UserLogin
 
 
 
-        /////////////////////////////////////////////////
 
         else if (acc != null && acc.EmailAddress != null)
         {
@@ -85,7 +81,6 @@ static class UserLogin
             else
             {
                 Console.WriteLine("\nWelcome back " + acc.FullName + "!");
-                // Console.WriteLine("Your email is " + acc.EmailAddress);
                 Menu.loggedaccount = acc;
                 Thread.Sleep(3500);
                 UserLoggedIn.Start();
@@ -95,9 +90,7 @@ static class UserLogin
         {
             Console.Clear();
             Console.WriteLine("Welcome back " + acc2.FullName + "!");
-            // Console.WriteLine("Your email is " + acc2.EmailAddress);
             Menu.loggedaccount2 = acc2;
-            // UserLoggedIn.Start();
             Thread.Sleep(3500);
             AdminPanel.AdminMenu();
         }
@@ -108,7 +101,6 @@ static class UserLogin
             Thread.Sleep(3500);
             Menu.Start();
         }
-        //////////////////////////////////////////////////////
 
 
     }

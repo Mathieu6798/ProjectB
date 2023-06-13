@@ -28,13 +28,11 @@ static class UserRegister
             }
             else if (key.Key == ConsoleKey.Backspace && password.Length > 0)
             {
-                //removes latest letter if backspace is pressed
                 password = password.Substring(0, password.Length - 1);
                 Console.Write("\b \b");
             }
             else if (Char.IsLetterOrDigit(key.KeyChar))
             {
-                //turn the letter into the star.
                 password += key.KeyChar;
                 Console.Write(key.KeyChar);
                 System.Threading.Thread.Sleep(100);
@@ -43,7 +41,6 @@ static class UserRegister
             }
         }
         Console.WriteLine("\nPlease confirm password");
-        // string confirmpassword = Console.ReadLine();
         string confirmpassword = "";
         while (true)
         {
@@ -54,13 +51,11 @@ static class UserRegister
             }
             else if (key.Key == ConsoleKey.Backspace && confirmpassword.Length > 0)
             {
-                //removes latest letter if backspace is pressed
                 confirmpassword = confirmpassword.Substring(0, confirmpassword.Length - 1);
                 Console.Write("\b \b");
             }
             else if (Char.IsLetterOrDigit(key.KeyChar))
             {
-                //turn the letter into the star.
                 confirmpassword += key.KeyChar;
                 Console.Write(key.KeyChar);
                 System.Threading.Thread.Sleep(100);
@@ -71,7 +66,6 @@ static class UserRegister
         while (confirmpassword != password)
         {
             Console.WriteLine("\nPlease confirm password again");
-            // confirmpassword = Console.ReadLine();
             string confirmpassword2 = "";
             while (true)
             {
@@ -82,13 +76,11 @@ static class UserRegister
                 }
                 else if (key.Key == ConsoleKey.Backspace && confirmpassword2.Length > 0)
                 {
-                    //removes latest letter if backspace is pressed
                     confirmpassword2 = confirmpassword2.Substring(0, confirmpassword2.Length - 1);
                     Console.Write("\b \b");
                 }
                 else if (Char.IsLetterOrDigit(key.KeyChar))
                 {
-                    //turn the letter into the star.
                     confirmpassword2 += key.KeyChar;
                     Console.Write(key.KeyChar);
                     System.Threading.Thread.Sleep(100);

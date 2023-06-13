@@ -7,9 +7,6 @@ using System.Text.Json;
 
 public class RoomLogic
 {
-    // private static List<RoomModel> _rooms;
-    // private static List<ChairModel> _chairs;
-    // private static List<ReservationModel> _reservations;
     public static double GetPrices(ChairModel selectedSeat)
     {
         double Price = 0;
@@ -69,7 +66,6 @@ public class RoomLogic
     public static bool IsSeatBooked(int showId, int chairId)
     {
         var reservationModels = ReservationAccess.LoadAll();
-        //foreach om te kijken of movieide klopt met showid van reservation
         foreach (var reservation in reservationModels)
         {
             if (reservation.ShowId == showId && reservation.Chairs.Contains(chairId))

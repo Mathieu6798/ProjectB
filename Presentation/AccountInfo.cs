@@ -17,7 +17,6 @@ public static class AccountInfo
         switch (selectedIndex)
         {
             case 0:
-                //change email
                 Console.WriteLine("What do you want the new email to be?");
                 string email = Console.ReadLine();
                 while (!email.Contains("@"))
@@ -43,7 +42,6 @@ public static class AccountInfo
                 }
                 break;
             case 1:
-                //change password
                 Console.WriteLine("Type in the old password");
                 string oldpassword = "";
                 while (true)
@@ -55,13 +53,11 @@ public static class AccountInfo
                     }
                     else if (key.Key == ConsoleKey.Backspace && oldpassword.Length > 0)
                     {
-                        //removes latest letter if backspace is pressed
                         oldpassword = oldpassword.Substring(0, oldpassword.Length - 1);
                         Console.Write("\b \b");
                     }
                     else if (Char.IsLetterOrDigit(key.KeyChar))
                     {
-                        //turn the letter into the star.
                         oldpassword += key.KeyChar;
                         Console.Write(key.KeyChar);
                         System.Threading.Thread.Sleep(100);
@@ -86,13 +82,11 @@ public static class AccountInfo
                     }
                     else if (key.Key == ConsoleKey.Backspace && password.Length > 0)
                     {
-                        //removes latest letter if backspace is pressed
                         password = password.Substring(0, password.Length - 1);
                         Console.Write("\b \b");
                     }
                     else if (Char.IsLetterOrDigit(key.KeyChar))
                     {
-                        //turn the letter into the star.
                         password += key.KeyChar;
                         Console.Write(key.KeyChar);
                         System.Threading.Thread.Sleep(100);
@@ -101,7 +95,6 @@ public static class AccountInfo
                     }
                 }
                 logic = new AccountsLogic();
-                // logic.ChangePassword(password);
                 var account2 = logic.ChangePassword(password, Menu.loggedaccount);
                 if (account2 != null)
                 {
@@ -119,8 +112,6 @@ public static class AccountInfo
                 break;
 
             case 2:
-                //show tickets
-                // ReservationInfo info = new ReservationInfo();
                 ReservationInfo.TicketOptions();
                 break;
             case 3:
@@ -150,7 +141,6 @@ public static class AccountInfo
                 }
                 break;
             case 4:
-                // go back
                 UserLoggedIn.Start();
                 break;
         }

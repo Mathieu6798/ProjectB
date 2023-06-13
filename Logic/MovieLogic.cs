@@ -1,6 +1,5 @@
 public class MovieLogic : BasicLogic<MovieModel>
 {
-    // private static List<MovieModel> _items;
 
 
     public MovieLogic()
@@ -9,17 +8,14 @@ public class MovieLogic : BasicLogic<MovieModel>
     }
     public override void UpdateList(MovieModel acc)
     {
-        //Find if there is already an model with the same id
         int index = _items.FindIndex(s => s.Id == acc.Id);
 
         if (index != -1)
         {
-            //update existing model
             _items[index] = acc;
         }
         else
         {
-            //add new model
             _items.Add(acc);
         }
         MoviesAccess.WriteAll(_items);
@@ -78,7 +74,6 @@ public class MovieLogic : BasicLogic<MovieModel>
     {
         if (_items.Find(i => i.Name == name) == null)
         {
-            //Console.WriteLine("No movie found with that name");
             return false;
 
 
@@ -88,40 +83,11 @@ public class MovieLogic : BasicLogic<MovieModel>
             _items.Remove(_items.Find(i => i.Name == name));
             MoviesAccess.WriteAll(_items);
             return true;
-            //Console.WriteLine("The movie has been removed");
-            // AdminPanel.AdminMenu();
         }
     }
 
     public static void chooseMovie()
     {
-        // while (optie1 == null)
-        //     List<string> optionList = new List<string> { "Back" };
-        //     foreach (var item in MoviesAccess.LoadAll())
-        //     {
-        //         optionList.Add(item.Name);
-        //     }
-        //     int input1 = -2;
-        //     while (input1 < 0 || input1 >= optionList.Count)
-        //     {
-        //         Console.Clear();
-        //         System.Console.WriteLine("Choose a option by typing the number");
-        //         System.Console.WriteLine($"0: {optionList[0]}");
-        //         for (int i = 1; i < optionList.Count; i++)
-        //         {
-        //             System.Console.WriteLine($"{i}: {optionList[i]}");
-        //         }
-        //         input1 = Convert.ToInt32(System.Console.ReadLine());
-        //     }
-        //     if (input1 == 0)
-        //     {
-        //         Menu.Start();
-        //     }
-        //     else
-        //     {
-        //         chooseDateTime(input1);
-        //     }
-        // }
         string prompt = @"choose a movie: ";
         List<string> optionList = new List<string> { "Back" };
 
@@ -153,7 +119,6 @@ public class MovieLogic : BasicLogic<MovieModel>
             {
                 if (counter == selectedIndex)
                 {
-                    // chooseDateTime(counter);
                     chooseDateTime(movielist[counter - 1].Id);
                 }
                 counter++;
@@ -187,50 +152,7 @@ public class MovieLogic : BasicLogic<MovieModel>
         }
         else if (selectedIndex > 0)
         {
-            // foreach (var show in ShowAccess.LoadAll())
-            //     {
-            //         if (show.Id == selectedIndex)
-            //         {
-            //             SeatingChart.Start(show.RoomId, selectedIndex);
-            //         }
-            //     }
-            // RoomLogic.Start(showlist[selectedIndex - 1].RoomId, showlist[selectedIndex - 1].Id);
             SeatingChart.Start(showlist[selectedIndex - 1].RoomId, showlist[selectedIndex - 1].Id);
         }
     }
-
-    ////////////////////////////////////////////////////// optie 2      
-    // int input2 = -3;
-    // while (input2 < 0 || input2 >= optionList2.Count)
-    // {
-    //     Console.Clear();
-    //     System.Console.WriteLine("Choose a option by typing the number");
-    //     System.Console.WriteLine($"0: {optionList2[0]}");
-    //     for (int i = 1; i < optionList2.Count; i++)
-    //     {
-    //         System.Console.WriteLine($"{i}: {optionList2[i]}");
-    //     }
-    //     input2 = Convert.ToInt32(System.Console.ReadLine());
-    // }
-    // if (input2 == 0)
-    // {
-    //     chooseMovie();
-    // }
-    // else
-    // {
-    // System.Console.WriteLine("OK");
-    // Menu.Start();
-    // string[] split = optionList2[input2].Split("-----");
-    // ShowModel show1 = (ShowAccess.LoadAll()).First(x => x.Date == split[0] || x.Time == split[1]);
-    // ShowLogic logic = new ShowLogic();
-
-    // // ShowModel show1 = logic.GetById(input2);
-    // RoomLogic.Start(show1.RoomId, show1.Id);
-    // // ShowModel show1 = logic.GetById(input2);
-    // // RoomLogic.Start(show1.RoomId, input2);
-
-
-
-
-    //functieDami(ShowId);////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

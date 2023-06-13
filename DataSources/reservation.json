@@ -37,5 +37,16 @@
       132
     ],
     "BarReservationID": 1
+  },
+  {
+    "Id": 6,
+    "ShowId": 3,
+    "AccountID": 4,
+    "Chairs": [
+      23,
+      35,
+      37
+    ],
+    "BarReservationID": 1
   }
 ]

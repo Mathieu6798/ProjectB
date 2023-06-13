@@ -50,7 +50,7 @@ public class AdminEdit
                 Console.WriteLine("Invalid number");
             }
         }
-        Console.WriteLine("Enter the discription: ");
+        Console.WriteLine("Enter the description: ");
         string info = Console.ReadLine();
         MovieLogic logic = new MovieLogic();
         Console.WriteLine(MovieLogic.AddMovie(title, genre, age, duration, info));
@@ -65,7 +65,7 @@ public class AdminEdit
     {
         Console.Clear();
         Console.WriteLine("Add Show\n");
-        Console.WriteLine("Enter the date: (dd/mm/yyyy)");
+        Console.WriteLine("Enter the date: (dd-mm-yyyy)");
         string date = Console.ReadLine();
         Console.WriteLine("Enter Time: (HH:mm)");
         string time = Console.ReadLine();
@@ -89,7 +89,7 @@ public class AdminEdit
         {
             Console.WriteLine("No movie found with that name");
         }
-        Console.WriteLine(MovieLogic.Removemovie(input));
+        // Console.WriteLine(MovieLogic.Removemovie(input));
         Thread.Sleep(3000);
         AdminPanelOptions.MovieOptions();
     }

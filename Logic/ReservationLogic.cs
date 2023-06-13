@@ -87,14 +87,14 @@ public class ReservationLogic : BasicLogic<ReservationModel>
     //     MovieModel movie = movielogic.GetById(show.MovieId);
     //     return $"Ticket: \nMovie: {movie.Name} \nTime: {show.Time} \nDate: {show.Date}";
     // }
-    public string[] MenuOptions(List<ReservationModel> reservationlist)
+    public string[] MenuOptions(List<ReservationModel> reservationlist, AccountModel currentaccount)
     {
         string[] options = new string[10];
-        AccountModel CurrentAccount = Menu.loggedaccount;
+        // AccountModel CurrentAccount = Menu.loggedaccount;
         int index = 0;
         foreach (var i in _items)
         {
-            if (i.AccountID == CurrentAccount.Id)
+            if (i.AccountID == currentaccount.Id)
             {
                 Array.Resize(ref options, index + 1);
                 reservationlist.Add(i);
@@ -145,15 +145,16 @@ public class ReservationLogic : BasicLogic<ReservationModel>
             return $"{BuyTicketLogic.GetTicket(reservation)} \n Bar reservation: You have a reservation for the bar at {newDateTime.ToString("HH:mm")}. Your reservation expires at {newDateTime.AddMinutes(120).ToString("HH:mm")}. \n Genre: {movie.Genre} \n Info: {movie.Info}";
         }
     }
-    public bool AddBarReservations()
+    public bool AddBarReservations(ReservationModel ticket)
     {
-        ReservationModel lastReservation = (_items).Last();
+        // ReservationModel lastReservation = (_items).Last();
+
         // ShowModel show = (ShowAccess.LoadAll()).First(x => x.Id == lastReservation.ShowId);
         // MovieModel movie = (MoviesAccess.LoadAll()).First(x => x.Id == show.MovieId);
-        ShowLogic showlogic = new ShowLogic();
-        ShowModel show = showlogic.GetById(lastReservation.ShowId);
-        MovieLogic movielogic = new MovieLogic();
-        MovieModel movie = movielogic.GetById(show.MovieId);
+        // ShowLogic showlogic = new ShowLogic();
+        // ShowModel show = showlogic.GetById(lastReservation.ShowId);
+        // MovieLogic movielogic = new MovieLogic();
+        // MovieModel movie = movielogic.GetById(show.MovieId);
         foreach (var i in _items)
         {
             if (i.BarReservationID != 0)
@@ -161,11 +162,11 @@ public class ReservationLogic : BasicLogic<ReservationModel>
                 ActualReservations += i.Chairs.Count;
             }
         }
-        if (ActualReservations + lastReservation.Chairs.Count <= MaxReservations)
+        if (ActualReservations + ticket.Chairs.Count <= MaxReservations)
         {
-            _items.Remove(lastReservation);
-            lastReservation.BarReservationID = 1;
-            _items.Add(lastReservation);
+            _items.Remove(ticket);
+            ticket.BarReservationID = 1;
+            _items.Add(ticket);
             ReservationAccess.WriteAll(_items);
             return true;
         }

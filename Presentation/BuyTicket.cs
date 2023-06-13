@@ -65,7 +65,7 @@ public class BuyTicket
     private void Bar()
     {
         ReservationLogic logic = new ReservationLogic();
-        var answer = logic.AddBarReservations();
+        var answer = logic.AddBarReservations(ticket);
         if (answer == true)
         {
             Console.WriteLine("Your bar reservation has been added.");

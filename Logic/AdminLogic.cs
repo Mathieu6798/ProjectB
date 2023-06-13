@@ -34,28 +34,22 @@ public class AdminLogic : BasicLogic<AdminAccountModel>
     }
 
 
-    public string AddAccount(string name, string email, string password)
+    public void AddAccount(string name, string email, string password)
     {
-        try
+
+        var lastaccount = _items.LastOrDefault();
+        int id = 0;
+        if (lastaccount == null)
         {
-            var lastaccount = _items.LastOrDefault();
-            int id = 0;
-            if (lastaccount == null)
-            {
-                id = 1;
-            }
-            else
-            {
-                id = lastaccount.Id + 1;
-            }
-            _items.Add(new AdminAccountModel(id, email, password, name));
-            AdminAccountsAccess.WriteAll(_items);
-            return $"\nThe new account has been added";
+            id = 1;
         }
-        catch (Exception)
+        else
         {
-            return $"\nAn error has occurred";
+            id = lastaccount.Id + 1;
         }
+        _items.Add(new AdminAccountModel(id, email, password, name));
+        AdminAccountsAccess.WriteAll(_items);
+
     }
 
 

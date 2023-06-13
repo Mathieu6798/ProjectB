@@ -6,14 +6,17 @@ using System.Text.Json;
 
 public class SeatingChart
 {
-    private static List<RoomModel> _rooms = RoomAccess.LoadAll();
-    private static List<ChairModel> _chairs = ChairAccess.LoadAll();
-    private static List<ReservationModel> _reservations = ReservationAccess.LoadAll();
+    // private static List<RoomModel> _rooms;
+    // private static List<ChairModel> _chairs;
+    // private static List<ReservationModel> _reservations;
 
 
 
     public static void Start(int roomId, int showid)
     {
+        // _rooms = RoomAccess.LoadAll();
+        // _chairs = ChairAccess.LoadAll();
+        // _reservations = ReservationAccess.LoadAll();
         var roomModel = RoomLogic.GetRoomById(roomId);
 
         if (roomModel == null)
@@ -114,13 +117,14 @@ public class SeatingChart
 
         KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a ShowID", shows.ToArray());
         int selectedIndex = mainMenu.Run();
-        return selectedIndex;
+        return Convert.ToInt32(shows[selectedIndex].Split("---")[0]);
+        // return Convert.ToInt32(shows[selectedIndex]);
     }
 
 
 
 
-    public static void AdminRoomCheck(int showId)
+    public static Tuple<ChairModel[,], RoomModel, int> AdminRoomCheck(int showId)
     {
         ShowLogic showLogic = new ShowLogic();
         ShowModel show = showLogic.GetById(showId);
@@ -128,7 +132,7 @@ public class SeatingChart
         if (show == null)
         {
             Console.WriteLine($"Show with ID {showId} not found.");
-            return;
+            return null;
         }
 
         var roomId = show.RoomId;
@@ -137,13 +141,14 @@ public class SeatingChart
         if (roomModel == null)
         {
             Console.WriteLine($"Room with ID {roomId} not found.");
-            return;
+            return null;
         }
 
 
         ChairModel[,] seatingChart = RoomLogic.CreateSeatingChart(roomModel);
-
-        DisplaySeatingChart(seatingChart, roomModel, showId);
+        Tuple<ChairModel[,], RoomModel, int> tuple = Tuple.Create(seatingChart, roomModel, showId);
+        return tuple;
+        // DisplaySeatingChart(seatingChart, roomModel, showId);
     }
 
 
@@ -223,7 +228,7 @@ public class SeatingChart
 
 
 
-    private static void DisplaySeatingChart(ChairModel[,] seatingChart, RoomModel roomModel, int showId)
+    public static void DisplaySeatingChart(ChairModel[,] seatingChart, RoomModel roomModel, int showId)
     {
         Console.Clear();
         Console.WriteLine($"Seating chart for room {roomModel.Id}:");
@@ -258,7 +263,7 @@ public class SeatingChart
         Console.WriteLine();
         Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
-        AdminPanel.AdminMenu();
+        // AdminPanel.AdminMenu();
     }
 
 

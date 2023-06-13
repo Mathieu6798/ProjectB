@@ -217,14 +217,15 @@ class MovieLogic : BasicLogic<MovieModel>
         }
         else if (selectedIndex > 0)
         {
-            foreach (var show in ShowAccess.LoadAll())
-                {
-                    if (show.Id == selectedIndex)
-                    {
-                        SeatingChart.Start(show.RoomId, selectedIndex);
-                    }
-                }
-            //RoomLogic.Start(showlist[selectedIndex - 1].RoomId, showlist[selectedIndex - 1].Id);
+            // foreach (var show in ShowAccess.LoadAll())
+            //     {
+            //         if (show.Id == selectedIndex)
+            //         {
+            //             SeatingChart.Start(show.RoomId, selectedIndex);
+            //         }
+            //     }
+            // RoomLogic.Start(showlist[selectedIndex - 1].RoomId, showlist[selectedIndex - 1].Id);
+            SeatingChart.Start(showlist[selectedIndex - 1].RoomId, showlist[selectedIndex - 1].Id);
         }
     }
 

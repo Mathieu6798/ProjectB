@@ -7,6 +7,9 @@ using System.Text.Json;
 
 public class RoomLogic
 {
+    // private static List<RoomModel> _rooms;
+    // private static List<ChairModel> _chairs;
+    // private static List<ReservationModel> _reservations;
     public static double GetPrices(ChairModel selectedSeat)
     {
         double Price = 0;
@@ -32,14 +35,14 @@ public class RoomLogic
     }
 
 
-    private static RoomModel GetRoomById(int roomId)
+    public static RoomModel GetRoomById(int roomId)
     {
-        _rooms = RoomAccess.LoadAll();
+        var _rooms = RoomAccess.LoadAll();
         return _rooms.FirstOrDefault(r => r.Id == roomId);
     }
     public static ChairModel GetChairById(int chairId)
     {
-        _chairs = ChairAccess.LoadAll();
+        var _chairs = ChairAccess.LoadAll();
         return _chairs.FirstOrDefault(x => x.Id == chairId);
     }
 

@@ -15,7 +15,7 @@ public class ReservationInfo
         List<ReservationModel> reservationlist = new List<ReservationModel>();
 
         ReservationLogic logic = new ReservationLogic();
-        string[] options = logic.MenuOptions(reservationlist);
+        string[] options = logic.MenuOptions(reservationlist, Menu.loggedaccount);
         KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
         int selectedIndex = mainMenu.Run();
         int counter = 0;
@@ -52,7 +52,7 @@ public class ReservationInfo
 
         List<ReservationModel> reservationlist = new List<ReservationModel>();
         ReservationLogic logic = new ReservationLogic();
-        string[] options = logic.MenuOptions(reservationlist);
+        string[] options = logic.MenuOptions(reservationlist, Menu.loggedaccount);
         KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
         int selectedIndex = mainMenu.Run();
         int counter = 0;

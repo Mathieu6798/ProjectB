@@ -1,4 +1,4 @@
-class MovieLogic : BasicLogic<MovieModel>
+public class MovieLogic : BasicLogic<MovieModel>
 {
     // private static List<MovieModel> _items;
 

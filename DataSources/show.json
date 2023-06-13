@@ -12,5 +12,12 @@
     "RoomId": 1,
     "MovieId": 2,
     "Id": 2
+  },
+  {
+    "Date": "14-10-2023",
+    "Time": "19:30",
+    "RoomId": 1,
+    "MovieId": 2,
+    "Id": 3
   }
 ]

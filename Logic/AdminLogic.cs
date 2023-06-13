@@ -71,12 +71,15 @@ public class AdminLogic : BasicLogic<AdminAccountModel>
                 AdminAccountsAccess.WriteAll(_items);
                 return $"The account with ID: {ID} and email: {email} has been deleted";
             }
+            else
+            {
+                return $"There is only one account left, you can't delete it.";
+            }
         }
         else
         {
             return $"The account with ID: {ID} and email: {email} does not exist";
         }
-        return "";
     }
 
     public AdminAccountModel CheckExistingEmail(string email)

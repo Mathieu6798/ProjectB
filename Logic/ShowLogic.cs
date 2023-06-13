@@ -33,12 +33,13 @@ public class ShowLogic : BasicLogic<ShowModel>
 
     public static void ControlDate_Time(string date, string time, int roomId, int movieId)
     {
+        Console.Clear();
         try
         {
             DateTime dateTime = DateTime.ParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
             DateTime Time = DateTime.ParseExact(time, "HH:mm", CultureInfo.InvariantCulture);
             bool timeIsOccupied = true;
-            foreach (var show in _items)
+            foreach (var show in ShowAccess.LoadAll())
             {
                 if (DateTime.Parse(show.Time) <= Time.AddHours(4))
                 {
@@ -52,7 +53,6 @@ public class ShowLogic : BasicLogic<ShowModel>
                                 Thread.Sleep(3000);
                                 timeIsOccupied = false;
                                 AdminEdit.AddShow();
-                                break;
                             }
                         }
                     }
@@ -62,6 +62,8 @@ public class ShowLogic : BasicLogic<ShowModel>
             if (timeIsOccupied)
             {
                 ShowLogic.AddShow(date, time, roomId, movieId);
+                AdminPanel.AdminMenu();
+
             }
         }
         catch (FormatException)
@@ -92,7 +94,7 @@ public class ShowLogic : BasicLogic<ShowModel>
                 }
                 else
                 {
-                    showId = _items.LastOrDefault().Id;
+                    showId = _items.LastOrDefault().Id + 1;
                 }
                 // count = _items.Count();
                 // showId = count += 1;

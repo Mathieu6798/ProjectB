@@ -27,20 +27,7 @@ static class AdminPanel
         {
             AdminPanelOptions.AccountOptions();
         }
-        // else if (selectedIndexAdmin == 4)
-        // {
-        //     Tuple<RoomModel, int> tuple = RoomLogic.AdminRoomCheck(RoomLogic.GetShows());
-        //     RoomLogic.DisplaySeatingChart(tuple.Item1, tuple.Item2);
-        //     AdminPanel.AdminMenu();
-        // }
-        // else if (selectedIndexAdmin == 4)
-        // {
-        //     SeatingChart.AdminRoomCheck(SeatingChart.GetShows());
-        // }
-        //         else if (selectedIndexAdmin == 5)
-        //         {
-        //             AdminEdit.AddAdmin();
-        //         }
+       
         else if (selectedIndexAdmin == 4)
         {
             Menu.loggedaccount = null;
@@ -53,7 +40,6 @@ static class AdminPanel
         else
         {
             Console.WriteLine("Invalid input");
-            //;
         }
     }
 }

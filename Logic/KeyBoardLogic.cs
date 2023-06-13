@@ -43,7 +43,6 @@ class KeyBoardLogic
 
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
             keyPressed = keyInfo.Key;
-            //selected key wordt geupdate
             if (keyPressed == ConsoleKey.UpArrow)
             {
                 SelectedIndex--;

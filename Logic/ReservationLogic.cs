@@ -5,16 +5,12 @@ using System.Text.Json;
 using System.Globalization;
 
 
-//This class is not static so later on we can use inheritance and interfaces
 public class ReservationLogic : BasicLogic<ReservationModel>
 {
-    // protected List<ReservationModel> _items;
     private int MaxReservations = 40;
     private int ActualReservations;
 
-    //Static properties are shared across all instances of the class
-    //This can be used to get the current logged in account from anywhere in the program
-    //private set, so this can only be set by the class itself
+   
 
     public ReservationLogic()
     {
@@ -44,30 +40,18 @@ public class ReservationLogic : BasicLogic<ReservationModel>
     }
     public override void UpdateList(ReservationModel acc)
     {
-        //Find if there is already an model with the same id
         int index = _items.FindIndex(s => s.ShowId == acc.ShowId);
 
         if (index != -1)
         {
-            //update existing model
             _items[index] = acc;
         }
         else
         {
-            //add new model
             _items.Add(acc);
         }
         ReservationAccess.WriteAll(_items);
     }
-
-    // public ReservationModel GetAccountId(int id)
-    // {
-    //     return _items.Find(i => i.AccountID == id);
-    // }
-    // public ReservationModel GetShowId(int id)
-    // {
-    //     return _items.Find(i => i.ShowId == id);
-    // }
     public void AddReservation(ReservationModel ticket)
     {
         _items.Add(ticket);
@@ -79,18 +63,9 @@ public class ReservationLogic : BasicLogic<ReservationModel>
         _items.Remove(reservation);
         ReservationAccess.WriteAll(_items);
     }
-    // public static string GetShowMovieInfo(ReservationModel reservation)
-    // {
-    //     ShowLogic showlogic = new ShowLogic();
-    //     ShowModel show = showlogic.GetById(reservation.ShowId);
-    //     MovieLogic movielogic = new MovieLogic();
-    //     MovieModel movie = movielogic.GetById(show.MovieId);
-    //     return $"Ticket: \nMovie: {movie.Name} \nTime: {show.Time} \nDate: {show.Date}";
-    // }
     public string[] MenuOptions(List<ReservationModel> reservationlist, AccountModel currentaccount)
     {
         string[] options = new string[10];
-        // AccountModel CurrentAccount = Menu.loggedaccount;
         int index = 0;
         foreach (var i in _items)
         {
@@ -137,9 +112,7 @@ public class ReservationLogic : BasicLogic<ReservationModel>
         }
         else
         {
-            // show.Time.Split(":");
             int additionalMinutes = (int)movie.Duration;
-            // string timeString = "13:50";
             DateTime dateTime = DateTime.ParseExact(show.Time, "HH:mm", CultureInfo.InvariantCulture);
             DateTime newDateTime = dateTime.AddMinutes(additionalMinutes);
             return $"{BuyTicketLogic.GetTicket(reservation)} \n Bar reservation: You have a reservation for the bar at {newDateTime.ToString("HH:mm")}. Your reservation expires at {newDateTime.AddMinutes(120).ToString("HH:mm")}. \n Genre: {movie.Genre} \n Info: {movie.Info}";
@@ -147,14 +120,7 @@ public class ReservationLogic : BasicLogic<ReservationModel>
     }
     public bool AddBarReservations(ReservationModel ticket)
     {
-        // ReservationModel lastReservation = (_items).Last();
-
-        // ShowModel show = (ShowAccess.LoadAll()).First(x => x.Id == lastReservation.ShowId);
-        // MovieModel movie = (MoviesAccess.LoadAll()).First(x => x.Id == show.MovieId);
-        // ShowLogic showlogic = new ShowLogic();
-        // ShowModel show = showlogic.GetById(lastReservation.ShowId);
-        // MovieLogic movielogic = new MovieLogic();
-        // MovieModel movie = movielogic.GetById(show.MovieId);
+       
         foreach (var i in _items)
         {
             if (i.BarReservationID != 0)

@@ -6,17 +6,12 @@ using System.Text.Json;
 
 public class SeatingChart
 {
-    // private static List<RoomModel> _rooms;
-    // private static List<ChairModel> _chairs;
-    // private static List<ReservationModel> _reservations;
-
+   
 
 
     public static void Start(int roomId, int showid)
     {
-        // _rooms = RoomAccess.LoadAll();
-        // _chairs = ChairAccess.LoadAll();
-        // _reservations = ReservationAccess.LoadAll();
+       
         var roomModel = RoomLogic.GetRoomById(roomId);
 
         if (roomModel == null)
@@ -74,7 +69,6 @@ public class SeatingChart
                     {
                         if (Menu.loggedaccount == null)
                         {
-                            // int accid = Menu.loggedaccount.Id;
                             int Showid = showid;
                             double Price = RoomLogic.GetPrices(selectedSeat);
                             BuyTicket ticket = new BuyTicket(Showid, 0, bookedChairs);
@@ -118,7 +112,6 @@ public class SeatingChart
         KeyBoardLogic mainMenu = new KeyBoardLogic("Choose a ShowID", shows.ToArray());
         int selectedIndex = mainMenu.Run();
         return Convert.ToInt32(shows[selectedIndex].Split("---")[0]);
-        // return Convert.ToInt32(shows[selectedIndex]);
     }
 
 
@@ -148,7 +141,6 @@ public class SeatingChart
         ChairModel[,] seatingChart = RoomLogic.CreateSeatingChart(roomModel);
         Tuple<ChairModel[,], RoomModel, int> tuple = Tuple.Create(seatingChart, roomModel, showId);
         return tuple;
-        // DisplaySeatingChart(seatingChart, roomModel, showId);
     }
 
 
@@ -271,7 +263,6 @@ public class SeatingChart
         Console.WriteLine();
         Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
-        // AdminPanel.AdminMenu();
     }
 
 

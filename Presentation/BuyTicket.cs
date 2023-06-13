@@ -3,14 +3,10 @@ public class BuyTicket
     public ReservationModel ticket;
     public BuyTicket(int showId, int accountID, List<int> chairs)
     {
-        // ReservationLogic logic = new ReservationLogic();
-        // int id = logic.GetLastId();
-        // ticket = new ReservationModel(id + 1, showId, accountID, chairs, 0);
+      
         if (Menu.loggedaccount == null)
         {
-            // Menu ding met ja of nee
             string prompt = @"To continue the reservation you have to be logged in. Do you want to login and continue with the reservation or get send back to the menu?";
-            // Console.CursorVisible = false;
             string[] options = { "Yes", "No" };
             KeyBoardLogic mainMenu = new KeyBoardLogic(prompt, options);
             int selectedIndex = mainMenu.Run();
@@ -49,7 +45,6 @@ public class BuyTicket
             int selectedIndex2 = mainMenu2.Run();
             if (selectedIndex2 == 0)
             {
-                //bar cs file voor 40 plekken en tot 2 uur na de film vlgnsmij.
                 Bar();
             }
             else

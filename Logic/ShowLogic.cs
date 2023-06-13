@@ -123,27 +123,7 @@ public class ShowLogic : BasicLogic<ShowModel>
     }
     public static void RemoveShowChoice()
     {
-        System.Console.WriteLine("Make a choice: \n1: See list of shows \n2: Remove show by id");
-        int input = Convert.ToInt32(Console.ReadLine());
-        if (input == 1)
-        {
-            int totalLength = 30;
-            char paddingChar = '-';
-            foreach (var show in ShowAccess.LoadAll())
-            {
-                System.Console.WriteLine($"Show Id:{show.Id}-----------------{show.Date}-----{show.Time}-----Room {show.RoomId}");
-            }
-            string input2 = System.Console.ReadLine();
-            ShowLogic.RemoveShowChoice();
-        }
-        else if (input == 2)
-        {
-            AdminEdit.RemoveShow();
-        }
-        else
-        {
-            ShowLogic.RemoveShowChoice();
-        }
+        ShowPresentation.Removeshow(ShowAccess.LoadAll());
     }
 
     public static string RemoveShow(int id, string date, string time)

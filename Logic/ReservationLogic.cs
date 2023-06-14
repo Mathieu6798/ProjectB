@@ -69,6 +69,12 @@ public class ReservationLogic : BasicLogic<ReservationModel>
         _items.RemoveAll(x => removeItems.Contains(x));
         ReservationAccess.WriteAll(_items);
     }
+    public void RemoveReservation(AccountModel account)
+    {
+        var removeItems = _items.Where(x => x.AccountID == account.Id);
+        _items.RemoveAll(x => removeItems.Contains(x));
+        ReservationAccess.WriteAll(_items);
+    }
     public string[] MenuOptions(List<ReservationModel> reservationlist, AccountModel currentaccount)
     {
         string[] options = new string[10];

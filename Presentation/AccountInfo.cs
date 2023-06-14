@@ -129,6 +129,8 @@ public static class AccountInfo
                         choice = Console.ReadLine();
                     }
                     AccountsLogic accountlogic = new AccountsLogic();
+                    ReservationLogic reservationlogic = new();
+                    reservationlogic.RemoveReservation(Menu.loggedaccount);
                     accountlogic.DeleteAccount(Menu.loggedaccount);
                     Menu.loggedaccount = null;
                     Console.WriteLine("The account has been deleted.");

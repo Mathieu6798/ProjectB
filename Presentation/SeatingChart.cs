@@ -6,12 +6,12 @@ using System.Text.Json;
 
 public class SeatingChart
 {
-   
+
 
 
     public static void Start(int roomId, int showid)
     {
-       
+
         var roomModel = RoomLogic.GetRoomById(roomId);
 
         if (roomModel == null)
@@ -236,7 +236,14 @@ public class SeatingChart
 
         for (int i = 0; i < roomModel.Rows; i++)
         {
-            Console.Write($"{i + 1}  ");
+            if (i > 8)
+            {
+                Console.Write($"{i + 1}  ");
+            }
+            else
+            {
+                Console.Write($"0{i + 1}  ");
+            }
             for (int j = 0; j < roomModel.Columns; j++)
             {
                 var seat = seatingChart[i, j];

@@ -1,44 +1,5 @@
 [
   {
-    "Id": 2,
-    "ShowId": 1,
-    "AccountID": 4,
-    "Chairs": [
-      58
-    ],
-    "BarReservationID": 1
-  },
-  {
-    "Id": 3,
-    "ShowId": 1,
-    "AccountID": 4,
-    "Chairs": [
-      59
-    ],
-    "BarReservationID": 1
-  },
-  {
-    "Id": 4,
-    "ShowId": 2,
-    "AccountID": 4,
-    "Chairs": [
-      58,
-      59,
-      71
-    ],
-    "BarReservationID": 1
-  },
-  {
-    "Id": 5,
-    "ShowId": 2,
-    "AccountID": 4,
-    "Chairs": [
-      148,
-      132
-    ],
-    "BarReservationID": 1
-  },
-  {
     "Id": 6,
     "ShowId": 3,
     "AccountID": 4,

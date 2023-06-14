@@ -97,18 +97,19 @@ public class AdminEdit
         Console.Clear();
         Console.WriteLine("Enter Movie id: ");
         int id = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("Enter date (year-month-day): ");
+        Console.WriteLine("Enter date (day-month-year): ");
         string date = Console.ReadLine();
         Console.WriteLine("Enter time: ");
         string time = Console.ReadLine();
-        if (ShowLogic.RemoveShow(id, date, time) == null)
-        {
-            RemoveShow();
-        }
-        else
-        {
-            Console.WriteLine(ShowLogic.RemoveShow(id, date, time));
-        }
+        // if (ShowLogic.RemoveShow(id, date, time) == null)
+        // {
+        //     RemoveShow();
+        // }
+        // else
+        // {
+        Console.WriteLine(ShowLogic.RemoveShow(id, date, time));
+        Thread.Sleep(3200);
+        // }
     }
 
 
@@ -149,7 +150,7 @@ public class AdminEdit
                 Console.Write("*");
             }
         }
-      
+
 
         AdminLogic logic = new AdminLogic();
         AdminAccountModel acc = logic.CheckExistingEmail(accEmail);

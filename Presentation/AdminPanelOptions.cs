@@ -14,7 +14,7 @@ public static class AdminPanelOptions
         }
         else if (selectedIndexAdmin == 1)
         {
-            AdminEdit.RemoveMovie();
+            MovieLogic.RemoveMovieChoice();
         }
         else if (selectedIndexAdmin == 2)
         {
@@ -59,7 +59,7 @@ public static class AdminPanelOptions
         }
         else if (selectedIndexAdmin == 1)
         {
-            AdminEdit.RemoveShow();
+            ShowLogic.RemoveShowChoice();
             AdminPanel.AdminMenu();
         }
         else if (selectedIndexAdmin == 2)

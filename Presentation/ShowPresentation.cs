@@ -1,6 +1,7 @@
 using System.Globalization;
 public class ShowPresentation{
     public static void Removeshow(List<ShowModel> showlist){
+        Console.Clear();
         System.Console.WriteLine("Make a choice: \n1: See list of shows \n2: Remove show by id");
         int input = Convert.ToInt32(Console.ReadLine());
         if (input == 1)
@@ -9,6 +10,7 @@ public class ShowPresentation{
             {
                 System.Console.WriteLine($"Show Id:{show.Id}-----------------{show.Date}-----{show.Time}-----Room {show.RoomId}");
             }
+            System.Console.WriteLine("\n Press enter to continue");
             string input2 = System.Console.ReadLine()!;
             ShowLogic.RemoveShowChoice();
         }
@@ -52,6 +54,7 @@ public class ShowPresentation{
             if (timeIsOccupied)
             {
                 ShowLogic.AddShow(date, time, roomId, movieId);
+                System.Console.WriteLine("Show has been added!");
                 AdminPanel.AdminMenu();
 
             }

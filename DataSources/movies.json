@@ -30,5 +30,13 @@
     "Age": 15,
     "Duration": 145,
     "Info": "peppa goes to space"
+  },
+  {
+    "MovieId": 6,
+    "Name": "pietpost123",
+    "Genre": "gym",
+    "Age": 1,
+    "Duration": 80,
+    "Info": "fvfvfv"
   }
 ]

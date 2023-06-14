@@ -142,7 +142,7 @@ public class ReservationLogic : BasicLogic<ReservationModel>
         }
         if (ActualReservations + ticket.Chairs.Count <= MaxReservations)
         {
-            _items.Remove(ticket);
+            _items.RemoveAt(_items.Count() - 1);
             ticket.BarReservationID = 1;
             _items.Add(ticket);
             ReservationAccess.WriteAll(_items);

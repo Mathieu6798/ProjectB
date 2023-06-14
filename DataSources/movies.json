@@ -22,5 +22,13 @@
     "Age": 150,
     "Duration": 3,
     "Info": "death reckoning"
+  },
+  {
+    "MovieId": 4,
+    "Name": "peppa pig",
+    "Genre": "action",
+    "Age": 15,
+    "Duration": 145,
+    "Info": "peppa goes to space"
   }
 ]

@@ -19,19 +19,5 @@
     "RoomId": 1,
     "MovieId": 2,
     "Id": 3
-  },
-  {
-    "Date": "13-09-2001",
-    "Time": "13:50",
-    "RoomId": 1,
-    "MovieId": 1,
-    "Id": 4
-  },
-  {
-    "Date": "13-05-2001",
-    "Time": "13:20",
-    "RoomId": 1,
-    "MovieId": 1,
-    "Id": 5
   }
 ]

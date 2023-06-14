@@ -10,7 +10,7 @@ public class ReservationLogic : BasicLogic<ReservationModel>
     private int MaxReservations = 40;
     private int ActualReservations;
 
-   
+
 
     public ReservationLogic()
     {
@@ -61,6 +61,23 @@ public class ReservationLogic : BasicLogic<ReservationModel>
     {
         ReservationModel reservation = _items.Find(i => i == reservationlist[counter]);
         _items.Remove(reservation);
+        ReservationAccess.WriteAll(_items);
+    }
+    public void RemoveReservation(int showId)
+    {
+        // foreach (var i in _items)
+        // {
+        //     if (i.ShowId == showId)
+        //     {
+        //         _items.Remove(i);
+        //     }
+        // }
+        var removeItems = _items.Where(x => x.ShowId == showId);
+        _items.RemoveAll(x => removeItems.Contains(x));
+        // foreach (var i in removeItems)
+        // {
+        //     _items.Remove(i);
+        // }
         ReservationAccess.WriteAll(_items);
     }
     public string[] MenuOptions(List<ReservationModel> reservationlist, AccountModel currentaccount)
@@ -120,7 +137,7 @@ public class ReservationLogic : BasicLogic<ReservationModel>
     }
     public bool AddBarReservations(ReservationModel ticket)
     {
-       
+
         foreach (var i in _items)
         {
             if (i.BarReservationID != 0)

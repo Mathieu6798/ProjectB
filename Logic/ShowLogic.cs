@@ -75,6 +75,21 @@ public class ShowLogic : BasicLogic<ShowModel>
     {
         ShowPresentation.Removeshow(ShowAccess.LoadAll());
     }
+    public void Removeshow(int movieId)
+    {
+        ReservationLogic logic = new();
+        foreach (var i in _items)
+        {
+            if (i.MovieId == movieId)
+            {
+                logic.RemoveReservation(i.Id);
+                // _items.Remove(i);
+            }
+        }
+        var removeItems = _items.Where(x => x.MovieId == movieId);
+        _items.RemoveAll(x => removeItems.Contains(x));
+        ShowAccess.WriteAll(_items);
+    }
 
     public static string RemoveShow(int id, string date, string time)
     {
@@ -100,6 +115,14 @@ public class ShowLogic : BasicLogic<ShowModel>
         }
         else
         {
+            ReservationLogic logic = new();
+            foreach (var i in _items)
+            {
+                if (i.Id == id)
+                {
+                    logic.RemoveReservation(i.Id);
+                }
+            }
             _items.Remove(_items.Find(i => i.Id == id && i.Date == date && i.Time == time));
             ShowAccess.WriteAll(_items);
             return "Show is removed";

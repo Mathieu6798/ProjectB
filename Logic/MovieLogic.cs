@@ -80,6 +80,14 @@ public class MovieLogic : BasicLogic<MovieModel>
         }
         else
         {
+            ShowLogic logic = new();
+            foreach (var i in _items)
+            {
+                if (i.Name == name)
+                {
+                    logic.Removeshow(i.Id);
+                }
+            }
             _items.Remove(_items.Find(i => i.Name == name));
             MoviesAccess.WriteAll(_items);
             return true;

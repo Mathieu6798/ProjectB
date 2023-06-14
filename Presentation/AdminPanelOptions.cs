@@ -60,6 +60,7 @@ public static class AdminPanelOptions
         else if (selectedIndexAdmin == 1)
         {
             AdminEdit.RemoveShow();
+            AdminPanel.AdminMenu();
         }
         else if (selectedIndexAdmin == 2)
         {

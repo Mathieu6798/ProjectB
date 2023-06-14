@@ -1,27 +1,5 @@
 [
   {
-    "Id": 6,
-    "ShowId": 3,
-    "AccountID": 4,
-    "Chairs": [
-      23,
-      35,
-      37
-    ],
-    "BarReservationID": 1
-  },
-  {
-    "Id": 7,
-    "ShowId": 3,
-    "AccountID": 5,
-    "Chairs": [
-      23,
-      35,
-      37
-    ],
-    "BarReservationID": 1
-  },
-  {
     "Id": 8,
     "ShowId": 1,
     "AccountID": 4,
@@ -49,12 +27,12 @@
     "BarReservationID": 0
   },
   {
-    "Id": 10,
-    "ShowId": 3,
+    "Id": 11,
+    "ShowId": 1,
     "AccountID": 4,
     "Chairs": [
-      89
+      82
     ],
-    "BarReservationID": 0
+    "BarReservationID": 1
   }
 ]

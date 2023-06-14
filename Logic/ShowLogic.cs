@@ -91,23 +91,15 @@ public class ShowLogic : BasicLogic<ShowModel>
         ShowAccess.WriteAll(_items);
     }
 
-    public static string RemoveShow(int id, string date, string time)
+    public static string RemoveShow(int id)
     {
         if (_items == null)
         {
             _items = ShowAccess.LoadAll();
         }
-        if (_items.Find(i => i.MovieId == id) == null)
+        if (_items.Find(i => i.Id == id) == null)
         {
-            return "No show found with that movie id";
-        }
-        if (_items.Find(i => i.Date == date) == null)
-        {
-            return "No show found with that date";
-        }
-        if (_items.Find(i => i.Time == time) == null)
-        {
-            return "No show found with that time";
+            return "No show found with that show id";
         }
         else
         {
@@ -119,7 +111,7 @@ public class ShowLogic : BasicLogic<ShowModel>
                     logic.RemoveReservation(i.Id);
                 }
             }
-            var item = _items.Find(i => i.MovieId == id && i.Date == date && i.Time == time);
+            var item = _items.Find(i => i.Id == id);
             _items.Remove(item);
             ShowAccess.WriteAll(_items);
             return "Show is removed";

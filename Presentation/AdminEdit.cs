@@ -96,19 +96,9 @@ public class AdminEdit
     public static void RemoveShow()
     {
         Console.Clear();
-        Console.WriteLine("Enter Movie id: ");
+        Console.WriteLine("Enter Show id: ");
         int id = Convert.ToInt32(Console.ReadLine());
-        Console.WriteLine("Enter date (day-month-year): ");
-        string date = Console.ReadLine();
-        Console.WriteLine("Enter time: ");
-        string time = Console.ReadLine();
-        // if (ShowLogic.RemoveShow(id, date, time) == null)
-        // {
-        //     RemoveShow();
-        // }
-        // else
-        // {
-        Console.WriteLine(ShowLogic.RemoveShow(id, date, time));
+        Console.WriteLine(ShowLogic.RemoveShow(id));
         Thread.Sleep(3200);
         // }
     }

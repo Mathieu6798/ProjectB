@@ -68,7 +68,10 @@ public class MovieLogic : BasicLogic<MovieModel>
         MoviePresentation.RemoveMovieChoice(MoviesAccess.LoadAll());
     }
 
-
+    public MovieModel GetByName(string name)
+    {
+        return _items.Find(i => i.Name == name);
+    }
     public static bool Removemovie(string name)
 
     {

@@ -1,7 +1,7 @@
 public class AdminEdit
 {
     public static bool check = true;
-    public static int age;
+
     public static void AddMovie()
     {
         Console.Clear();
@@ -9,12 +9,13 @@ public class AdminEdit
         string title = Console.ReadLine();
         Console.WriteLine("Enter the genre: ");
         string genre = Console.ReadLine();
+        int age = 1;
         while (check)
         {
             Console.WriteLine("Enter the recommended age ");
             try
             {
-                int age = Convert.ToInt32(Console.ReadLine());
+                age = Convert.ToInt32(Console.ReadLine());
                 if (age > 21 || age < 12)
                 {
                     Console.WriteLine($"The age was either too high or too low (12-21)");
@@ -158,14 +159,14 @@ public class AdminEdit
         {
             Console.WriteLine("This email adress already exists on another account.");
             Thread.Sleep(3500);
-            Menu.Start();
+            AdminPanel.AdminMenu();
         }
         else
         {
             logic.AddAccount(accName, accEmail, password);
             Console.WriteLine("\nYour account has been added");
             Thread.Sleep(3500);
-            Menu.Start();
+            AdminPanel.AdminMenu();
         }
     }
     public static void DeleteAdmin()

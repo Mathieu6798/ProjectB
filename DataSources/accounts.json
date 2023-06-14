@@ -40,5 +40,11 @@
     "emailAddress": "lol@olo@lol",
     "password": "lol",
     "fullName": "lol"
+  },
+  {
+    "id": 8,
+    "emailAddress": "Rickbrug@gmail.com",
+    "password": "Rick1234",
+    "fullName": "Rick Brug"
   }
 ]

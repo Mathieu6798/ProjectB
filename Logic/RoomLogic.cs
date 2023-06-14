@@ -69,7 +69,7 @@ public class RoomLogic
 
         foreach (var chair in chairs)
         {
-            if (chair.Rownumber <= roomModel.Rows && chair.Chairnumber <= roomModel.Columns)
+            if (chair.Rownumber < roomModel.Rows && chair.Chairnumber < roomModel.Columns)
             {
                 seatingChart[chair.Rownumber - 1, chair.Chairnumber - 1] = chair;
             }
@@ -77,6 +77,7 @@ public class RoomLogic
 
         return seatingChart;
     }
+
 
 
     public static bool IsSeatBooked(int showId, int chairId)

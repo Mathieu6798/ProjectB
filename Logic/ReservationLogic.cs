@@ -65,19 +65,8 @@ public class ReservationLogic : BasicLogic<ReservationModel>
     }
     public void RemoveReservation(int showId)
     {
-        // foreach (var i in _items)
-        // {
-        //     if (i.ShowId == showId)
-        //     {
-        //         _items.Remove(i);
-        //     }
-        // }
         var removeItems = _items.Where(x => x.ShowId == showId);
         _items.RemoveAll(x => removeItems.Contains(x));
-        // foreach (var i in removeItems)
-        // {
-        //     _items.Remove(i);
-        // }
         ReservationAccess.WriteAll(_items);
     }
     public string[] MenuOptions(List<ReservationModel> reservationlist, AccountModel currentaccount)
